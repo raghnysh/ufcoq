@@ -56,8 +56,21 @@ in the top directory of the project (the one containing the file
 `shell.nix`).  A successful exit of the `make` command indicates that
 the Coq files in the project have been compiled properly.
 
+## Copying
+
+The author of this work is N. Raghavendra.  The work is dedicated to
+the public domain under the Creative Commons CC0 1.0 Universal Public
+Domain Dedication.  The author waives all rights to the work,
+including related and neighbouring rights, to the extent allowed by
+law.  The work is distributed without any warranty.  See either the
+file ⟨[COPYING][6]⟩ in the top directory of the project, or the URL
+⟨[http://creativecommons.org/publicdomain/zero/1.0/][7]⟩, for a copy
+of the Creative Commons CC0 1.0 Universal Public Domain Dedication.
+
 [1]: https://en.wikipedia.org/wiki/Univalent_foundations
 [2]: https://coq.inria.fr/
 [3]: https://github.com/UniMath/UniMath
 [4]: https://github.com/NixOS/nix
 [5]: https://github.com/direnv/direnv
+[6]: COPYING
+[7]: http://creativecommons.org/publicdomain/zero/1.0/
