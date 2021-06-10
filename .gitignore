@@ -1,0 +1,10 @@
+###  Files that should be ignored by Git
+
+TAGS
+_build
+
+### End of file
+
+# Local Variables:
+# mode: conf-unix
+# End:
