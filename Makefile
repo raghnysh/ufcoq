@@ -33,10 +33,9 @@ ${NIXBUILD_COOKIE}: default.nix misc/nix/*.nix
 .PHONY: clean
 
 clean:
-	@true
-	# ${RM} -r ${BUILD_DIRECTORY}
+	dune clean
 
-## Target for cleaning the latexmk and nix-build outputs
+## Target for cleaning the dune and nix-build outputs
 .PHONY: distclean
 
 distclean: clean
