@@ -1,5 +1,6 @@
 ###  Files that should be ignored by Git
 
+.opam
 TAGS
 _build
 
