@@ -2,7 +2,6 @@
 
 .nix
 .nixbuild_done
-.opam
 TAGS
 _build
 
