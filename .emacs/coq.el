@@ -4,7 +4,7 @@
   (expand-file-name "src" project:root)
   "The root of the physical paths of the Coq modules of the project.")
 
-(defvar-local coq:logical-root "uf"
+(defvar-local coq:logical-root "ufcoq"
   "The root of the logical names of the Coq modules of the project.")
 
 ;; Do not use a Coq project file to get options for `coqtop'.  They
@@ -15,8 +15,7 @@
 (setq-local coq-prog-args `("-Q" ,coq:physical-root ,coq:logical-root
                             "-emacs"
                             "-indices-matter"
-                            "-noinit"
-                            "-type-in-type"))
+                            "-noinit"))
 
 (defvar-local coq:tags-table
   (expand-file-name "TAGS" project:emacs-directory)
