@@ -10,8 +10,11 @@
 ## File whose presence indicates that nix-build has been run
 NIXBUILD_COOKIE = .nixbuild_done
 
-## The name of the symbolic link created by nix-build.
+## The name of the symbolic link created by nix-build
 NIXBUILD_LINK = .nix
+
+## The default target
+.DEFAULT_GOAL = all
 
 ### ==================================================================
 ### Rules
@@ -20,8 +23,11 @@ NIXBUILD_LINK = .nix
 ## The default target
 .PHONY: all
 
+all:
+	dune build --display=short
+
 ## Target for running nix-build
-.PHONY all: nixbuild
+.PHONY: nixbuild
 
 nixbuild: ${NIXBUILD_COOKIE}
 

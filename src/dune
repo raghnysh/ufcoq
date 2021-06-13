@@ -1,0 +1,9 @@
+;;; Dune build file for the project
+
+(coq.theory
+ (name ufcoq)
+ (flags -noinit -indices-matter))
+
+(include_subdirs qualified)
+
+;;; End of file
