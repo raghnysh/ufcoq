@@ -2,8 +2,17 @@
 
 (coq.theory
  (name ufcoq)
- (flags -noinit -indices-matter))
+ (flags -noinit
+        -indices-matter
+        -set "Universe Polymorphism"
+        -set "Polymorphic Inductive Cumulativity"
+        -unset "Universe Minimization ToSet"
+        -set "Primitive Projections"))
 
 (include_subdirs qualified)
 
 ;;; End of file
+
+;;; Local Variables:
+;;; mode: emacs-lisp
+;;; End:
