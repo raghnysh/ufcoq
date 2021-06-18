@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: end of file
+# key: zeof
+# --
+$0
+(* End of file *)

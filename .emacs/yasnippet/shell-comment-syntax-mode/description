@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: file description
+# key: zdesc
+# expand-env: ((cs (string-trim comment-start)))
+# --
+`cs``cs``cs` ${1:DESCRIPTION}
+$0

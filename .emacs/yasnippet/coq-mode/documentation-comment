@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: documentation comment
+# key: zcm
+# --
+(** $0 *)

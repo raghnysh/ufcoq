@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: file description and end
+# key: zdesceof
+# expand-env: ((cs (string-trim comment-start)))
+# --
+`cs``cs``cs` ${1:DESCRIPTION}
+$0
+`cs``cs``cs` End of file

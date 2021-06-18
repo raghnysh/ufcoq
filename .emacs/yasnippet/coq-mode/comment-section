@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: comment section
+# key: zcs
+# type: command
+# contributor: https://github.com/joaotavora/yasnippet/issues/532#issuecomment-61984048
+# --
+(yas-expand-snippet
+ (let ((delimiter (make-string (- fill-column (length "(*  *)")) ?=)))
+   (format
+    "(* %s *)
+(* ${1:TITLE} ${1:$(make-string (- %d %d %d (length yas-text)) ?\s)} *)
+(* %s *)
+
+$0"
+    delimiter
+    fill-column
+    (length "(*   *)")
+    (current-column)
+    delimiter)))

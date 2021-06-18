@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: comment section
+# key: zcs
+# expand-env: ((cs (string-trim comment-start)))
+# --
+`cs``cs``cs` `(make-string (- fill-column (* 3 (length cs)) 1) ?=)`
+`cs``cs``cs` ${1:TITLE}
+`cs``cs``cs` `(make-string (- fill-column (* 3 (length cs)) 1) ?=)`
+
+$0

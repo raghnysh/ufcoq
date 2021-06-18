@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: file description and end
+# key: zdesceof
+# --
+(* ${1:DESCRIPTION} *)
+$0
+(* End of file *)

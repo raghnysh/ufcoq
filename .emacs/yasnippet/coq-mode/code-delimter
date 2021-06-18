@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: code delimiter
+# key: zcd
+# --
+(** begfrag:${1:LABEL} *)
+$0
+(** endfrag:$1 *)

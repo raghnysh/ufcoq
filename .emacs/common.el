@@ -1,10 +1,22 @@
 ;;; Project Emacs settings common to all major modes
 
-;; Use the `UTF-8' coding system for buffers in this project.
-(set-language-environment "UTF-8")
+;;; ==================================================================
+;;; Nix settings
+;;; ==================================================================
 
-;; Use the `Agda' input for typing characters in buffers.
-(when (featurep 'agda-input)
-  (activate-input-method "Agda"))
+(defvar-local project:nix-build-link
+  (expand-file-name ".nix" project:root)
+  "The absolute path of the symbolic link created by `nix-build'.")
+
+;;; ==================================================================
+;;; Settings for the yasnippet Emacs package
+;;; ==================================================================
+
+(when (require 'yasnippet nil t)
+  (yas-minor-mode-on)
+  (setq-local yas-snippet-dirs
+              (list (expand-file-name "yasnippet"
+                                      project:emacs-directory)))
+  (yas-reload-all))
 
 ;;; End of file

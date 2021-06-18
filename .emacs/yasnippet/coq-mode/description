@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: file description
+# key: zdesc
+# --
+(* ${1:DESCRIPTION} *)
+$0
