@@ -16,16 +16,36 @@
     .
     (defvar-local project:emacs-directory
       (expand-file-name project:emacs-directory-name project:root)
-      "Absolute path of the project Emacs settings directory."))
-   (eval
-    .
-    (load (expand-file-name "common.el" project:emacs-directory)
-          t nil t))))
+      "Absolute path of the project Emacs settings directory."))))
  (coq-mode
   .
   ((eval
     .
     (load (expand-file-name "coq.el" project:emacs-directory)
+          t nil t))))
+ (emacs-lisp-mode
+  .
+  ((eval
+    .
+    (load (expand-file-name "common.el" project:emacs-directory)
+          t nil t))))
+ (makefile-mode
+  .
+  ((eval
+    .
+    (load (expand-file-name "common.el" project:emacs-directory)
+          t nil t))))
+ (nix-mode
+  .
+  ((eval
+    .
+    (load (expand-file-name "common.el" project:emacs-directory)
+          t nil t))))
+ (sh-mode
+  .
+  ((eval
+    .
+    (load (expand-file-name "common.el" project:emacs-directory)
           t nil t)))))
 
 ;;; End of file
