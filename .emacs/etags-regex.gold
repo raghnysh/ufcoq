@@ -1,0 +1,65 @@
+
+etags-regex.v,3349
+Definition foo_definitionfoo_definition7,246
+Definition bar_definition@{etc etc | etc}bar_definition11,289
+Local Definition baz_definitionbaz_definition15,348
+Local Definition quux_definition@{etc etc | etc}quux_definition19,397
+Inductive foo_inductivefoo_inductive27,677
+Inductive bar_inductive@{etc etc | etc}bar_inductive31,718
+Local Inductive baz_inductivebaz_inductive35,775
+Local Inductive quux_inductive@{etc etc | etc}quux_inductive39,822
+Record foo_recordfoo_record47,1100
+Record bar_record@{etc etc | etc}bar_record51,1135
+Local Record baz_recordbaz_record55,1186
+Local Record quux_record@{etc etc | etc}quux_record59,1227
+Theorem foo_theoremfoo_theorem67,1499
+Theorem bar_theorem@{etc etc | etc}bar_theorem71,1536
+Local Theorem baz_theorembaz_theorem75,1589
+Local Theorem quux_theorem@{etc etc | etc}quux_theorem79,1632
+Proposition foo_propositionfoo_proposition87,1906
+Proposition bar_proposition@{etc etc | etc}bar_proposition91,1951
+Local Proposition baz_propositionbaz_proposition95,2012
+Local Proposition quux_proposition@{etc etc | etc}quux_proposition99,2063
+Lemma foo_lemmafoo_lemma107,2345
+Lemma bar_lemma@{etc etc | etc}bar_lemma111,2378
+Local Lemma baz_lemmabaz_lemma115,2427
+Local Lemma quux_lemma@{etc etc | etc}quux_lemma119,2466
+Corollary foo_corollaryfoo_corollary127,2736
+Corollary bar_corollary@{etc etc | etc}bar_corollary131,2777
+Local Corollary baz_corollarybaz_corollary135,2834
+Local Corollary quux_corollary@{etc etc | etc}quux_corollary139,2881
+Remark foo_remarkfoo_remark147,3159
+Remark bar_remark@{etc etc | etc}bar_remark151,3194
+Local Remark baz_remarkbaz_remark155,3245
+Local Remark quux_remark@{etc etc | etc}quux_remark159,3286
+Fact foo_factfoo_fact167,3558
+Fact bar_fact@{etc etc | etc}bar_fact171,3589
+Local Fact baz_factbaz_fact175,3636
+Local Fact quux_fact@{etc etc | etc}quux_fact179,3673
+Property foo_propertyfoo_property187,3941
+Property bar_property@{etc etc | etc}bar_property191,3980
+Local Property baz_propertybaz_property195,4035
+Local Property quux_property@{etc etc | etc}quux_property199,4080
+Axiom foo_axiomfoo_axiom207,4356
+Axiom bar_axiom@{etc etc | etc}bar_axiom211,4389
+Local Axiom baz_axiombaz_axiom215,4438
+Local Axiom quux_axiom@{etc etc | etc}quux_axiom219,4477
+Coercion foo_coercionfoo_coercion227,4747
+Coercion bar_coercion@{etc etc | etc}bar_coercion231,4786
+Local Coercion baz_coercionbaz_coercion235,4841
+Local Coercion quux_coercion@{etc etc | etc}quux_coercion239,4886
+Identity Coercion foo_identity_coercionfoo_identity_coercion247,5162
+Identity Coercion bar_identity_coercion@{etc etc | etc}bar_identity_coercion251,5219
+Local Identity Coercion baz_identity_coercionbaz_identity_coercion255,5292
+Local Identity Coercion quux_identity_coercion@{etc etc | etc}quux_identity_coercion259,5355
+Reserved Notation "foo bar baz"foo bar baz267,5649
+Reserved Notation "foo bar baz"foo bar baz275,5912
+Declare Scope FooScope.FooScope283,6175
+Delimit Scope FooScope with foo.foo289,6414
+Delimit Scope FooScope with foo.FooScope289,6414
+Bind Scope FooScope with Foo.Foo295,6662
+Bind Scope FooScope with Foo.FooScope295,6662
+Module Foo.Foo.301,6907
+Section Foo.Foo.307,7134
+(** begfrag:foo-barfoo-bar313,7362
+Definition baz_quux@{etc etc | etc}baz_quux314,7385

@@ -17,6 +17,19 @@ COQ_FILES = $(shell find ${COQ_ROOT} -name '*.v')
 ## identifiers being tagged.
 REGEX_FILE = etags-regex
 
+## The etags command.
+ETAGS = etags --language=none --regex=@${REGEX_FILE}
+
+## Test file containing dummy source code for testing the above
+## regular expressions file.
+REGEX_TEST_FILE = etags-regex.v
+
+## Tags table for the above test file.
+REGEX_TEST_TAGS = etags-regex.tags
+
+## Golden tags table for the above test file.
+REGEX_TEST_GOLD = etags-regex.gold
+
 ## If the variable VERBOSE has a blank value, execute recipes silently
 ## without printing them.
 ifeq ($(strip ${VERBOSE}),)
@@ -37,10 +50,21 @@ all: tags
 tags: ${TAGS_FILE}
 
 ${TAGS_FILE}: ${COQ_FILES} ${REGEX_FILE}
-	etags --language=none --regex=@${REGEX_FILE} ${COQ_FILES}
+	${ETAGS} ${COQ_FILES}
+
+.PHONY: tags-gold
+tags-gold: ${REGEX_TEST_GOLD}
+
+${REGEX_TEST_GOLD}: ${REGEX_TEST_FILE} ${REGEX_FILE}
+	${ETAGS} --output=$@ $<
+
+.PHONY: tags-test
+tags-test:
+	${ETAGS} --output=${REGEX_TEST_TAGS} ${REGEX_TEST_FILE}
+	diff ${REGEX_TEST_GOLD} ${REGEX_TEST_TAGS}
 
 .PHONY: clean
 clean:
-	${RM} ${TAGS_FILE}
+	${RM} ${TAGS_FILE} ${REGEX_TEST_TAGS}
 
 ### End of file
