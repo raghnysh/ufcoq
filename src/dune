@@ -1,13 +1,45 @@
-;;; Dune build file for the project
+;;; Dune file for the Coq sources of the project
+
+;; This file declares the dune parameters for the Coq part of the
+;; project.
+
+;; The coq.theory stanza declares that the files in this directory are
+;; Coq source files which must be compiled with the Coq compiler.  As
+;; mentioned in the dune-project file at the project root, this stanza
+;; can be invoked here because it was declared in that file that the
+;; Coq language of the dune system will be used.
+;;
+;;   - The name field specifies the root of the logical names of the
+;;     Coq modules defined by these source files.  It causes dune to
+;;     pass an option of the form "-R . ufcoq" to the Coq compiler, in
+;;     addition to the options declared in the flags field.
+;;
+;;   - The package field says that these files should be considered a
+;;     part of the ufcoq package which was declared in the
+;;     dune-project file at the project root.
+;;
+;;   - The flags field specifies the options that must be passed to
+;;     the Coq compiler for compiling the files.
 
 (coq.theory
- (name ufcoq)
- (flags -noinit
-        -indices-matter
-        -set "Universe Polymorphism"
-        -set "Polymorphic Inductive Cumulativity"
-        -unset "Universe Minimization ToSet"
-        -set "Primitive Projections"))
+  (name ufcoq)
+  (package ufcoq)
+  (flags
+    -noinit
+    -indices-matter
+    -set "Universe Polymorphism"
+    -set "Polymorphic Inductive Cumulativity"
+    -unset "Universe Minimization ToSet"
+    -set "Primitive Projections"))
+
+;; The next stanza declares that the Coq source files in
+;; subdirectories of this directory also must be compiled, in addition
+;; to the Coq source files in this directory itself.  The dune system
+;; will translate the physical paths of these files to logical names
+;; of modules in the usual Coq manner.  For example, a file with the
+;; physical path a/b/c.v relative to this directory will be associated
+;; with the logical name ufcoq.a.b.c of the module defined by that
+;; file.
 
 (include_subdirs qualified)
 
@@ -15,4 +47,5 @@
 
 ;;; Local Variables:
 ;;; mode: emacs-lisp
+;;; lisp-indent-offset: 2
 ;;; End:
