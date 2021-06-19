@@ -23,8 +23,7 @@
                             "-set" "Polymorphic Inductive Cumulativity"
                             "-unset" "Universe Minimization ToSet"
                             "-set" "Printing Universes"
-                            "-set" "Primitive Projections"
-                            "-Q" ,coq:physical-root ,coq:logical-root))
+                            "-set" "Primitive Projections"))
 
 ;;; ==================================================================
 ;;; Makefile settings

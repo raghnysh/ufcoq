@@ -1,5 +1,6 @@
 ###  Files that should be ignored by Git
 
+*.opam
 .nix
 .nixbuild_done
 TAGS
