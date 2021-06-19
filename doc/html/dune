@@ -1,7 +1,7 @@
 ;;; Dune file for the HTML documentation of the project
 
-;; This file declares the dune parameters for the Coq part of the
-;; project.
+;; This file declares the dune parameters for the HTML documentation
+;; of the project.
 
 ;; The rule stanza declares the various files that must be generated,
 ;; their prerequisites, and the steps of the generation process.
