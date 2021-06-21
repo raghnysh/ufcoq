@@ -8,12 +8,12 @@
  (let ((delimiter (make-string (- fill-column (length "(*  *)")) ?=)))
    (format
     "(* %s *)
-(* ${1:TITLE} ${1:$(make-string (- %d %d %d (length yas-text)) ?\s)} *)
+(** ** ${1:TITLE}${1:$(make-string (- %d %d %d (length yas-text)) ?\s)} *)
 (* %s *)
 
 $0"
     delimiter
     fill-column
-    (length "(*   *)")
+    (+ (length "(** ** ") (length " *)"))
     (current-column)
     delimiter)))
