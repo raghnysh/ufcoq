@@ -4,111 +4,113 @@
 (** ** Notation for builtin function types with constant codomain   *)
 (* ================================================================ *)
 
-(** begfrag:notation-function-type *)
+(* begfrag:notation-function-type *)
 Notation "X -> Y" := (forall (_ : X), Y)
   (at level 99, right associativity, Y at level 200).
-(** endfrag:notation-function-type *)
+(* endfrag:notation-function-type *)
 
 (* ================================================================ *)
 (** ** The false type                                               *)
 (* ================================================================ *)
 
-(** begfrag:false-type *)
-Inductive False@{l} : Type@{l} := .
-(** endfrag:false-type *)
+(* begfrag:false-type *)
+Inductive False: Type := .
+(* endfrag:false-type *)
 
-(** begfrag:false-induction *)
-Definition false_induction@{l m}
-  : forall (F : False@{l} -> Type@{m}) (x : False@{l}), F x
-  := False_rect@{l m}.
-(** endfrag:false-induction *)
+(* begfrag:false-induction *)
+Definition false_induction
+  : forall (F : False -> Type) (x : False), F x
+  := False_rect.
+(* endfrag:false-induction *)
 
 (* ================================================================ *)
 (** ** The true type                                                *)
 (* ================================================================ *)
 
-(** begfrag:true-type *)
-Inductive True@{l} : Type@{l} := only : True.
-(** endfrag:true-type *)
+(* begfrag:true-type *)
+Inductive True : Type := only : True.
+(* endfrag:true-type *)
 
-(** begfrag:true-induction *)
-Definition true_induction@{l m}
-  : forall (F : True@{l} -> Type@{m}),
-      F only@{l} -> forall (x : True@{l}), F x
-  := True_rect@{l m}.
-(** endfrag:true-induction *)
+(* begfrag:true-induction *)
+Definition true_induction
+  : forall (F : True -> Type), F only -> forall (x : True), F x
+  := True_rect.
+(* endfrag:true-induction *)
 
 (* ================================================================ *)
 (** ** The boolean type                                             *)
 (* ================================================================ *)
 
-(** begfrag:boolean-type *)
-Inductive Boolean@{l} : Type@{l} := yes : Boolean | no : Boolean.
-(** endfrag:boolean-type *)
+(* begfrag:boolean-type *)
+Inductive Boolean : Type := yes : Boolean | no : Boolean.
+(* endfrag:boolean-type *)
 
-(** begfrag:boolean-induction *)
-Definition boolean_induction@{l m}
-  : forall (F : Boolean@{l} -> Type@{m}),
-      F yes@{l} -> F no@{l} -> forall (x : Boolean@{l}), F x
-  := Boolean_rect@{l m}.
-(** endfrag:boolean-induction *)
+(* begfrag:boolean-induction *)
+Definition boolean_induction
+  : forall (F : Boolean -> Type),
+      F yes -> F no -> forall (x : Boolean), F x
+  := Boolean_rect.
+(* endfrag:boolean-induction *)
 
 (* ================================================================ *)
 (** ** The type of natural numbers                                  *)
 (* ================================================================ *)
 
-(** begfrag:natural-type *)
-Inductive Natural@{l} : Type@{l}
+(* begfrag:natural-type *)
+Inductive Natural : Type
   := zero : Natural | successor : Natural -> Natural.
-(** endfrag:natural-type *)
+(* endfrag:natural-type *)
 
-(** begfrag:natural-induction *)
-Definition natural_induction@{l m}
-  : forall (F : Natural@{l} -> Type@{m}),
-      F zero@{l}
-        -> (forall (n : Natural@{l}), F n -> F (successor@{l} n))
-            -> forall (n : Natural@{l}), F n
-  := Natural_rect@{l m}.
-(** endfrag:natural-induction *)
+(* begfrag:natural-induction *)
+Definition natural_induction
+  : forall (F : Natural -> Type),
+      F zero
+        -> (forall (n : Natural), F n -> F (successor n))
+            -> forall (n : Natural), F n
+  := Natural_rect.
+(* endfrag:natural-induction *)
 
 (* ================================================================ *)
 (** ** Equality types                                               *)
 (* ================================================================ *)
 
-(** begfrag:equal-type *)
-Inductive Equal@{l} (X : Type@{l}) (x : X) : X -> Type@{l}
+(* begfrag:equal-type *)
+Inductive Equal (X : Type) (x : X) : X -> Type
   := reflexive : Equal X x x.
-(** endfrag:equal-type *)
 
-(** begfrag:equal-induction *)
-Definition equal_induction@{l m}
-  : forall (X : Type@{l})
+Arguments Equal {X} x  _.
+Arguments reflexive {X} x.
+(* endfrag:equal-type *)
+
+(* begfrag:equal-induction *)
+Definition equal_induction
+  : forall (X : Type)
            (x : X)
-           (F : forall (x' : X), Equal@{l} X x x' -> Type@{m}),
-      F x (reflexive@{l} X x)
-        -> forall (x' : X) (p : Equal@{l} X x x'), F x' p
-  := Equal_rect@{l m}.
-(** endfrag:equal-induction *)
+           (F : forall (x' : X), Equal x x' -> Type),
+      F x (reflexive x) -> forall (x' : X) (p : Equal x x'), F x' p
+  := Equal_rect.
+
+Arguments equal_induction {X} x F _ x' p.
+(* endfrag:equal-induction *)
 
 (* ================================================================ *)
-(* Sigma types                                                      *)
+(** ** Sigma types                                                  *)
 (* ================================================================ *)
 
-(** begfrag:sigma-type *)
-Record _Sigma@{l m} (X : Type@{l}) (F : X -> Type@{m})
-  : Type@{max(l, m)}
-  := pair {
-       first : X;
-       second : F first;
-     }.
+(* begfrag:sigma-type *)
+Record _Sigma (X : Type) (F : X -> Type) : Type
+  := sigma {sigma1 : X; sigma2 : F sigma1}.
 
 Arguments _Sigma {X} F.
-(** endfrag:sigma-type *)
+Arguments sigma {X} F _ _.
+Arguments sigma1 {X F} _.
+Arguments sigma2 {X F} _.
+(* endfrag:sigma-type *)
 
-(** begfrag:notation-sigma-type *)
+(* begfrag:notation-sigma-type *)
 Notation "'Sigma' x .. y , P"
   := (_Sigma (fun x => .. (_Sigma (fun y => P)) ..))
        (at level 200, x binder, y binder, right associativity).
-(** endfrag:notation-sigma-type *)
+(* endfrag:notation-sigma-type *)
 
 (* End of file *)

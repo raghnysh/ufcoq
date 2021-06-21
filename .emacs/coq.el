@@ -29,7 +29,6 @@
                             "-set" "Universe Polymorphism"
                             "-set" "Polymorphic Inductive Cumulativity"
                             "-unset" "Universe Minimization ToSet"
-                            "-set" "Printing Universes"
                             "-set" "Primitive Projections"))
 
 ;;; ==================================================================
