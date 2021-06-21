@@ -1,5 +1,5 @@
 
-etags-regex.v,3349
+etags-regex.v,3348
 Definition foo_definitionfoo_definition7,246
 Definition bar_definition@{etc etc | etc}bar_definition11,289
 Local Definition baz_definitionbaz_definition15,348
@@ -61,5 +61,5 @@ Bind Scope FooScope with Foo.Foo295,6662
 Bind Scope FooScope with Foo.FooScope295,6662
 Module Foo.Foo.301,6907
 Section Foo.Foo.307,7134
-(** begfrag:foo-barfoo-bar313,7362
-Definition baz_quux@{etc etc | etc}baz_quux314,7385
+(* begfrag:foo-barfoo-bar313,7362
+Definition baz_quux@{etc etc | etc}baz_quux314,7384

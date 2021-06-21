@@ -236,11 +236,11 @@
   -- Code delimiters
   -- =================================================================
 
-  -- (** begfrag:foo-bar *)
+  -- (* begfrag:foo-bar *)
   --
   -- => foo-bar
 
-/[ \t]*(\*\*[ \t]*begfrag:\([^ \t]+\)/\1/
+/[ \t]*(\*+[ \t]*begfrag:\([^ \t]+\)/\1/
 
   -- End of file
 

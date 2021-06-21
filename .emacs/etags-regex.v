@@ -310,10 +310,10 @@ Section Foo.
 (* Code delimiters                                                  *)
 (* ================================================================ *)
 
-(** begfrag:foo-bar *)
+(* begfrag:foo-bar *)
 Definition baz_quux@{etc etc | etc} etc
   etc
   etc
-(** endfrag:foo-bar *)
+(* endfrag:foo-bar *)
 
 (* End of file *)
