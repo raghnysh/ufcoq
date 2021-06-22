@@ -358,6 +358,8 @@ Definition product_map
          (g : Y -> Y')
          (t : Product X Y)
        => pair (f (first t)) (g (second t)).
+
+Arguments product_map {X Y X' Y'} _ _ _.
 (* endfrag:product-map *)
 
 (* ================================================================ *)
@@ -440,6 +442,8 @@ Definition sum_map
            v : Y -> Sum X' Y' := fun y => right (g y)
          in
            sum_recursion u v.
+
+Arguments sum_map {X Y X' Y'} _ _ _.
 (* endfrag:sum-map *)
 
 (* End of file *)
