@@ -314,6 +314,6 @@ Section Foo.
 Definition baz_quux@{etc etc | etc} etc
   etc
   etc
-(* endfrag:foo-bar *)
+(* endfrag *)
 
 (* End of file *)

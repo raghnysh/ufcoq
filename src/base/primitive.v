@@ -7,7 +7,7 @@
 (* begfrag:notation-function-type *)
 Notation "X -> Y" := (forall (_ : X), Y)
   (at level 99, right associativity, Y at level 200).
-(* endfrag:notation-function-type *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The false type                                               *)
@@ -15,13 +15,13 @@ Notation "X -> Y" := (forall (_ : X), Y)
 
 (* begfrag:false-type *)
 Inductive False: Type := .
-(* endfrag:false-type *)
+(* endfrag *)
 
 (* begfrag:false-induction *)
 Definition false_induction
   : forall (F : False -> Type) (x : False), F x
   := False_rect.
-(* endfrag:false-induction *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The true type                                                *)
@@ -29,13 +29,13 @@ Definition false_induction
 
 (* begfrag:true-type *)
 Inductive True : Type := only : True.
-(* endfrag:true-type *)
+(* endfrag *)
 
 (* begfrag:true-induction *)
 Definition true_induction
   : forall (F : True -> Type), F only -> forall (x : True), F x
   := True_rect.
-(* endfrag:true-induction *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The boolean type                                             *)
@@ -43,14 +43,14 @@ Definition true_induction
 
 (* begfrag:boolean-type *)
 Inductive Boolean : Type := yes : Boolean | no : Boolean.
-(* endfrag:boolean-type *)
+(* endfrag *)
 
 (* begfrag:boolean-induction *)
 Definition boolean_induction
   : forall (F : Boolean -> Type),
       F yes -> F no -> forall (x : Boolean), F x
   := Boolean_rect.
-(* endfrag:boolean-induction *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The type of natural numbers                                  *)
@@ -59,7 +59,7 @@ Definition boolean_induction
 (* begfrag:natural-type *)
 Inductive Natural : Type
   := zero : Natural | successor : Natural -> Natural.
-(* endfrag:natural-type *)
+(* endfrag *)
 
 (* begfrag:natural-induction *)
 Definition natural_induction
@@ -68,7 +68,7 @@ Definition natural_induction
         -> (forall (n : Natural), F n -> F (successor n))
             -> forall (n : Natural), F n
   := Natural_rect.
-(* endfrag:natural-induction *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** Equality types                                               *)
@@ -80,7 +80,7 @@ Inductive Equal (X : Type) (x : X) : X -> Type
 
 Arguments Equal {X} x  _.
 Arguments reflexive {X} x.
-(* endfrag:equal-type *)
+(* endfrag *)
 
 (* begfrag:equal-induction *)
 Definition equal_induction
@@ -91,7 +91,7 @@ Definition equal_induction
   := Equal_rect.
 
 Arguments equal_induction {X} x F _ x' p.
-(* endfrag:equal-induction *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** Sigma types                                                  *)
@@ -105,12 +105,12 @@ Arguments _Sigma {X} F.
 Arguments sigma {X} F _ _.
 Arguments sigma1 {X F} _.
 Arguments sigma2 {X F} _.
-(* endfrag:sigma-type *)
+(* endfrag *)
 
 (* begfrag:notation-sigma-type *)
 Notation "'Sigma' x .. y , P"
   := (_Sigma (fun x => .. (_Sigma (fun y => P)) ..))
        (at level 200, x binder, y binder, right associativity).
-(* endfrag:notation-sigma-type *)
+(* endfrag *)
 
 (* End of file *)

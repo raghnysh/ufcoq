@@ -4,4 +4,4 @@
 # --
 (* begfrag:${1:LABEL} *)
 $0
-(* endfrag:$1 *)
+(* endfrag *)

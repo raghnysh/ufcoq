@@ -17,7 +17,7 @@ Example _function_eta_conversion
       Equal f (fun (x : X) => f x)
   := fun (X : Type) (F : X -> Type) (f : forall (x : X), F x)
       => reflexive f.
-(* endfrag:function-eta-conversion *)
+(* endfrag *)
 
 (* begfrag:function-compose-associative *)
 Example _function_compose_associative
@@ -38,7 +38,7 @@ Example _function_compose_associative
          (f : X -> Y)
          (e : W -> X)
        => reflexive (function_compose (function_compose g f) e).
-(* endfrag:function-compose-associative *)
+(* endfrag *)
 
 (* begfrag:function-compose-left-unit *)
 Example _function_compose_left_unit
@@ -46,7 +46,7 @@ Example _function_compose_left_unit
       Equal f (function_compose (@identity_function Y) f)
   := fun (X Y : Type) (f : X -> Y)
        => reflexive f.
-(* endfrag:function-compose-left-unit *)
+(* endfrag *)
 
 (* begfrag:function-compose-right-unit *)
 Example _function_compose_right_unit
@@ -58,7 +58,7 @@ Example _function_compose_right_unit
          (G : X -> Type)
          (g : forall (x : X), G x)
        => reflexive g.
-(* endfrag:function-compose-right-unit *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The true type                                                *)
@@ -78,7 +78,7 @@ Example _true_recursion_only
 Example _to_true_only
   : forall (X : Type) (x : X), Equal only (to_true x)
   := fun (X : Type) (x : X) => reflexive only.
-(* endfrag:_true_things_only *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The Boolean type                                             *)
@@ -102,7 +102,7 @@ Example _boolean_recursion_yes
 Example _boolean_recursion_no
   : forall (X : Type) (y n : X), Equal n (boolean_recursion y n no)
   := fun (X : Type) (y n : X) => reflexive n.
-(* endfrag:boolean-things-yes-no *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The type of natural numbers                                  *)
@@ -157,7 +157,7 @@ Example _natural_recursion_simple_successor
             (natural_recursion_simple z s (successor n))
   := fun (X : Type) (z : X) (s : X -> X) (n : Natural)
        => reflexive (s (natural_recursion_simple z s n)).
-(* endfrag:natural-things-zero-successor *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** Equality types                                               *)
@@ -181,7 +181,7 @@ Example _transport_reflexive
       Equal (@identity_function (F x)) (transport F (reflexive x))
   := fun (X : Type) (F : X -> Type) (x x' : X)
        => reflexive (@identity_function (F x)).
-(* endfrag:equal-things-reflexive *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** Sigma types                                                  *)
@@ -193,7 +193,7 @@ Example _sigma_type_eta_conversion
       Equal t (sigma F (sigma1 t) (sigma2 t))
   := fun (X : Type) (F : X -> Type) (t : Sigma (x : X), F x)
        => reflexive t.
-(* endfrag:sigma-type-eta-conversion *)
+(* endfrag *)
 
 (* begfrag:sigma-curry-uncurry *)
 Example _sigma_curry_uncurry
@@ -207,7 +207,7 @@ Example _sigma_curry_uncurry
          (G : (Sigma (x : X), F x) -> Type)
          (f : forall (x : X) (y : F x), G (sigma F x y))
        => reflexive f.
-(* endfrag:sigma-curry-uncurry *)
+(* endfrag *)
 
 (* begfrag:sigma-uncurry-curry *)
 Example _sigma_uncurry_curry
@@ -221,7 +221,7 @@ Example _sigma_uncurry_curry
          (G : (Sigma (x : X), F x) -> Type)
          (g : forall (t : Sigma (x : X), F x), G t)
        => reflexive g.
-(* endfrag:sigma-uncurry-curry *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** Product types                                                *)
@@ -233,7 +233,7 @@ Example _product_eta_conversion
       Equal t (pair (first t) (second t))
   := fun (X Y : Type) (t : Product X Y)
        => reflexive t.
-(* endfrag:product-eta-conversion *)
+(* endfrag *)
 
 
 (* begfrag:curry-uncurry *)
@@ -246,7 +246,7 @@ Example _curry_uncurry
          (F : Product X Y -> Type)
          (f : forall (x : X) (y : Y), F (pair x y))
        => reflexive f.
-(* endfrag:curry-uncurry *)
+(* endfrag *)
 
 (* begfrag:uncurry-curry *)
 Example _uncurry_curry
@@ -258,7 +258,7 @@ Example _uncurry_curry
          (F : Product X Y -> Type)
          (g : forall (t : Product X Y), F t)
        => reflexive g.
-(* endfrag:uncurry-curry *)
+(* endfrag *)
 
 (* begfrag:pair-function-first-second *)
 Example _pair_function_first
@@ -292,7 +292,7 @@ Example _pair_function_second
          (g : forall (t : T), G t)
          (t : T)
        => reflexive (g t).
-(* endfrag:pair-function-first-second *)
+(* endfrag *)
 
 (* begfrag:product-map-first-second *)
 Example _product_map_first
@@ -316,7 +316,7 @@ Example _product_map_second
          (f : X -> X')
          (g : Y -> Y')
        => reflexive (function_compose g second).
-(* endfrag:product-map-first-second *)
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** Sum types                                                    *)
@@ -346,7 +346,7 @@ Example _sum_induction_right
          (f : forall (x : X), F (left x))
          (g : forall (y : Y), F (right y))
        => reflexive g.
-(* endfrag:sum-induction-left-right *)
+(* endfrag *)
 
 (* begfrag:sum-recursion-left-right *)
 Example _sum_recursion_left
@@ -368,7 +368,7 @@ Example _sum_recursion_right
          (f : X -> Z)
          (g : Y -> Z)
        => reflexive g.
-(* endfrag:sum-recursion-left-right *)
+(* endfrag *)
 
 (* begfrag:sum-map-left-right *)
 Example _sum_map_left
@@ -392,6 +392,6 @@ Example _sum_map_right
          (f : X -> X')
          (g : Y -> Y')
        => reflexive (function_compose right g).
-(* endfrag:sum-map-left-right *)
+(* endfrag *)
 
 (* End of file *)
