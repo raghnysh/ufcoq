@@ -4,7 +4,9 @@
 (** ** Dependencies                                                 *)
 (* ================================================================ *)
 
+(* begfrag:base-construct-dependencies *)
 Require Import ufcoq.base.primitive.
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The type of a thing                                          *)
@@ -259,12 +261,14 @@ Definition pair : forall (X Y : Type), X -> Y -> Product X Y
 Arguments pair {X Y} _ _.
 (* endfrag *)
 
-(* begfrag:product-first-second *)
+(* begfrag:product-first *)
 Definition first : forall (X Y : Type), Product X Y -> X
   := fun (X Y : Type) (t : Product X Y) => sigma1 t.
 
 Arguments first {X Y} _.
+(* endfrag *)
 
+(* begfrag:product-second *)
 Definition second : forall (X Y : Type), Product X Y -> Y
   := fun (X Y : Type) (t : Product X Y) => sigma2 t.
 
@@ -373,12 +377,14 @@ Definition Sum : Type -> Type -> Type
           in Sigma (b : Boolean), F b.
 (* endfrag *)
 
-(* begfrag:sum-left-right *)
+(* begfrag:sum-left *)
 Definition left : forall (X Y : Type), X -> Sum X Y
   := fun (X Y : Type) (x : X) => sigma (boolean_recursion X Y) yes x.
 
 Arguments left {X Y} _.
+(* endfrag *)
 
+(* begfrag:sum-right *)
 Definition right : forall (X Y : Type), Y -> Sum X Y
   := fun (X Y : Type) (y : Y) => sigma (boolean_recursion X Y) no y.
 

@@ -4,8 +4,10 @@
 (** ** Dependencies                                                 *)
 (* ================================================================ *)
 
+(* begfrag:base-same-dependencies *)
 Require Import ufcoq.base.primitive.
 Require Import ufcoq.base.construct.
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** Function types                                               *)
@@ -64,17 +66,21 @@ Example _function_compose_right_unit
 (** ** The true type                                                *)
 (* ================================================================ *)
 
-(* begfrag:_true_things_only *)
+(* begfrag:true-induction-only *)
 Example _true_induction_only
   : forall (F : True -> Type) (x : F only),
       Equal x (true_induction F x only)
   := fun (F : True -> Type) (x : F only)
        => reflexive x.
+(* endfrag *)
 
+(* begfrag:true-recursion-only *)
 Example _true_recursion_only
   : forall (X : Type) (x : X), Equal x (true_recursion x only)
   := fun (X : Type) (x : X) => reflexive x.
+(* endfrag *)
 
+(* begfrag:to-true-only *)
 Example _to_true_only
   : forall (X : Type) (x : X), Equal only (to_true x)
   := fun (X : Type) (x : X) => reflexive only.
@@ -84,21 +90,27 @@ Example _to_true_only
 (** ** The Boolean type                                             *)
 (* ================================================================ *)
 
-(* begfrag:boolean-things-yes-no *)
+(* begfrag:boolean-induction-yes *)
 Example _boolean_induction_yes
   : forall (F : Boolean -> Type) (y : F yes) (n : F no),
       Equal y (boolean_induction F y n yes)
   := fun (F : Boolean -> Type) (y : F yes) (n : F no) => reflexive y.
+(* endfrag *)
 
+(* begfrag:boolean-induction-no *)
 Example _boolean_induction_no
   : forall (F : Boolean -> Type) (y : F yes) (n : F no),
       Equal n (boolean_induction F y n no)
   := fun (F : Boolean -> Type) (y : F yes) (n : F no) => reflexive n.
+(* endfrag *)
 
+(* begfrag:booolean-recursion-yes *)
 Example _boolean_recursion_yes
   : forall (X : Type) (y n : X), Equal y (boolean_recursion y n yes)
   := fun (X : Type) (y n : X) => reflexive y.
+(* endfrag *)
 
+(* begfrag:boolean-recursion-no *)
 Example _boolean_recursion_no
   : forall (X : Type) (y n : X), Equal n (boolean_recursion y n no)
   := fun (X : Type) (y n : X) => reflexive n.
@@ -108,7 +120,7 @@ Example _boolean_recursion_no
 (** ** The type of natural numbers                                  *)
 (* ================================================================ *)
 
-(* begfrag:natural-things-zero-successor *)
+(* begfrag:natural-induction-zero *)
 Example _natural_induction_zero
   : forall (F : Natural -> Type)
            (z : F zero)
@@ -118,7 +130,9 @@ Example _natural_induction_zero
          (z : F zero)
          (s : forall (n : Natural), F n -> F (successor n))
        => reflexive z.
+(* endfrag *)
 
+(* begfrag:natural-induction-successor *)
 Example _natural_induction_successor
   : forall (F : Natural -> Type)
            (z : F zero)
@@ -131,26 +145,34 @@ Example _natural_induction_successor
          (s : forall (n : Natural), F n -> F (successor n))
          (n : Natural)
        => reflexive (s n (natural_induction F z s n)).
+(* endfrag *)
 
+(* begfrag:natural-recursion-zero *)
 Example _natural_recursion_zero
   : forall (X : Type) (z : X) (s : Natural -> X -> X),
       Equal z (natural_recursion z s zero)
   := fun (X : Type) (z : X) (s : Natural -> X -> X)
        => reflexive z.
+(* endfrag *)
 
+(* begfrag:natural-recursion-successor *)
 Example _natural_recursion_successor
   : forall (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural),
       Equal (s n (natural_recursion z s n))
             (natural_recursion z s (successor n))
   := fun (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural)
      => reflexive (s n (natural_recursion z s n)).
+(* endfrag *)
 
+(* begfrag:natural-recursion-simple-zero *)
 Example _natural_recursion_simple_zero
   : forall (X : Type) (z : X) (s : X -> X),
       Equal z (natural_recursion_simple z s zero)
   := fun (X : Type) (z : X) (s : X -> X)
        => reflexive z.
+(* endfrag *)
 
+(* begfrag:natural-recursion-simple-successor *)
 Example _natural_recursion_simple_successor
   : forall (X : Type) (z : X) (s : X -> X) (n : Natural),
       Equal (s (natural_recursion_simple z s n))
@@ -163,7 +185,7 @@ Example _natural_recursion_simple_successor
 (** ** Equality types                                               *)
 (* ================================================================ *)
 
-(* begfrag:equal-things-reflexive *)
+(* begfrag:equal-induction-reflexive *)
 Example _equal_induction_reflexive
   : forall (X : Type)
            (x : X)
@@ -175,7 +197,9 @@ Example _equal_induction_reflexive
          (F : forall (x' : X), Equal x x' -> Type)
          (e : F x (reflexive x))
        => reflexive e.
+(* endfrag *)
 
+(* begfrag:transport-reflexive *)
 Example _transport_reflexive
   : forall (X : Type) (F : X -> Type) (x x' : X),
       Equal (@identity_function (F x)) (transport F (reflexive x))
@@ -235,7 +259,6 @@ Example _product_eta_conversion
        => reflexive t.
 (* endfrag *)
 
-
 (* begfrag:curry-uncurry *)
 Example _curry_uncurry
   : forall (X Y : Type)
@@ -260,7 +283,7 @@ Example _uncurry_curry
        => reflexive g.
 (* endfrag *)
 
-(* begfrag:pair-function-first-second *)
+(* begfrag:pair-function-first *)
 Example _pair_function_first
   : forall (T : Type)
            (F : T -> Type)
@@ -276,7 +299,9 @@ Example _pair_function_first
          (g : forall (t : T), G t)
          (t : T)
        => reflexive (f t).
+(* endfrag *)
 
+(* begfrag:pair-function-second *)
 Example _pair_function_second
   : forall (T : Type)
            (F : T -> Type)
@@ -294,7 +319,7 @@ Example _pair_function_second
        => reflexive (g t).
 (* endfrag *)
 
-(* begfrag:product-map-first-second *)
+(* begfrag:product-map-first *)
 Example _product_map_first
   : forall (X Y X' Y' : Type)
            (f : X -> X')
@@ -305,7 +330,9 @@ Example _product_map_first
          (f : X -> X')
          (g : Y -> Y')
        => reflexive (function_compose f first).
+(* endfrag *)
 
+(* begfrag:product-map-second *)
 Example _product_map_second
   : forall (X Y X' Y' : Type)
            (f : X -> X')
@@ -322,7 +349,7 @@ Example _product_map_second
 (** ** Sum types                                                    *)
 (* ================================================================ *)
 
-(* begfrag:sum-induction-left-right *)
+(* begfrag:sum-induction-left *)
 Example _sum_induction_left
   : forall (X Y : Type)
            (F : Sum X Y -> Type)
@@ -334,7 +361,9 @@ Example _sum_induction_left
          (f : forall (x : X), F (left x))
          (g : forall (y : Y), F (right y))
        => reflexive f.
+(* endfrag *)
 
+(* begfrag:sum-induction-right *)
 Example _sum_induction_right
   : forall (X Y : Type)
            (F : Sum X Y -> Type)
@@ -348,7 +377,7 @@ Example _sum_induction_right
        => reflexive g.
 (* endfrag *)
 
-(* begfrag:sum-recursion-left-right *)
+(* begfrag:sum-recursion-left *)
 Example _sum_recursion_left
   : forall (X Y Z : Type)
            (f : X -> Z)
@@ -358,7 +387,9 @@ Example _sum_recursion_left
          (f : X -> Z)
          (g : Y -> Z)
        => reflexive f.
+(* endfrag *)
 
+(* begfrag:sum-recursion-right *)
 Example _sum_recursion_right
   : forall (X Y Z : Type)
            (f : X -> Z)
@@ -370,7 +401,7 @@ Example _sum_recursion_right
        => reflexive g.
 (* endfrag *)
 
-(* begfrag:sum-map-left-right *)
+(* begfrag:sum-map-left *)
 Example _sum_map_left
   : forall (X Y X' Y' : Type)
            (f : X -> X')
@@ -381,7 +412,9 @@ Example _sum_map_left
          (f : X -> X')
          (g : Y -> Y')
        => reflexive (function_compose left f).
+(* endfrag *)
 
+(* begfrag:sum-map-right *)
 Example _sum_map_right
   : forall (X Y X' Y' : Type)
            (f : X -> X')
