@@ -90,7 +90,7 @@ Definition functions_equal_values_equal
       Equal f g -> forall (x : X), Equal (f x) (g x)
   := fun (X : Type)
          (F : X -> Type)
-         (f g : forall (x : X), F x)
+         (f : forall (x : X), F x)
        =>
          let
            T : Type := forall (x : X), F x
@@ -101,11 +101,8 @@ Definition functions_equal_values_equal
                        (forall (x : X), Equal (f x) (t x))
          in let
            base : P f (reflexive f) := fun (x : X) => reflexive (f x)
-         in let
-           inductive : forall (t : T) (p : Equal f t), P t p
-             := equal_induction f P base
          in
-           inductive g.
+           equal_induction f P base.
 
 Arguments functions_equal_values_equal {X F f g} _ x.
 (* endfrag *)
@@ -157,7 +154,7 @@ Arguments natural_recursion {X} _ _ _.
 Definition natural_recursion_simple
   : forall (X : Type), X -> (X -> X) -> Natural -> X
   := fun (X : Type) (x : X) (f : X -> X)
-       => natural_recursion x (constant_function f).
+       => natural_recursion x (@constant_function Natural (X -> X) f).
 
 Arguments natural_recursion_simple {X} _ _ _.
 (* endfrag *)
@@ -168,7 +165,7 @@ Definition transport
       Equal x y -> F x -> F y
   := fun (X : Type)
          (F : X -> Type)
-         (x y : X)
+         (x : X)
        =>
          let
            G : forall (a : X), Equal x a -> Type
@@ -176,11 +173,8 @@ Definition transport
          in let
            base : G x (reflexive x)
              := @identity_function (F x)
-         in let
-           inductive : forall (a : X) (e : Equal x a), G a e
-             := equal_induction x G base
          in
-           inductive y.
+           equal_induction x G base.
 
 Arguments transport {X} F {x y} _ _.
 (* endfrag *)
@@ -191,8 +185,7 @@ Definition transport_inverse
       Equal x y -> F y -> F x
   := fun (X : Type)
          (F : X -> Type)
-         (x y : X)
-         (p : Equal x y)
+         (x : X)
        =>
          let
            G : forall (a : X), Equal x a -> Type
@@ -200,11 +193,8 @@ Definition transport_inverse
          in let
            base : G x (reflexive x)
              := @identity_function (F x)
-         in let
-           inductive : forall (a : X) (e : Equal x a), G a e
-             := equal_induction x G base
          in
-           inductive y p.
+           equal_induction x G base.
 
 Arguments transport_inverse {X} F {x y} _ _.
 (* endfrag *)

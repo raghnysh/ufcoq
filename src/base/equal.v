@@ -16,9 +16,8 @@ Definition equal_compose
   : forall (X : Type) (x y z : X), Equal x y -> Equal y z -> Equal x z
   := fun (X : Type)
          (x y z : X)
-         (p : Equal x y)
        => let F : X -> Type := fun (a : X) => Equal a z
-          in transport_inverse F p.
+          in transport_inverse F.
 Arguments equal_compose {X x y z} _ _.
 (* endfrag *)
 
@@ -33,7 +32,7 @@ Example _equal_compose_left_unit
 Definition equal_compose_right_unit
   : forall (X : Type) (x y : X) (p : Equal x y),
       Equal p (equal_compose p (reflexive y))
-  := fun (X : Type) (x y : X) (p : Equal x y)
+  := fun (X : Type) (x : X)
        =>
          let
            F : forall (a : X), Equal x a -> Type
@@ -41,11 +40,8 @@ Definition equal_compose_right_unit
                   => Equal e (equal_compose e (reflexive a))
          in let
            base : F x (reflexive x) := reflexive (reflexive x)
-         in let
-           inductive : forall (a : X) (e : Equal x a), F a e
-             := equal_induction x F base
          in
-           inductive y p.
+           equal_induction x F base.
 
 Arguments equal_compose_right_unit {X x y} p.
 (* endfrag *)
