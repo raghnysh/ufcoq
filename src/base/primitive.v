@@ -86,11 +86,11 @@ Arguments reflexive {X} x.
 Definition equal_induction
   : forall (X : Type)
            (x : X)
-           (F : forall (x' : X), Equal x x' -> Type),
-      F x (reflexive x) -> forall (x' : X) (p : Equal x x'), F x' p
+           (F : forall (y : X), Equal x y -> Type),
+      F x (reflexive x) -> forall (y : X) (p : Equal x y), F y p
   := Equal_rect.
 
-Arguments equal_induction {X} x F _ x' p.
+Arguments equal_induction {X} x F _ y p.
 (* endfrag *)
 
 (* ================================================================ *)

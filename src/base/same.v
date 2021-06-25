@@ -189,21 +189,30 @@ Example _natural_recursion_simple_successor
 Example _equal_induction_reflexive
   : forall (X : Type)
            (x : X)
-           (F : forall (x' : X), Equal x x' -> Type)
+           (F : forall (y : X), Equal x y -> Type)
            (e : F x (reflexive x)),
       Equal e (equal_induction x F e x (reflexive x))
   := fun (X : Type)
          (x : X)
-         (F : forall (x' : X), Equal x x' -> Type)
+         (F : forall (y : X), Equal x y -> Type)
          (e : F x (reflexive x))
        => reflexive e.
 (* endfrag *)
 
 (* begfrag:transport-reflexive *)
 Example _transport_reflexive
-  : forall (X : Type) (F : X -> Type) (x x' : X),
+  : forall (X : Type) (F : X -> Type) (x y : X),
       Equal (@identity_function (F x)) (transport F (reflexive x))
-  := fun (X : Type) (F : X -> Type) (x x' : X)
+  := fun (X : Type) (F : X -> Type) (x y : X)
+       => reflexive (@identity_function (F x)).
+(* endfrag *)
+
+(* begfrag:transport-inverse-reflexive *)
+Example _transport_inverse_reflexive
+  : forall (X : Type) (F : X -> Type) (x y : X),
+      Equal (@identity_function (F x))
+            (transport_inverse F (reflexive x))
+  := fun (X : Type) (F : X -> Type) (x y : X)
        => reflexive (@identity_function (F x)).
 (* endfrag *)
 

@@ -164,21 +164,49 @@ Arguments natural_recursion_simple {X} _ _ _.
 
 (* begfrag:transport *)
 Definition transport
-  : forall (X : Type) (F : X -> Type) (x x' : X),
-      Equal x x' -> F x -> F x'
+  : forall (X : Type) (F : X -> Type) (x y : X),
+      Equal x y -> F x -> F y
   := fun (X : Type)
          (F : X -> Type)
-         (x x' : X)
-         (p : Equal x x')
-         (e : F x)
+         (x y : X)
        =>
          let
            G : forall (a : X), Equal x a -> Type
-             := fun (a : X) => constant_function (F a)
+             := fun (a : X) => constant_function (F x -> F a)
+         in let
+           base : G x (reflexive x)
+             := @identity_function (F x)
+         in let
+           inductive : forall (a : X) (e : Equal x a), G a e
+             := equal_induction x G base
          in
-           equal_induction x G e x' p.
+           inductive y.
 
-Arguments transport {X} F {x x'} _ _.
+Arguments transport {X} F {x y} _ _.
+(* endfrag *)
+
+(* begfrag:transport-inverse *)
+Definition transport_inverse
+  : forall (X : Type) (F : X -> Type) (x y : X),
+      Equal x y -> F y -> F x
+  := fun (X : Type)
+         (F : X -> Type)
+         (x y : X)
+         (p : Equal x y)
+       =>
+         let
+           G : forall (a : X), Equal x a -> Type
+             := fun (a : X) => constant_function (F a -> F x)
+         in let
+           base : G x (reflexive x)
+             := @identity_function (F x)
+         in let
+           inductive : forall (a : X) (e : Equal x a), G a e
+             := equal_induction x G base
+         in
+           inductive y p.
+
+Arguments transport_inverse {X} F {x y} _ _.
 (* endfrag *)
 
 (* begfrag:sigma-induction *)
