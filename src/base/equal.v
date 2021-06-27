@@ -18,18 +18,19 @@ Definition equal_compose
          (x y z : X)
        => let F : X -> Type := fun (a : X) => Equal a z
           in transport_inverse F.
+
 Arguments equal_compose {X x y z} _ _.
 (* endfrag *)
 
-(* begfrag:equal-compose-left-unit *)
-Example _equal_compose_left_unit
+(* begfrag:equal-left-unit *)
+Example _equal_left_unit
   : forall (X : Type) (x y : X) (p : Equal x y),
       Equal p (equal_compose (reflexive x) p)
   := fun (X : Type) (x y : X) (p : Equal x y) => reflexive p.
 (* endfrag *)
 
-(* begfrag:equal-compose-right-unit *)
-Definition equal_compose_right_unit
+(* begfrag:equal-right-unit *)
+Definition equal_right_unit
   : forall (X : Type) (x y : X) (p : Equal x y),
       Equal p (equal_compose p (reflexive y))
   := fun (X : Type) (x : X)
@@ -43,11 +44,11 @@ Definition equal_compose_right_unit
          in
            equal_induction x F base.
 
-Arguments equal_compose_right_unit {X x y} p.
+Arguments equal_right_unit {X x y} p.
 (* endfrag *)
 
-(* begfrag:equal-compose-associative *)
-Definition equal_compose_associative
+(* begfrag:equal-associative *)
+Definition equal_associative
   : forall (X : Type)
            (w x y z : X)
            (p : Equal w x)
@@ -77,7 +78,90 @@ Definition equal_compose_associative
          in
            inductive x p q.
 
-Arguments equal_compose_associative {X w x y z} p q r.
+Arguments equal_associative {X w x y z} p q r.
+(* endfrag *)
+
+(* begfrag:equal-compose-left-equal *)
+Definition equal_compose_left_equal
+  : forall (X : Type) (x y : X) (p p' : Equal x y),
+      Equal p p'
+        -> forall (z : X) (q : Equal y z),
+             Equal (equal_compose p q) (equal_compose p' q)
+  := fun (X : Type)
+         (x y : X)
+         (p p' : Equal x y)
+         (u : Equal p p')
+         (z : X)
+         (q : Equal y z)
+       =>
+         let
+           F : forall (i : Equal x y), Equal p i -> Type
+             := fun (i  : Equal x y)
+                  => constant_function (Equal (equal_compose p q)
+                                              (equal_compose i q))
+         in let
+           base : F p (reflexive p)
+             := reflexive (equal_compose p q)
+         in
+           equal_induction p F base p' u.
+
+Arguments equal_compose_left_equal {X x y p p'} _ {z} q.
+(* endfrag *)
+
+(* begfrag:equal-compose-right-equal *)
+Definition equal_compose_right_equal
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q q' : Equal y z),
+      Equal q q' -> Equal (equal_compose p q) (equal_compose p q')
+  := fun (X : Type)
+         (x y : X)
+         (p : Equal x y)
+         (z : X)
+         (q q' : Equal y z)
+         (v : Equal q q')
+       =>
+         let
+           F : forall (j : Equal y z), Equal q j -> Type
+             := fun (j  : Equal y z)
+                  => constant_function (Equal (equal_compose p q)
+                                              (equal_compose p j))
+         in let
+           base : F q (reflexive q)
+             := reflexive (equal_compose p q)
+         in
+           equal_induction q F base q' v.
+
+Arguments equal_compose_right_equal {X x y} p {z q q'} _.
+(* endfrag *)
+
+(* begfrag:equal-compose-equal *)
+Definition equal_compose_equal
+  : forall (X : Type)
+           (x y z : X)
+           (p p' : Equal x y)
+           (q q' : Equal y z),
+      Equal p p' -> Equal q q'
+        -> Equal (equal_compose p q) (equal_compose p' q')
+  := fun (X : Type)
+         (x y z : X)
+         (p p' : Equal x y)
+         (q q' : Equal y z)
+         (u : Equal p p')
+         (v : Equal q q')
+       =>
+         let
+           e : Equal (equal_compose p q) (equal_compose p' q)
+             := equal_compose_left_equal u q
+         in let
+           f : Equal (equal_compose p' q) (equal_compose p' q')
+             := equal_compose_right_equal p' v
+         in
+           equal_compose e f.
+
+Arguments equal_compose_equal {X x y z p p' q q'} _ _.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -219,6 +303,166 @@ Definition equal_map_inverse
            equal_induction x F base.
 
 Arguments equal_map_inverse {X Y} f {x x'} p.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Cancellation laws                                            *)
+(* ================================================================ *)
+
+(* begfrag:equal-left-cancel *)
+Definition equal_left_cancel
+  : forall (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z),
+      Equal (equal_compose p q) (equal_compose p q') -> Equal q q'
+  := fun (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z)
+       =>
+         let
+           F : forall (a : X), Equal x a -> Type
+             := fun (a : X) (i : Equal x a)
+                  => forall (j j' :  Equal a z),
+                       Equal (equal_compose i j) (equal_compose i j')
+                         -> Equal j j'
+         in let
+           base : F x (reflexive x)
+             := fun (j j' : Equal x z)
+                  => @identity_function (Equal j j')
+         in let
+           inductive : forall (a : X) (i : Equal x a), F a i
+             := equal_induction x F base
+         in
+           inductive y p q q'.
+
+Arguments equal_left_cancel {X x y z} p q q' _.
+(* endfrag *)
+
+(* begfrag:equal-left-remove *)
+Definition equal_left_remove
+  : forall (X : Type)
+           (x y : X)
+           (p p' : Equal x y),
+      Equal p p'
+        -> forall (z : X) (q q' : Equal y z),
+             Equal (equal_compose p q) (equal_compose p' q')
+               -> Equal q q'
+  := fun (X : Type)
+         (x y : X)
+         (p p' : Equal x y)
+         (u : Equal p p')
+         (z : X)
+         (q q' : Equal y z)
+         (e : Equal (equal_compose p q) (equal_compose p' q'))
+       =>
+         let
+           e1 : Equal (equal_compose p q') (equal_compose p' q')
+              := equal_compose_left_equal u q'
+         in let
+           e2 : Equal (equal_compose p q) (equal_compose p q')
+              := equal_compose e (equal_inverse e1)
+         in
+           equal_left_cancel p q q' e2.
+
+Arguments equal_left_remove {X x y p p'} _ {z} q q' _.
+(* endfrag *)
+
+(* begfrag:equal-right-cancel *)
+Definition equal_right_cancel
+  : forall (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z),
+      Equal (equal_compose p q) (equal_compose p' q) -> Equal p p'
+  := fun (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z)
+       =>
+         let
+           F : forall (a : X), Equal y a -> Type
+             := fun (a : X) (j : Equal y a)
+                  => forall (i i' :  Equal x y),
+                       Equal (equal_compose i j) (equal_compose i' j)
+                         -> Equal i i'
+         in let
+           base : F y (reflexive y)
+             := fun (i i' : Equal x y)
+                    (u : Equal (equal_compose i (reflexive y))
+                               (equal_compose i' (reflexive y)))
+                  =>
+                    let
+                      e1 : Equal i (equal_compose i (reflexive y))
+                         := equal_right_unit i
+                    in let
+                      e2 : Equal (equal_compose i' (reflexive y)) i'
+                         := equal_inverse (equal_right_unit i')
+                    in
+                      equal_compose (equal_compose e1 u) e2
+         in let
+           inductive : forall (a : X) (j : Equal y a), F a j
+             := equal_induction y F base
+         in
+           inductive z q p p'.
+
+Arguments equal_right_cancel {X x y z} p p' q _.
+(* endfrag *)
+
+(* begfrag:equal-right-remove *)
+Definition equal_right_remove
+  : forall (X : Type)
+           (x y : X)
+           (p p' : Equal x y)
+           (z : X)
+           (q q' : Equal y z),
+      Equal q q'
+        -> Equal (equal_compose p q) (equal_compose p' q')
+          -> Equal p p'
+  := fun (X : Type)
+         (x y : X)
+         (p p' : Equal x y)
+         (z : X)
+         (q q' : Equal y z)
+         (v : Equal q q')
+         (e : Equal (equal_compose p q) (equal_compose p' q'))
+       =>
+         let
+           e1 : Equal (equal_compose p' q) (equal_compose p' q')
+              := equal_compose_right_equal p' v
+         in let
+           e2 : Equal (equal_compose p q) (equal_compose p' q)
+              := equal_compose e (equal_inverse e1)
+         in
+           equal_right_cancel p p' q e2.
+
+Arguments equal_right_remove {X x y} p p' {z} {q q'} _ _.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Uniqueness of units                                          *)
+(* ================================================================ *)
+
+(* begfrag:equal-left-unit-unique *)
+Definition equal_left_unit_unique
+  : forall (X : Type) (x y : X) (p : Equal x x) (q : Equal x y),
+      Equal q (equal_compose p q) -> Equal (reflexive x) p
+  := fun (X : Type) (x y : X) (p : Equal x x) (q : Equal x y)
+       => equal_right_cancel (reflexive x) p q.
+
+Arguments equal_left_unit_unique {X x y} p {q} _.
+(* endfrag *)
+
+(* begfrag:equal-right-unit-unique *)
+Definition equal_right_unit_unique
+  : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y y),
+      Equal p (equal_compose p q) -> Equal (reflexive y) q
+  := fun (X : Type)
+         (x y : X)
+         (p : Equal x y)
+         (q : Equal y y)
+         (u : Equal p (equal_compose p q))
+       =>
+         let
+           e : Equal p (equal_compose p (reflexive y))
+             := equal_right_unit p
+         in let
+           f : Equal (equal_compose p (reflexive y))
+                     (equal_compose p q)
+             := equal_compose (equal_inverse e) u
+         in
+           equal_left_cancel p (reflexive y) q f.
+
+Arguments equal_right_unit_unique {X x y p} q _.
 (* endfrag *)
 
 (* End of file *)
