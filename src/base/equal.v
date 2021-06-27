@@ -4,14 +4,16 @@
 (** ** Dependencies                                                 *)
 (* ================================================================ *)
 
+(* begfrag:e82fgb1k *)
 Require Import ufcoq.base.primitive.
 Require Import ufcoq.base.construct.
+(* endfrag *)
 
 (* ================================================================ *)
 (** ** The composition of equalities                                *)
 (* ================================================================ *)
 
-(* begfrag:equal-compose *)
+(* begfrag:ybsrqsg4 *)
 Definition equal_compose
   : forall (X : Type) (x y z : X), Equal x y -> Equal y z -> Equal x z
   := fun (X : Type)
@@ -22,14 +24,14 @@ Definition equal_compose
 Arguments equal_compose {X x y z} _ _.
 (* endfrag *)
 
-(* begfrag:equal-left-unit *)
+(* begfrag:ky5unwbq *)
 Example _equal_left_unit
   : forall (X : Type) (x y : X) (p : Equal x y),
       Equal p (equal_compose (reflexive x) p)
   := fun (X : Type) (x y : X) (p : Equal x y) => reflexive p.
 (* endfrag *)
 
-(* begfrag:equal-right-unit *)
+(* begfrag:afizq40q *)
 Definition equal_right_unit
   : forall (X : Type) (x y : X) (p : Equal x y),
       Equal p (equal_compose p (reflexive y))
@@ -47,7 +49,7 @@ Definition equal_right_unit
 Arguments equal_right_unit {X x y} p.
 (* endfrag *)
 
-(* begfrag:equal-associative *)
+(* begfrag:qj3cqa2b *)
 Definition equal_associative
   : forall (X : Type)
            (w x y z : X)
@@ -81,7 +83,7 @@ Definition equal_associative
 Arguments equal_associative {X w x y z} p q r.
 (* endfrag *)
 
-(* begfrag:equal-compose-left-equal *)
+(* begfrag:smege15s *)
 Definition equal_compose_left_equal
   : forall (X : Type) (x y : X) (p p' : Equal x y),
       Equal p p'
@@ -108,7 +110,7 @@ Definition equal_compose_left_equal
 Arguments equal_compose_left_equal {X x y p p'} _ {z} q.
 (* endfrag *)
 
-(* begfrag:equal-compose-right-equal *)
+(* begfrag:g6ql88po *)
 Definition equal_compose_right_equal
   : forall (X : Type)
            (x y : X)
@@ -137,7 +139,7 @@ Definition equal_compose_right_equal
 Arguments equal_compose_right_equal {X x y} p {z q q'} _.
 (* endfrag *)
 
-(* begfrag:equal-compose-equal *)
+(* begfrag:npsmi0d4 *)
 Definition equal_compose_equal
   : forall (X : Type)
            (x y z : X)
@@ -168,7 +170,7 @@ Arguments equal_compose_equal {X x y z p p' q q'} _ _.
 (** ** The inverse of an equality                                   *)
 (* ================================================================ *)
 
-(* begfrag:equal-inverse *)
+(* begfrag:37wczvy0 *)
 Definition equal_inverse
   : forall (X : Type) (x y : X), Equal x y -> Equal y x
   := fun (X : Type) (x : X)
@@ -184,14 +186,14 @@ Definition equal_inverse
 Arguments equal_inverse {X x y} _.
 (* endfrag *)
 
-(* begfrag:equal-inverse-reflexive *)
+(* begfrag:fehutg63 *)
 Example _equal_inverse_reflexive
   : forall (X : Type) (x : X),
       Equal (reflexive x) (equal_inverse (reflexive x))
   := fun (X : Type) (x : X) => reflexive (reflexive x).
 (* endfrag *)
 
-(* begfrag:equal-left-inverse *)
+(* begfrag:czd5dw60 *)
 Definition equal_left_inverse
   : forall (X : Type) (x y : X) (p : Equal x y),
       Equal (reflexive y) (equal_compose (equal_inverse p) p)
@@ -210,7 +212,7 @@ Definition equal_left_inverse
 Arguments equal_left_inverse {X x y} p.
 (* endfrag *)
 
-(* begfrag:equal-right-inverse *)
+(* begfrag:eay5nxer *)
 Definition equal_right_inverse
   : forall (X : Type) (x y : X) (p : Equal x y),
       Equal (reflexive x) (equal_compose p (equal_inverse p))
@@ -233,7 +235,7 @@ Arguments equal_right_inverse {X x y} p.
 (** ** The map between equalities that is induced by a function     *)
 (* ================================================================ *)
 
-(* begfrag:equal-map *)
+(* begfrag:lxgjdap3 *)
 Definition equal_map
   : forall (X Y : Type) (f : X -> Y) (x x' : X),
       Equal x x' -> Equal (f x) (f x')
@@ -250,7 +252,7 @@ Definition equal_map
 Arguments equal_map {X Y} f {x x'} _.
 (* endfrag *)
 
-(* begfrag:equal-map-unital *)
+(* begfrag:udxkkzqg *)
 Example _equal_map_unital
   : forall (X Y : Type) (f : X -> Y) (x : X),
       Equal (reflexive (f x)) (equal_map f (reflexive x))
@@ -258,7 +260,7 @@ Example _equal_map_unital
        => reflexive (reflexive (f x)).
 (* endfrag *)
 
-(* begfrag:equal-map-multiplicative *)
+(* begfrag:bul2i30n *)
 Definition equal_map_multiplicative
   : forall (X Y : Type)
            (f : X -> Y)
@@ -285,7 +287,7 @@ Definition equal_map_multiplicative
 Arguments equal_map_multiplicative {X Y} f {x1 x2 x3} p q.
 (* endfrag *)
 
-(* begfrag:equal-map-inverse *)
+(* begfrag:5e7zp56e *)
 Definition equal_map_inverse
   : forall (X Y : Type) (f : X -> Y) (x x' : X) (p : Equal x x'),
       Equal (equal_map f (equal_inverse p))
@@ -309,7 +311,7 @@ Arguments equal_map_inverse {X Y} f {x x'} p.
 (** ** Cancellation laws                                            *)
 (* ================================================================ *)
 
-(* begfrag:equal-left-cancel *)
+(* begfrag:omtjvrai *)
 Definition equal_left_cancel
   : forall (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z),
       Equal (equal_compose p q) (equal_compose p q') -> Equal q q'
@@ -334,7 +336,7 @@ Definition equal_left_cancel
 Arguments equal_left_cancel {X x y z} p q q' _.
 (* endfrag *)
 
-(* begfrag:equal-left-remove *)
+(* begfrag:865g4mt7 *)
 Definition equal_left_remove
   : forall (X : Type)
            (x y : X)
@@ -363,7 +365,7 @@ Definition equal_left_remove
 Arguments equal_left_remove {X x y p p'} _ {z} q q' _.
 (* endfrag *)
 
-(* begfrag:equal-right-cancel *)
+(* begfrag:8gh9140h *)
 Definition equal_right_cancel
   : forall (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z),
       Equal (equal_compose p q) (equal_compose p' q) -> Equal p p'
@@ -398,7 +400,7 @@ Definition equal_right_cancel
 Arguments equal_right_cancel {X x y z} p p' q _.
 (* endfrag *)
 
-(* begfrag:equal-right-remove *)
+(* begfrag:sqhuo1hf *)
 Definition equal_right_remove
   : forall (X : Type)
            (x y : X)
@@ -432,7 +434,7 @@ Arguments equal_right_remove {X x y} p p' {z} {q q'} _ _.
 (** ** Uniqueness of units                                          *)
 (* ================================================================ *)
 
-(* begfrag:equal-left-unit-unique *)
+(* begfrag:x71kqflr *)
 Definition equal_left_unit_unique
   : forall (X : Type) (x y : X) (p : Equal x x) (q : Equal x y),
       Equal q (equal_compose p q) -> Equal (reflexive x) p
@@ -442,7 +444,7 @@ Definition equal_left_unit_unique
 Arguments equal_left_unit_unique {X x y} p {q} _.
 (* endfrag *)
 
-(* begfrag:equal-right-unit-unique *)
+(* begfrag:m1jqzny4 *)
 Definition equal_right_unit_unique
   : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y y),
       Equal p (equal_compose p q) -> Equal (reflexive y) q

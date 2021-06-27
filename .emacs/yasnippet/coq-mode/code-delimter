@@ -1,7 +1,8 @@
 # -*- mode: snippet -*-
 # name: code delimiter
 # key: zcd
+# expand-env: ((label (coq:label 8 t t)))
 # --
-(* begfrag:${1:LABEL} *)
+(* begfrag:`label` *)
 $0
 (* endfrag *)

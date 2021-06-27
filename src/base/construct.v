@@ -4,7 +4,7 @@
 (** ** Dependencies                                                 *)
 (* ================================================================ *)
 
-(* begfrag:base-construct-dependencies *)
+(* begfrag:zf4f204h *)
 Require Import ufcoq.base.primitive.
 (* endfrag *)
 
@@ -12,7 +12,7 @@ Require Import ufcoq.base.primitive.
 (** ** The type of a thing                                          *)
 (* ================================================================ *)
 
-(* begfrag:kind *)
+(* begfrag:b5b085qn *)
 Definition Kind : forall (X : Type), X -> Type
   := fun (X : Type) (x : X) => X.
 
@@ -23,7 +23,7 @@ Arguments Kind {X} _.
 (** ** Some basic notions about functions                           *)
 (* ================================================================ *)
 
-(* begfrag:function-domain *)
+(* begfrag:yrbfo0qa *)
 Definition FunctionDomain
   : forall (X : Type) (F : X -> Type), (forall (x : X), F x) -> Type
   := fun (X : Type) (F : X -> Type) (f : forall (x : X), F x) => X.
@@ -31,7 +31,7 @@ Definition FunctionDomain
 Arguments FunctionDomain {X} {F} _.
 (* endfrag *)
 
-(* begfrag:function-codomain *)
+(* begfrag:qolnxg6a *)
 Definition FunctionCodomain
   : forall (X : Type) (F : X -> Type),
       (forall (x : X), F x) -> X -> Type
@@ -41,7 +41,7 @@ Definition FunctionCodomain
 Arguments FunctionCodomain {X} {F} _ _.
 (* endfrag *)
 
-(* begfrag:function-value *)
+(* begfrag:jezpb6sa *)
 Definition function_value
   : forall (X : Type) (F : X -> Type) (a : X),
       (forall (x : X), F x) -> F a
@@ -51,7 +51,7 @@ Definition function_value
 Arguments function_value {X} {F} a _.
 (* endfrag *)
 
-(* begfrag:function-compose *)
+(* begfrag:u4wjel9o *)
 Definition function_compose
   : forall (X Y : Type)
            (G : Y -> Type)
@@ -68,21 +68,21 @@ Definition function_compose
 Arguments function_compose {X Y G} g f _.
 (* endfrag *)
 
-(* begfrag:identity-function *)
+(* begfrag:ct7rwcsm *)
 Definition identity_function : forall (X : Type), X -> X
   := fun (X : Type) (x : X) => x.
 
 Arguments identity_function {X} _.
 (* endfrag *)
 
-(* begfrag:constant-function *)
+(* begfrag:q4yy6ynm *)
 Definition constant_function : forall (X Y : Type), Y -> X -> Y
   := fun (X Y : Type) (y : Y) (_ : X) => y.
 
 Arguments constant_function {X Y} _ _.
 (* endfrag *)
 
-(* begfrag:functions-equal-values-equal *)
+(* begfrag:867thqwu *)
 Definition functions_equal_values_equal
   : forall (X : Type)
            (F : X -> Type)
@@ -111,13 +111,13 @@ Arguments functions_equal_values_equal {X F f g} _ x.
 (** ** Some basic notions about the primitive types                 *)
 (* ================================================================ *)
 
-(* begfrag:false-recursion *)
+(* begfrag:gcfsyi93 *)
 Definition false_recursion : forall (X : Type), False -> X
   := fun (X : Type)
        => false_induction (@constant_function False Type X).
 (* endfrag *)
 
-(* begfrag:true-recursion *)
+(* begfrag:kad6krsx *)
 Definition true_recursion : forall (X : Type), X -> True -> X
   := fun (X : Type)
        => true_induction (@constant_function True Type X).
@@ -125,14 +125,14 @@ Definition true_recursion : forall (X : Type), X -> True -> X
 Arguments true_recursion {X} _ _.
 (* endfrag *)
 
-(* begfrag:to-true *)
+(* begfrag:cppabof7 *)
 Definition to_true : forall (X : Type), X -> True
   := fun (X : Type) => constant_function only.
 
 Arguments to_true {X} _.
 (* endfrag *)
 
-(* begfrag:boolean-recursion *)
+(* begfrag:tav7tpv0 *)
 Definition boolean_recursion
   : forall (X : Type), X -> X -> Boolean -> X
   := fun (X : Type)
@@ -141,7 +141,7 @@ Definition boolean_recursion
 Arguments boolean_recursion {X} _ _ _.
 (* endfrag *)
 
-(* begfrag:natural-recursion *)
+(* begfrag:8m7c7dml *)
 Definition natural_recursion
   : forall (X : Type), X -> (Natural -> X -> X) -> Natural -> X
   := fun (X : Type) =>
@@ -150,7 +150,7 @@ Definition natural_recursion
 Arguments natural_recursion {X} _ _ _.
 (* endfrag *)
 
-(* begfrag:natural-recursion-simple *)
+(* begfrag:yhafxlw0 *)
 Definition natural_recursion_simple
   : forall (X : Type), X -> (X -> X) -> Natural -> X
   := fun (X : Type) (x : X) (f : X -> X)
@@ -159,7 +159,7 @@ Definition natural_recursion_simple
 Arguments natural_recursion_simple {X} _ _ _.
 (* endfrag *)
 
-(* begfrag:transport *)
+(* begfrag:szbmydj4 *)
 Definition transport
   : forall (X : Type) (F : X -> Type) (x y : X),
       Equal x y -> F x -> F y
@@ -179,7 +179,7 @@ Definition transport
 Arguments transport {X} F {x y} _ _.
 (* endfrag *)
 
-(* begfrag:transport-inverse *)
+(* begfrag:xsfz3fch *)
 Definition transport_inverse
   : forall (X : Type) (F : X -> Type) (x y : X),
       Equal x y -> F y -> F x
@@ -199,7 +199,7 @@ Definition transport_inverse
 Arguments transport_inverse {X} F {x y} _ _.
 (* endfrag *)
 
-(* begfrag:sigma-induction *)
+(* begfrag:wlyu1bpv *)
 Definition sigma_induction
   : forall (X : Type)
            (F : X -> Type)
@@ -216,7 +216,7 @@ Definition sigma_induction
 Arguments sigma_induction {X F G} _ _.
 (* endfrag *)
 
-(* begfrag:sigma-uncurry *)
+(* begfrag:dq9dzz6c *)
 Definition sigma_uncurry
   : forall (X : Type)
            (F : X -> Type)
@@ -228,7 +228,7 @@ Definition sigma_uncurry
 Arguments sigma_uncurry {X F G} _ _.
 (* endfrag *)
 
-(* begfrag:sigma-curry *)
+(* begfrag:gewpttx0 *)
 Definition sigma_curry
   : forall (X : Type)
            (F : X -> Type)
@@ -246,7 +246,7 @@ Definition sigma_curry
 Arguments sigma_curry {X F G} _ _ _.
 (* endfrag *)
 
-(* begfrag:sigma-recursion *)
+(* begfrag:siygmnhf *)
 Definition sigma_recursion
   : forall (X : Type)
            (F : X -> Type)
@@ -266,12 +266,12 @@ Arguments sigma_recursion {X F} Y _ _.
 (** ** The product of two types                                     *)
 (* ================================================================ *)
 
-(* begfrag:product-type *)
+(* begfrag:9ia68b8n *)
 Definition Product : Type -> Type -> Type
   := fun (X Y : Type) => Sigma (_ : X), Y.
 (* endfrag *)
 
-(* begfrag:product-pair *)
+(* begfrag:c97wzdtw *)
 Definition pair : forall (X Y : Type), X -> Y -> Product X Y
   := fun (X Y : Type) (x : X) (y : Y)
        => sigma (@constant_function X Type Y) x y.
@@ -279,21 +279,21 @@ Definition pair : forall (X Y : Type), X -> Y -> Product X Y
 Arguments pair {X Y} _ _.
 (* endfrag *)
 
-(* begfrag:product-first *)
+(* begfrag:9eptwq6k *)
 Definition first : forall (X Y : Type), Product X Y -> X
   := fun (X Y : Type) (t : Product X Y) => sigma1 t.
 
 Arguments first {X Y} _.
 (* endfrag *)
 
-(* begfrag:product-second *)
+(* begfrag:og9uqzhe *)
 Definition second : forall (X Y : Type), Product X Y -> Y
   := fun (X Y : Type) (t : Product X Y) => sigma2 t.
 
 Arguments second {X Y} _.
 (* endfrag *)
 
-(* begfrag:product-induction *)
+(* begfrag:ww805vp5 *)
 Definition product_induction
   : forall (X Y : Type) (F : Product X Y -> Type),
       (forall (x : X) (y : Y), F (pair x y))
@@ -307,7 +307,7 @@ Definition product_induction
 Arguments product_induction {X Y F} _ _.
 (* endfrag *)
 
-(* begfrag:uncurry *)
+(* begfrag:e1hi7545 *)
 Definition uncurry
   : forall (X Y : Type) (F : Product X Y -> Type),
       (forall (x : X) (y : Y), F (pair x y))
@@ -317,7 +317,7 @@ Definition uncurry
 Arguments uncurry {X Y F} _ _.
 (* endfrag *)
 
-(* begfrag:curry *)
+(* begfrag:g6p35mq1 *)
 Definition curry
   : forall (X Y : Type) (F : Product X Y -> Type),
       (forall (t : Product X Y), F t)
@@ -332,7 +332,7 @@ Definition curry
 Arguments curry {X Y F} _ _ _.
 (* endfrag *)
 
-(* begfrag:product-recursion *)
+(* begfrag:9cz79pdm *)
 Definition product_recursion
   : forall (X Y Z : Type), (X -> Y -> Z) -> Product X Y -> Z
   := fun (X Y Z : Type)
@@ -343,7 +343,7 @@ Definition product_recursion
 Arguments product_recursion {X Y Z} _ _.
 (* endfrag *)
 
-(* begfrag:pair-family *)
+(* begfrag:d0923l5s *)
 Definition PairFamily
   : forall (T : Type), (T -> Type) -> (T -> Type) -> T -> Type
   := fun (T : Type) (F : T -> Type) (G : T -> Type) (t : T)
@@ -352,7 +352,7 @@ Definition PairFamily
 Arguments PairFamily {T} _ _ _.
 (* endfrag *)
 
-(* begfrag:pair-function *)
+(* begfrag:rgjbl4r2 *)
 Definition pair_function
   : forall (T : Type)
            (F : T -> Type)
@@ -371,7 +371,7 @@ Definition pair_function
 Arguments  pair_function {T F G} _ _ _.
 (* endfrag *)
 
-(* begfrag:product-map *)
+(* begfrag:wqs9857v *)
 Definition product_map
   : forall (X Y X' Y' : Type),
       (X -> X') -> (Y -> Y') -> Product X Y -> Product X' Y'
@@ -388,28 +388,28 @@ Arguments product_map {X Y X' Y'} _ _ _.
 (** ** The sum of two types                                         *)
 (* ================================================================ *)
 
-(* begfrag:sum-type *)
+(* begfrag:fp5x8226 *)
 Definition Sum : Type -> Type -> Type
   := fun (X Y : Type)
        => let F : Boolean -> Type := boolean_recursion X Y
           in Sigma (b : Boolean), F b.
 (* endfrag *)
 
-(* begfrag:sum-left *)
+(* begfrag:kknkg0c7 *)
 Definition left : forall (X Y : Type), X -> Sum X Y
   := fun (X Y : Type) (x : X) => sigma (boolean_recursion X Y) yes x.
 
 Arguments left {X Y} _.
 (* endfrag *)
 
-(* begfrag:sum-right *)
+(* begfrag:ma104yei *)
 Definition right : forall (X Y : Type), Y -> Sum X Y
   := fun (X Y : Type) (y : Y) => sigma (boolean_recursion X Y) no y.
 
 Arguments right {X Y} _.
 (* endfrag *)
 
-(* begfrag:sum-induction *)
+(* begfrag:hrr9zb80 *)
 Definition sum_induction
   : forall (X Y : Type) (F : Sum X Y -> Type),
       (forall (x : X), F (left x)) -> (forall (y : Y), F (right y))
@@ -434,7 +434,7 @@ Definition sum_induction
 Arguments sum_induction {X Y} F _ _ s.
 (* endfrag *)
 
-(* begfrag:sum-recursion *)
+(* begfrag:czz2aznf *)
 Definition sum_recursion
   : forall (X Y Z : Type), (X -> Z) -> (Y -> Z) -> Sum X Y -> Z
   := fun (X Y Z : Type)
@@ -454,7 +454,7 @@ Definition sum_recursion
 Arguments sum_recursion {X Y Z} _ _ s.
 (* endfrag *)
 
-(* begfrag:sum-map *)
+(* begfrag:mrbbbxn0 *)
 Definition sum_map
   : forall (X Y X' Y' : Type),
       (X -> X') -> (Y -> Y') -> Sum X Y -> Sum X' Y'
