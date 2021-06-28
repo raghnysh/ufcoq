@@ -19,6 +19,18 @@ NIXBUILD_COOKIE = .nixbuild_done
 ## The name of the symbolic link created by nix-build
 NIXBUILD_LINK = .nix
 
+## Fragments database (recutils)
+FRAGMENTS_DATABASE = misc/fragments/fragments.rec
+
+## Program to generate the above database
+FRAGMENTS_PROGRAM = misc/fragments/fragments.awk
+
+## The root of the physical paths of the Coq modules of the project.
+COQ_ROOT = src
+
+## The physical paths of the Coq modules of the project.
+COQ_FILES = $(shell find ${COQ_ROOT} -name '*.v')
+
 ## If the variable VERBOSE has a blank value, execute recipes silently
 ## without printing them.
 ifeq ($(strip ${VERBOSE}),)
@@ -50,12 +62,19 @@ ${NIXBUILD_COOKIE}: default.nix misc/nix/*.nix
 	nix-build --out-link ${NIXBUILD_LINK}
 	touch $@
 
+## Target for generating the fragments database
+.PHONY: fragments-database
+fragments-database: ${FRAGMENTS_DATABASE}
+
+${FRAGMENTS_DATABASE}: ${COQ_FILES}
+	awk -f ${FRAGMENTS_PROGRAM} $^ > $@
+
 ## Target for cleaning the dune output
 .PHONY: clean
 
 clean:
 	dune clean
-	${RM} ${OPAM_FILES}
+	${RM} ${OPAM_FILES} ${FRAGMENTS_DATABASE}
 
 ## Target for cleaning the dune and nix-build outputs
 .PHONY: distclean
