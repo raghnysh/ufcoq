@@ -15,7 +15,7 @@ let
     zarith
   ];
   coqPackages = [ coq ] ++ ocamlPackages;
-  generalPackages = [];
+  generalPackages = with nixpkgs; [ gawk recutils ];
   packages = coqPackages ++ generalPackages;
 in {
   inherit (nixpkgs) buildEnv mkShell;
