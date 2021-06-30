@@ -34,11 +34,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 16
 End: 19
-Content: LHS := RHS
+Content: Definition Kind : forall (X : Type), X -> Type\\n  := fun (X : Type) (x : X) => X.\\n\\nArguments Kind {X} _.
 LHS: Definition Kind : forall (X : Type), X -> Type
-RHS: fun (X : Type) (x : X) => X.
-+
-+    Arguments Kind {X} _.
+RHS: fun (X : Type) (x : X) => X.\\n\\nArguments Kind {X} _.
 SortKey: A
 
 Label: yrbfo0qa
@@ -47,12 +45,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 27
 End: 31
-Content: LHS := RHS
-LHS: Definition FunctionDomain
-+      : forall (X : Type) (F : X -> Type), (forall (x : X), F x) -> Type
-RHS: fun (X : Type) (F : X -> Type) (f : forall (x : X), F x) => X.
-+
-+    Arguments FunctionDomain {X} {F} _.
+Content: Definition FunctionDomain\\n  : forall (X : Type) (F : X -> Type), (forall (x : X), F x) -> Type\\n  := fun (X : Type) (F : X -> Type) (f : forall (x : X), F x) => X.\\n\\nArguments FunctionDomain {X} {F} _.
+LHS: Definition FunctionDomain\\n  : forall (X : Type) (F : X -> Type), (forall (x : X), F x) -> Type
+RHS: fun (X : Type) (F : X -> Type) (f : forall (x : X), F x) => X.\\n\\nArguments FunctionDomain {X} {F} _.
 SortKey: A
 
 Label: qolnxg6a
@@ -61,14 +56,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 35
 End: 41
-Content: LHS := RHS
-LHS: Definition FunctionCodomain
-+      : forall (X : Type) (F : X -> Type),
-+          (forall (x : X), F x) -> X -> Type
-RHS: fun (X : Type) (F : X -> Type)
-+           (f : forall (x : X), F x) (a : X) => F a.
-+
-+    Arguments FunctionCodomain {X} {F} _ _.
+Content: Definition FunctionCodomain\\n  : forall (X : Type) (F : X -> Type),\\n      (forall (x : X), F x) -> X -> Type\\n  := fun (X : Type) (F : X -> Type)\\n       (f : forall (x : X), F x) (a : X) => F a.\\n\\nArguments FunctionCodomain {X} {F} _ _.
+LHS: Definition FunctionCodomain\\n  : forall (X : Type) (F : X -> Type),\\n      (forall (x : X), F x) -> X -> Type
+RHS: fun (X : Type) (F : X -> Type)\\n       (f : forall (x : X), F x) (a : X) => F a.\\n\\nArguments FunctionCodomain {X} {F} _ _.
 SortKey: A
 
 Label: jezpb6sa
@@ -77,14 +67,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 45
 End: 51
-Content: LHS := RHS
-LHS: Definition function_value
-+      : forall (X : Type) (F : X -> Type) (a : X),
-+          (forall (x : X), F x) -> F a
-RHS: fun (X : Type) (F : X -> Type) (a : X)
-+           (f : forall (x : X), F x) => f a.
-+
-+    Arguments function_value {X} {F} a _.
+Content: Definition function_value\\n  : forall (X : Type) (F : X -> Type) (a : X),\\n      (forall (x : X), F x) -> F a\\n  := fun (X : Type) (F : X -> Type) (a : X)\\n       (f : forall (x : X), F x) => f a.\\n\\nArguments function_value {X} {F} a _.
+LHS: Definition function_value\\n  : forall (X : Type) (F : X -> Type) (a : X),\\n      (forall (x : X), F x) -> F a
+RHS: fun (X : Type) (F : X -> Type) (a : X)\\n       (f : forall (x : X), F x) => f a.\\n\\nArguments function_value {X} {F} a _.
 SortKey: A
 
 Label: u4wjel9o
@@ -93,21 +78,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 55
 End: 68
-Content: LHS := RHS
-LHS: Definition function_compose
-+      : forall (X Y : Type)
-+               (G : Y -> Type)
-+               (g : forall (y : Y), G y)
-+               (f : X -> Y),
-+          forall (x : X), G (f x)
-RHS: fun (X Y : Type)
-+             (G : Y -> Type)
-+             (g : forall (y : Y), G y)
-+             (f : X -> Y)
-+             (x : X)
-+           => g (f x).
-+
-+    Arguments function_compose {X Y G} g f _.
+Content: Definition function_compose\\n  : forall (X Y : Type)\\n           (G : Y -> Type)\\n           (g : forall (y : Y), G y)\\n           (f : X -> Y),\\n      forall (x : X), G (f x)\\n  := fun (X Y : Type)\\n         (G : Y -> Type)\\n         (g : forall (y : Y), G y)\\n         (f : X -> Y)\\n         (x : X)\\n       => g (f x).\\n\\nArguments function_compose {X Y G} g f _.
+LHS: Definition function_compose\\n  : forall (X Y : Type)\\n           (G : Y -> Type)\\n           (g : forall (y : Y), G y)\\n           (f : X -> Y),\\n      forall (x : X), G (f x)
+RHS: fun (X Y : Type)\\n         (G : Y -> Type)\\n         (g : forall (y : Y), G y)\\n         (f : X -> Y)\\n         (x : X)\\n       => g (f x).\\n\\nArguments function_compose {X Y G} g f _.
 SortKey: A
 
 Label: ct7rwcsm
@@ -116,11 +89,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 72
 End: 75
-Content: LHS := RHS
+Content: Definition identity_function : forall (X : Type), X -> X\\n  := fun (X : Type) (x : X) => x.\\n\\nArguments identity_function {X} _.
 LHS: Definition identity_function : forall (X : Type), X -> X
-RHS: fun (X : Type) (x : X) => x.
-+
-+    Arguments identity_function {X} _.
+RHS: fun (X : Type) (x : X) => x.\\n\\nArguments identity_function {X} _.
 SortKey: A
 
 Label: q4yy6ynm
@@ -129,11 +100,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 79
 End: 82
-Content: LHS := RHS
+Content: Definition constant_function : forall (X Y : Type), Y -> X -> Y\\n  := fun (X Y : Type) (y : Y) (_ : X) => y.\\n\\nArguments constant_function {X Y} _ _.
 LHS: Definition constant_function : forall (X Y : Type), Y -> X -> Y
-RHS: fun (X Y : Type) (y : Y) (_ : X) => y.
-+
-+    Arguments constant_function {X Y} _ _.
+RHS: fun (X Y : Type) (y : Y) (_ : X) => y.\\n\\nArguments constant_function {X Y} _ _.
 SortKey: A
 
 Label: 867thqwu
@@ -142,29 +111,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 86
 End: 107
-Content: LHS := RHS
-LHS: Definition functions_equal_values_equal
-+      : forall (X : Type)
-+               (F : X -> Type)
-+               (f g : forall (x : X), F x),
-+          Equal f g -> forall (x : X), Equal (f x) (g x)
-RHS: fun (X : Type)
-+             (F : X -> Type)
-+             (f : forall (x : X), F x)
-+           =>
-+             let
-+               T : Type := forall (x : X), F x
-+             in let
-+               P : forall (t : T), Equal f t -> Type
-+                 := fun (t : T)
-+                      => constant_function
-+                           (forall (x : X), Equal (f x) (t x))
-+             in let
-+               base : P f (reflexive f) := fun (x : X) => reflexive (f x)
-+             in
-+               equal_induction f P base.
-+
-+    Arguments functions_equal_values_equal {X F f g} _ x.
+Content: Definition functions_equal_values_equal\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (f g : forall (x : X), F x),\\n      Equal f g -> forall (x : X), Equal (f x) (g x)\\n  := fun (X : Type)\\n         (F : X -> Type)\\n         (f : forall (x : X), F x)\\n       =>\\n         let\\n           T : Type := forall (x : X), F x\\n         in let\\n           P : forall (t : T), Equal f t -> Type\\n             := fun (t : T)\\n                  => constant_function\\n                       (forall (x : X), Equal (f x) (t x))\\n         in let\\n           base : P f (reflexive f) := fun (x : X) => reflexive (f x)\\n         in\\n           equal_induction f P base.\\n\\nArguments functions_equal_values_equal {X F f g} _ x.
+LHS: Definition functions_equal_values_equal\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (f g : forall (x : X), F x),\\n      Equal f g -> forall (x : X), Equal (f x) (g x)
+RHS: fun (X : Type)\\n         (F : X -> Type)\\n         (f : forall (x : X), F x)\\n       =>\\n         let\\n           T : Type := forall (x : X), F x\\n         in let\\n           P : forall (t : T), Equal f t -> Type\\n             := fun (t : T)\\n                  => constant_function\\n                       (forall (x : X), Equal (f x) (t x))\\n         in let\\n           base : P f (reflexive f) := fun (x : X) => reflexive (f x)\\n         in\\n           equal_induction f P base.\\n\\nArguments functions_equal_values_equal {X F f g} _ x.
 SortKey: A
 
 Label: gcfsyi93
@@ -173,10 +122,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 115
 End: 117
-Content: LHS := RHS
+Content: Definition false_recursion : forall (X : Type), False -> X\\n  := fun (X : Type)\\n       => false_induction (@constant_function False Type X).
 LHS: Definition false_recursion : forall (X : Type), False -> X
-RHS: fun (X : Type)
-+           => false_induction (@constant_function False Type X).
+RHS: fun (X : Type)\\n       => false_induction (@constant_function False Type X).
 SortKey: A
 
 Label: kad6krsx
@@ -185,12 +133,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 121
 End: 125
-Content: LHS := RHS
+Content: Definition true_recursion : forall (X : Type), X -> True -> X\\n  := fun (X : Type)\\n       => true_induction (@constant_function True Type X).\\n\\nArguments true_recursion {X} _ _.
 LHS: Definition true_recursion : forall (X : Type), X -> True -> X
-RHS: fun (X : Type)
-+           => true_induction (@constant_function True Type X).
-+
-+    Arguments true_recursion {X} _ _.
+RHS: fun (X : Type)\\n       => true_induction (@constant_function True Type X).\\n\\nArguments true_recursion {X} _ _.
 SortKey: A
 
 Label: cppabof7
@@ -199,11 +144,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 129
 End: 132
-Content: LHS := RHS
+Content: Definition to_true : forall (X : Type), X -> True\\n  := fun (X : Type) => constant_function only.\\n\\nArguments to_true {X} _.
 LHS: Definition to_true : forall (X : Type), X -> True
-RHS: fun (X : Type) => constant_function only.
-+
-+    Arguments to_true {X} _.
+RHS: fun (X : Type) => constant_function only.\\n\\nArguments to_true {X} _.
 SortKey: A
 
 Label: tav7tpv0
@@ -212,13 +155,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 136
 End: 141
-Content: LHS := RHS
-LHS: Definition boolean_recursion
-+      : forall (X : Type), X -> X -> Boolean -> X
-RHS: fun (X : Type)
-+           => boolean_induction (@constant_function Boolean Type X).
-+
-+    Arguments boolean_recursion {X} _ _ _.
+Content: Definition boolean_recursion\\n  : forall (X : Type), X -> X -> Boolean -> X\\n  := fun (X : Type)\\n       => boolean_induction (@constant_function Boolean Type X).\\n\\nArguments boolean_recursion {X} _ _ _.
+LHS: Definition boolean_recursion\\n  : forall (X : Type), X -> X -> Boolean -> X
+RHS: fun (X : Type)\\n       => boolean_induction (@constant_function Boolean Type X).\\n\\nArguments boolean_recursion {X} _ _ _.
 SortKey: A
 
 Label: 8m7c7dml
@@ -227,13 +166,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 145
 End: 150
-Content: LHS := RHS
-LHS: Definition natural_recursion
-+      : forall (X : Type), X -> (Natural -> X -> X) -> Natural -> X
-RHS: fun (X : Type) =>
-+          natural_induction (@constant_function Natural Type X).
-+
-+    Arguments natural_recursion {X} _ _ _.
+Content: Definition natural_recursion\\n  : forall (X : Type), X -> (Natural -> X -> X) -> Natural -> X\\n  := fun (X : Type) =>\\n      natural_induction (@constant_function Natural Type X).\\n\\nArguments natural_recursion {X} _ _ _.
+LHS: Definition natural_recursion\\n  : forall (X : Type), X -> (Natural -> X -> X) -> Natural -> X
+RHS: fun (X : Type) =>\\n      natural_induction (@constant_function Natural Type X).\\n\\nArguments natural_recursion {X} _ _ _.
 SortKey: A
 
 Label: yhafxlw0
@@ -242,13 +177,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 154
 End: 159
-Content: LHS := RHS
-LHS: Definition natural_recursion_simple
-+      : forall (X : Type), X -> (X -> X) -> Natural -> X
-RHS: fun (X : Type) (x : X) (f : X -> X)
-+           => natural_recursion x (@constant_function Natural (X -> X) f).
-+
-+    Arguments natural_recursion_simple {X} _ _ _.
+Content: Definition natural_recursion_simple\\n  : forall (X : Type), X -> (X -> X) -> Natural -> X\\n  := fun (X : Type) (x : X) (f : X -> X)\\n       => natural_recursion x (@constant_function Natural (X -> X) f).\\n\\nArguments natural_recursion_simple {X} _ _ _.
+LHS: Definition natural_recursion_simple\\n  : forall (X : Type), X -> (X -> X) -> Natural -> X
+RHS: fun (X : Type) (x : X) (f : X -> X)\\n       => natural_recursion x (@constant_function Natural (X -> X) f).\\n\\nArguments natural_recursion_simple {X} _ _ _.
 SortKey: A
 
 Label: szbmydj4
@@ -257,24 +188,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 163
 End: 179
-Content: LHS := RHS
-LHS: Definition transport
-+      : forall (X : Type) (F : X -> Type) (x y : X),
-+          Equal x y -> F x -> F y
-RHS: fun (X : Type)
-+             (F : X -> Type)
-+             (x : X)
-+           =>
-+             let
-+               G : forall (a : X), Equal x a -> Type
-+                 := fun (a : X) => constant_function (F x -> F a)
-+             in let
-+               base : G x (reflexive x)
-+                 := @identity_function (F x)
-+             in
-+               equal_induction x G base.
-+
-+    Arguments transport {X} F {x y} _ _.
+Content: Definition transport\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal x y -> F x -> F y\\n  := fun (X : Type)\\n         (F : X -> Type)\\n         (x : X)\\n       =>\\n         let\\n           G : forall (a : X), Equal x a -> Type\\n             := fun (a : X) => constant_function (F x -> F a)\\n         in let\\n           base : G x (reflexive x)\\n             := @identity_function (F x)\\n         in\\n           equal_induction x G base.\\n\\nArguments transport {X} F {x y} _ _.
+LHS: Definition transport\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal x y -> F x -> F y
+RHS: fun (X : Type)\\n         (F : X -> Type)\\n         (x : X)\\n       =>\\n         let\\n           G : forall (a : X), Equal x a -> Type\\n             := fun (a : X) => constant_function (F x -> F a)\\n         in let\\n           base : G x (reflexive x)\\n             := @identity_function (F x)\\n         in\\n           equal_induction x G base.\\n\\nArguments transport {X} F {x y} _ _.
 SortKey: A
 
 Label: xsfz3fch
@@ -283,24 +199,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 183
 End: 199
-Content: LHS := RHS
-LHS: Definition transport_inverse
-+      : forall (X : Type) (F : X -> Type) (x y : X),
-+          Equal x y -> F y -> F x
-RHS: fun (X : Type)
-+             (F : X -> Type)
-+             (x : X)
-+           =>
-+             let
-+               G : forall (a : X), Equal x a -> Type
-+                 := fun (a : X) => constant_function (F a -> F x)
-+             in let
-+               base : G x (reflexive x)
-+                 := @identity_function (F x)
-+             in
-+               equal_induction x G base.
-+
-+    Arguments transport_inverse {X} F {x y} _ _.
+Content: Definition transport_inverse\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal x y -> F y -> F x\\n  := fun (X : Type)\\n         (F : X -> Type)\\n         (x : X)\\n       =>\\n         let\\n           G : forall (a : X), Equal x a -> Type\\n             := fun (a : X) => constant_function (F a -> F x)\\n         in let\\n           base : G x (reflexive x)\\n             := @identity_function (F x)\\n         in\\n           equal_induction x G base.\\n\\nArguments transport_inverse {X} F {x y} _ _.
+LHS: Definition transport_inverse\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal x y -> F y -> F x
+RHS: fun (X : Type)\\n         (F : X -> Type)\\n         (x : X)\\n       =>\\n         let\\n           G : forall (a : X), Equal x a -> Type\\n             := fun (a : X) => constant_function (F a -> F x)\\n         in let\\n           base : G x (reflexive x)\\n             := @identity_function (F x)\\n         in\\n           equal_induction x G base.\\n\\nArguments transport_inverse {X} F {x y} _ _.
 SortKey: A
 
 Label: wlyu1bpv
@@ -309,21 +210,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 203
 End: 216
-Content: LHS := RHS
-LHS: Definition sigma_induction
-+      : forall (X : Type)
-+               (F : X -> Type)
-+               (G : (Sigma (x : X), F x) -> Type),
-+          (forall (x : X) (y : F x), G (sigma F x y))
-+            -> (forall (t : Sigma (x : X), F x), G t)
-RHS: fun (X : Type)
-+             (F : X -> Type)
-+             (G : (Sigma (x : X), F x) -> Type)
-+             (f : forall (x : X) (y : F x), G (sigma F x y))
-+             (t : Sigma (x : X), F x)
-+        => f (sigma1 t) (sigma2 t).
-+
-+    Arguments sigma_induction {X F G} _ _.
+Content: Definition sigma_induction\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type),\\n      (forall (x : X) (y : F x), G (sigma F x y))\\n        -> (forall (t : Sigma (x : X), F x), G t)\\n  := fun (X : Type)\\n         (F : X -> Type)\\n         (G : (Sigma (x : X), F x) -> Type)\\n         (f : forall (x : X) (y : F x), G (sigma F x y))\\n         (t : Sigma (x : X), F x)\\n    => f (sigma1 t) (sigma2 t).\\n\\nArguments sigma_induction {X F G} _ _.
+LHS: Definition sigma_induction\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type),\\n      (forall (x : X) (y : F x), G (sigma F x y))\\n        -> (forall (t : Sigma (x : X), F x), G t)
+RHS: fun (X : Type)\\n         (F : X -> Type)\\n         (G : (Sigma (x : X), F x) -> Type)\\n         (f : forall (x : X) (y : F x), G (sigma F x y))\\n         (t : Sigma (x : X), F x)\\n    => f (sigma1 t) (sigma2 t).\\n\\nArguments sigma_induction {X F G} _ _.
 SortKey: A
 
 Label: dq9dzz6c
@@ -332,16 +221,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 220
 End: 228
-Content: LHS := RHS
-LHS: Definition sigma_uncurry
-+      : forall (X : Type)
-+               (F : X -> Type)
-+               (G : (Sigma (x : X), F x) -> Type),
-+          (forall (x : X) (y : F x), G (sigma F x y))
-+            -> forall (t : Sigma (x : X), F x), G t
-RHS: @sigma_induction.
-+
-+    Arguments sigma_uncurry {X F G} _ _.
+Content: Definition sigma_uncurry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type),\\n      (forall (x : X) (y : F x), G (sigma F x y))\\n        -> forall (t : Sigma (x : X), F x), G t\\n  := @sigma_induction.\\n\\nArguments sigma_uncurry {X F G} _ _.
+LHS: Definition sigma_uncurry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type),\\n      (forall (x : X) (y : F x), G (sigma F x y))\\n        -> forall (t : Sigma (x : X), F x), G t
+RHS: @sigma_induction.\\n\\nArguments sigma_uncurry {X F G} _ _.
 SortKey: A
 
 Label: gewpttx0
@@ -350,22 +232,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 232
 End: 246
-Content: LHS := RHS
-LHS: Definition sigma_curry
-+      : forall (X : Type)
-+               (F : X -> Type)
-+               (G : (Sigma (x : X), F x) -> Type),
-+          (forall (t : Sigma (x : X), F x), G t)
-+            -> forall (x : X) (y : F x), G (sigma F x y)
-RHS: fun  (X : Type)
-+              (F : X -> Type)
-+              (G : (Sigma (x : X), F x) -> Type)
-+              (g : forall (t : Sigma (x : X), F x), G t)
-+              (x : X)
-+              (y : F x)
-+           => g (sigma F x y).
-+
-+    Arguments sigma_curry {X F G} _ _ _.
+Content: Definition sigma_curry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type),\\n      (forall (t : Sigma (x : X), F x), G t)\\n        -> forall (x : X) (y : F x), G (sigma F x y)\\n  := fun  (X : Type)\\n          (F : X -> Type)\\n          (G : (Sigma (x : X), F x) -> Type)\\n          (g : forall (t : Sigma (x : X), F x), G t)\\n          (x : X)\\n          (y : F x)\\n       => g (sigma F x y).\\n\\nArguments sigma_curry {X F G} _ _ _.
+LHS: Definition sigma_curry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type),\\n      (forall (t : Sigma (x : X), F x), G t)\\n        -> forall (x : X) (y : F x), G (sigma F x y)
+RHS: fun  (X : Type)\\n          (F : X -> Type)\\n          (G : (Sigma (x : X), F x) -> Type)\\n          (g : forall (t : Sigma (x : X), F x), G t)\\n          (x : X)\\n          (y : F x)\\n       => g (sigma F x y).\\n\\nArguments sigma_curry {X F G} _ _ _.
 SortKey: A
 
 Label: siygmnhf
@@ -374,20 +243,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 250
 End: 262
-Content: LHS := RHS
-LHS: Definition sigma_recursion
-+      : forall (X : Type)
-+               (F : X -> Type)
-+               (Y : Type),
-+          (forall (x : X), F x -> Y) -> (Sigma (x : X), F x) -> Y
-RHS: fun (X : Type)
-+             (F : X -> Type)
-+             (Y : Type)
-+             (f : forall (x : X), F x -> Y)
-+             (t : Sigma (x : X), F x)
-+           => f (sigma1 t) (sigma2 t).
-+
-+    Arguments sigma_recursion {X F} Y _ _.
+Content: Definition sigma_recursion\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (Y : Type),\\n      (forall (x : X), F x -> Y) -> (Sigma (x : X), F x) -> Y\\n  := fun (X : Type)\\n         (F : X -> Type)\\n         (Y : Type)\\n         (f : forall (x : X), F x -> Y)\\n         (t : Sigma (x : X), F x)\\n       => f (sigma1 t) (sigma2 t).\\n\\nArguments sigma_recursion {X F} Y _ _.
+LHS: Definition sigma_recursion\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (Y : Type),\\n      (forall (x : X), F x -> Y) -> (Sigma (x : X), F x) -> Y
+RHS: fun (X : Type)\\n         (F : X -> Type)\\n         (Y : Type)\\n         (f : forall (x : X), F x -> Y)\\n         (t : Sigma (x : X), F x)\\n       => f (sigma1 t) (sigma2 t).\\n\\nArguments sigma_recursion {X F} Y _ _.
 SortKey: A
 
 Label: 9ia68b8n
@@ -396,7 +254,7 @@ Class: Definition
 File: src/base/construct.v
 Begin: 270
 End: 271
-Content: LHS := RHS
+Content: Definition Product : Type -> Type -> Type\\n  := fun (X Y : Type) => Sigma (_ : X), Y.
 LHS: Definition Product : Type -> Type -> Type
 RHS: fun (X Y : Type) => Sigma (_ : X), Y.
 SortKey: A
@@ -407,12 +265,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 275
 End: 279
-Content: LHS := RHS
+Content: Definition pair : forall (X Y : Type), X -> Y -> Product X Y\\n  := fun (X Y : Type) (x : X) (y : Y)\\n       => sigma (@constant_function X Type Y) x y.\\n\\nArguments pair {X Y} _ _.
 LHS: Definition pair : forall (X Y : Type), X -> Y -> Product X Y
-RHS: fun (X Y : Type) (x : X) (y : Y)
-+           => sigma (@constant_function X Type Y) x y.
-+
-+    Arguments pair {X Y} _ _.
+RHS: fun (X Y : Type) (x : X) (y : Y)\\n       => sigma (@constant_function X Type Y) x y.\\n\\nArguments pair {X Y} _ _.
 SortKey: A
 
 Label: 9eptwq6k
@@ -421,11 +276,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 283
 End: 286
-Content: LHS := RHS
+Content: Definition first : forall (X Y : Type), Product X Y -> X\\n  := fun (X Y : Type) (t : Product X Y) => sigma1 t.\\n\\nArguments first {X Y} _.
 LHS: Definition first : forall (X Y : Type), Product X Y -> X
-RHS: fun (X Y : Type) (t : Product X Y) => sigma1 t.
-+
-+    Arguments first {X Y} _.
+RHS: fun (X Y : Type) (t : Product X Y) => sigma1 t.\\n\\nArguments first {X Y} _.
 SortKey: A
 
 Label: og9uqzhe
@@ -434,11 +287,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 290
 End: 293
-Content: LHS := RHS
+Content: Definition second : forall (X Y : Type), Product X Y -> Y\\n  := fun (X Y : Type) (t : Product X Y) => sigma2 t.\\n\\nArguments second {X Y} _.
 LHS: Definition second : forall (X Y : Type), Product X Y -> Y
-RHS: fun (X Y : Type) (t : Product X Y) => sigma2 t.
-+
-+    Arguments second {X Y} _.
+RHS: fun (X Y : Type) (t : Product X Y) => sigma2 t.\\n\\nArguments second {X Y} _.
 SortKey: A
 
 Label: ww805vp5
@@ -447,18 +298,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 297
 End: 307
-Content: LHS := RHS
-LHS: Definition product_induction
-+      : forall (X Y : Type) (F : Product X Y -> Type),
-+          (forall (x : X) (y : Y), F (pair x y))
-+            -> forall (t : Product X Y), F t
-RHS: fun (X Y : Type)
-+             (F : Product X Y -> Type)
-+             (f : forall (x : X) (y : Y), F (pair x y))
-+             (t : Product X Y)
-+           => f (first t) (second t).
-+
-+    Arguments product_induction {X Y F} _ _.
+Content: Definition product_induction\\n  : forall (X Y : Type) (F : Product X Y -> Type),\\n      (forall (x : X) (y : Y), F (pair x y))\\n        -> forall (t : Product X Y), F t\\n  := fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (f : forall (x : X) (y : Y), F (pair x y))\\n         (t : Product X Y)\\n       => f (first t) (second t).\\n\\nArguments product_induction {X Y F} _ _.
+LHS: Definition product_induction\\n  : forall (X Y : Type) (F : Product X Y -> Type),\\n      (forall (x : X) (y : Y), F (pair x y))\\n        -> forall (t : Product X Y), F t
+RHS: fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (f : forall (x : X) (y : Y), F (pair x y))\\n         (t : Product X Y)\\n       => f (first t) (second t).\\n\\nArguments product_induction {X Y F} _ _.
 SortKey: A
 
 Label: e1hi7545
@@ -467,14 +309,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 311
 End: 317
-Content: LHS := RHS
-LHS: Definition uncurry
-+      : forall (X Y : Type) (F : Product X Y -> Type),
-+          (forall (x : X) (y : Y), F (pair x y))
-+            -> forall (t : Product X Y), F t
-RHS: @product_induction.
-+
-+    Arguments uncurry {X Y F} _ _.
+Content: Definition uncurry\\n  : forall (X Y : Type) (F : Product X Y -> Type),\\n      (forall (x : X) (y : Y), F (pair x y))\\n        -> forall (t : Product X Y), F t\\n  := @product_induction.\\n\\nArguments uncurry {X Y F} _ _.
+LHS: Definition uncurry\\n  : forall (X Y : Type) (F : Product X Y -> Type),\\n      (forall (x : X) (y : Y), F (pair x y))\\n        -> forall (t : Product X Y), F t
+RHS: @product_induction.\\n\\nArguments uncurry {X Y F} _ _.
 SortKey: A
 
 Label: g6p35mq1
@@ -483,19 +320,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 321
 End: 332
-Content: LHS := RHS
-LHS: Definition curry
-+      : forall (X Y : Type) (F : Product X Y -> Type),
-+          (forall (t : Product X Y), F t)
-+            -> forall (x : X) (y : Y), F (pair x y)
-RHS: fun (X Y : Type)
-+             (F : Product X Y -> Type)
-+             (g : forall (t : Product X Y), F t)
-+             (x : X)
-+             (y : Y)
-+           => g (pair x y).
-+
-+    Arguments curry {X Y F} _ _ _.
+Content: Definition curry\\n  : forall (X Y : Type) (F : Product X Y -> Type),\\n      (forall (t : Product X Y), F t)\\n        -> forall (x : X) (y : Y), F (pair x y)\\n  := fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (g : forall (t : Product X Y), F t)\\n         (x : X)\\n         (y : Y)\\n       => g (pair x y).\\n\\nArguments curry {X Y F} _ _ _.
+LHS: Definition curry\\n  : forall (X Y : Type) (F : Product X Y -> Type),\\n      (forall (t : Product X Y), F t)\\n        -> forall (x : X) (y : Y), F (pair x y)
+RHS: fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (g : forall (t : Product X Y), F t)\\n         (x : X)\\n         (y : Y)\\n       => g (pair x y).\\n\\nArguments curry {X Y F} _ _ _.
 SortKey: A
 
 Label: 9cz79pdm
@@ -504,15 +331,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 336
 End: 343
-Content: LHS := RHS
-LHS: Definition product_recursion
-+      : forall (X Y Z : Type), (X -> Y -> Z) -> Product X Y -> Z
-RHS: fun (X Y Z : Type)
-+             (f : X -> Y -> Z)
-+             (t : Product X Y)
-+           => f (first t) (second t).
-+
-+    Arguments product_recursion {X Y Z} _ _.
+Content: Definition product_recursion\\n  : forall (X Y Z : Type), (X -> Y -> Z) -> Product X Y -> Z\\n  := fun (X Y Z : Type)\\n         (f : X -> Y -> Z)\\n         (t : Product X Y)\\n       => f (first t) (second t).\\n\\nArguments product_recursion {X Y Z} _ _.
+LHS: Definition product_recursion\\n  : forall (X Y Z : Type), (X -> Y -> Z) -> Product X Y -> Z
+RHS: fun (X Y Z : Type)\\n         (f : X -> Y -> Z)\\n         (t : Product X Y)\\n       => f (first t) (second t).\\n\\nArguments product_recursion {X Y Z} _ _.
 SortKey: A
 
 Label: d0923l5s
@@ -521,13 +342,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 347
 End: 352
-Content: LHS := RHS
-LHS: Definition PairFamily
-+      : forall (T : Type), (T -> Type) -> (T -> Type) -> T -> Type
-RHS: fun (T : Type) (F : T -> Type) (G : T -> Type) (t : T)
-+           => Product (F t) (G t).
-+
-+    Arguments PairFamily {T} _ _ _.
+Content: Definition PairFamily\\n  : forall (T : Type), (T -> Type) -> (T -> Type) -> T -> Type\\n  := fun (T : Type) (F : T -> Type) (G : T -> Type) (t : T)\\n       => Product (F t) (G t).\\n\\nArguments PairFamily {T} _ _ _.
+LHS: Definition PairFamily\\n  : forall (T : Type), (T -> Type) -> (T -> Type) -> T -> Type
+RHS: fun (T : Type) (F : T -> Type) (G : T -> Type) (t : T)\\n       => Product (F t) (G t).\\n\\nArguments PairFamily {T} _ _ _.
 SortKey: A
 
 Label: rgjbl4r2
@@ -536,23 +353,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 356
 End: 371
-Content: LHS := RHS
-LHS: Definition pair_function
-+      : forall (T : Type)
-+               (F : T -> Type)
-+               (G : T -> Type),
-+          (forall (t : T), F t)
-+            -> (forall (t : T), G t)
-+              -> forall (t : T), Product (F t) (G t)
-RHS: fun (T : Type)
-+             (F : T -> Type)
-+             (G : T -> Type)
-+             (f : forall (t : T), F t)
-+             (g : forall (t : T), G t)
-+             (t : T)
-+           => pair (f t) (g t).
-+
-+    Arguments  pair_function {T F G} _ _ _.
+Content: Definition pair_function\\n  : forall (T : Type)\\n           (F : T -> Type)\\n           (G : T -> Type),\\n      (forall (t : T), F t)\\n        -> (forall (t : T), G t)\\n          -> forall (t : T), Product (F t) (G t)\\n  := fun (T : Type)\\n         (F : T -> Type)\\n         (G : T -> Type)\\n         (f : forall (t : T), F t)\\n         (g : forall (t : T), G t)\\n         (t : T)\\n       => pair (f t) (g t).\\n\\nArguments  pair_function {T F G} _ _ _.
+LHS: Definition pair_function\\n  : forall (T : Type)\\n           (F : T -> Type)\\n           (G : T -> Type),\\n      (forall (t : T), F t)\\n        -> (forall (t : T), G t)\\n          -> forall (t : T), Product (F t) (G t)
+RHS: fun (T : Type)\\n         (F : T -> Type)\\n         (G : T -> Type)\\n         (f : forall (t : T), F t)\\n         (g : forall (t : T), G t)\\n         (t : T)\\n       => pair (f t) (g t).\\n\\nArguments  pair_function {T F G} _ _ _.
 SortKey: A
 
 Label: wqs9857v
@@ -561,17 +364,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 375
 End: 384
-Content: LHS := RHS
-LHS: Definition product_map
-+      : forall (X Y X' Y' : Type),
-+          (X -> X') -> (Y -> Y') -> Product X Y -> Product X' Y'
-RHS: fun (X Y X' Y' : Type)
-+             (f : X -> X')
-+             (g : Y -> Y')
-+             (t : Product X Y)
-+           => pair (f (first t)) (g (second t)).
-+
-+    Arguments product_map {X Y X' Y'} _ _ _.
+Content: Definition product_map\\n  : forall (X Y X' Y' : Type),\\n      (X -> X') -> (Y -> Y') -> Product X Y -> Product X' Y'\\n  := fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n         (t : Product X Y)\\n       => pair (f (first t)) (g (second t)).\\n\\nArguments product_map {X Y X' Y'} _ _ _.
+LHS: Definition product_map\\n  : forall (X Y X' Y' : Type),\\n      (X -> X') -> (Y -> Y') -> Product X Y -> Product X' Y'
+RHS: fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n         (t : Product X Y)\\n       => pair (f (first t)) (g (second t)).\\n\\nArguments product_map {X Y X' Y'} _ _ _.
 SortKey: A
 
 Label: fp5x8226
@@ -580,11 +375,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 392
 End: 395
-Content: LHS := RHS
+Content: Definition Sum : Type -> Type -> Type\\n  := fun (X Y : Type)\\n       => let F : Boolean -> Type := boolean_recursion X Y\\n          in Sigma (b : Boolean), F b.
 LHS: Definition Sum : Type -> Type -> Type
-RHS: fun (X Y : Type)
-+           => let F : Boolean -> Type := boolean_recursion X Y
-+              in Sigma (b : Boolean), F b.
+RHS: fun (X Y : Type)\\n       => let F : Boolean -> Type := boolean_recursion X Y\\n          in Sigma (b : Boolean), F b.
 SortKey: A
 
 Label: kknkg0c7
@@ -593,11 +386,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 399
 End: 402
-Content: LHS := RHS
+Content: Definition left : forall (X Y : Type), X -> Sum X Y\\n  := fun (X Y : Type) (x : X) => sigma (boolean_recursion X Y) yes x.\\n\\nArguments left {X Y} _.
 LHS: Definition left : forall (X Y : Type), X -> Sum X Y
-RHS: fun (X Y : Type) (x : X) => sigma (boolean_recursion X Y) yes x.
-+
-+    Arguments left {X Y} _.
+RHS: fun (X Y : Type) (x : X) => sigma (boolean_recursion X Y) yes x.\\n\\nArguments left {X Y} _.
 SortKey: A
 
 Label: ma104yei
@@ -606,11 +397,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 406
 End: 409
-Content: LHS := RHS
+Content: Definition right : forall (X Y : Type), Y -> Sum X Y\\n  := fun (X Y : Type) (y : Y) => sigma (boolean_recursion X Y) no y.\\n\\nArguments right {X Y} _.
 LHS: Definition right : forall (X Y : Type), Y -> Sum X Y
-RHS: fun (X Y : Type) (y : Y) => sigma (boolean_recursion X Y) no y.
-+
-+    Arguments right {X Y} _.
+RHS: fun (X Y : Type) (y : Y) => sigma (boolean_recursion X Y) no y.\\n\\nArguments right {X Y} _.
 SortKey: A
 
 Label: hrr9zb80
@@ -619,29 +408,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 413
 End: 434
-Content: LHS := RHS
-LHS: Definition sum_induction
-+      : forall (X Y : Type) (F : Sum X Y -> Type),
-+          (forall (x : X), F (left x)) -> (forall (y : Y), F (right y))
-+            -> forall (s : Sum X Y), F s
-RHS: fun (X Y : Type)
-+             (F : Sum X Y -> Type)
-+             (f : forall (x : X), F (left x))
-+             (g : forall (y : Y), F (right y))
-+             (s : Sum X Y)
-+           =>
-+             let
-+               P : Boolean -> Type := boolean_recursion X Y
-+             in let
-+               Q : Boolean -> Type
-+                 := fun (b : Boolean)
-+                      => forall (e : P b), F (sigma P b e)
-+             in let
-+               q : forall (b : Boolean), Q b := boolean_induction Q f g
-+             in
-+               q (sigma1 s) (sigma2 s).
-+
-+    Arguments sum_induction {X Y} F _ _ s.
+Content: Definition sum_induction\\n  : forall (X Y : Type) (F : Sum X Y -> Type),\\n      (forall (x : X), F (left x)) -> (forall (y : Y), F (right y))\\n        -> forall (s : Sum X Y), F s\\n  := fun (X Y : Type)\\n         (F : Sum X Y -> Type)\\n         (f : forall (x : X), F (left x))\\n         (g : forall (y : Y), F (right y))\\n         (s : Sum X Y)\\n       =>\\n         let\\n           P : Boolean -> Type := boolean_recursion X Y\\n         in let\\n           Q : Boolean -> Type\\n             := fun (b : Boolean)\\n                  => forall (e : P b), F (sigma P b e)\\n         in let\\n           q : forall (b : Boolean), Q b := boolean_induction Q f g\\n         in\\n           q (sigma1 s) (sigma2 s).\\n\\nArguments sum_induction {X Y} F _ _ s.
+LHS: Definition sum_induction\\n  : forall (X Y : Type) (F : Sum X Y -> Type),\\n      (forall (x : X), F (left x)) -> (forall (y : Y), F (right y))\\n        -> forall (s : Sum X Y), F s
+RHS: fun (X Y : Type)\\n         (F : Sum X Y -> Type)\\n         (f : forall (x : X), F (left x))\\n         (g : forall (y : Y), F (right y))\\n         (s : Sum X Y)\\n       =>\\n         let\\n           P : Boolean -> Type := boolean_recursion X Y\\n         in let\\n           Q : Boolean -> Type\\n             := fun (b : Boolean)\\n                  => forall (e : P b), F (sigma P b e)\\n         in let\\n           q : forall (b : Boolean), Q b := boolean_induction Q f g\\n         in\\n           q (sigma1 s) (sigma2 s).\\n\\nArguments sum_induction {X Y} F _ _ s.
 SortKey: A
 
 Label: czz2aznf
@@ -650,24 +419,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 438
 End: 454
-Content: LHS := RHS
-LHS: Definition sum_recursion
-+      : forall (X Y Z : Type), (X -> Z) -> (Y -> Z) -> Sum X Y -> Z
-RHS: fun (X Y Z : Type)
-+             (f : X -> Z)
-+             (g : Y -> Z)
-+             (s : Sum X Y)
-+           =>
-+             let
-+               P : Boolean -> Type := boolean_recursion X Y
-+             in let
-+               Q : Boolean -> Type := fun (b : Boolean) => P b -> Z
-+             in let
-+               q : forall (b : Boolean), Q b := boolean_induction Q f g
-+             in
-+               q (sigma1 s) (sigma2 s).
-+
-+    Arguments sum_recursion {X Y Z} _ _ s.
+Content: Definition sum_recursion\\n  : forall (X Y Z : Type), (X -> Z) -> (Y -> Z) -> Sum X Y -> Z\\n  := fun (X Y Z : Type)\\n         (f : X -> Z)\\n         (g : Y -> Z)\\n         (s : Sum X Y)\\n       =>\\n         let\\n           P : Boolean -> Type := boolean_recursion X Y\\n         in let\\n           Q : Boolean -> Type := fun (b : Boolean) => P b -> Z\\n         in let\\n           q : forall (b : Boolean), Q b := boolean_induction Q f g\\n         in\\n           q (sigma1 s) (sigma2 s).\\n\\nArguments sum_recursion {X Y Z} _ _ s.
+LHS: Definition sum_recursion\\n  : forall (X Y Z : Type), (X -> Z) -> (Y -> Z) -> Sum X Y -> Z
+RHS: fun (X Y Z : Type)\\n         (f : X -> Z)\\n         (g : Y -> Z)\\n         (s : Sum X Y)\\n       =>\\n         let\\n           P : Boolean -> Type := boolean_recursion X Y\\n         in let\\n           Q : Boolean -> Type := fun (b : Boolean) => P b -> Z\\n         in let\\n           q : forall (b : Boolean), Q b := boolean_induction Q f g\\n         in\\n           q (sigma1 s) (sigma2 s).\\n\\nArguments sum_recursion {X Y Z} _ _ s.
 SortKey: A
 
 Label: mrbbbxn0
@@ -676,20 +430,9 @@ Class: Definition
 File: src/base/construct.v
 Begin: 458
 End: 470
-Content: LHS := RHS
-LHS: Definition sum_map
-+      : forall (X Y X' Y' : Type),
-+          (X -> X') -> (Y -> Y') -> Sum X Y -> Sum X' Y'
-RHS: fun (X Y X' Y' : Type) (f : X -> X') (g : Y -> Y')
-+           =>
-+             let
-+               u : X -> Sum X' Y' := fun x => left (f x)
-+             in let
-+               v : Y -> Sum X' Y' := fun y => right (g y)
-+             in
-+               sum_recursion u v.
-+
-+    Arguments sum_map {X Y X' Y'} _ _ _.
+Content: Definition sum_map\\n  : forall (X Y X' Y' : Type),\\n      (X -> X') -> (Y -> Y') -> Sum X Y -> Sum X' Y'\\n  := fun (X Y X' Y' : Type) (f : X -> X') (g : Y -> Y')\\n       =>\\n         let\\n           u : X -> Sum X' Y' := fun x => left (f x)\\n         in let\\n           v : Y -> Sum X' Y' := fun y => right (g y)\\n         in\\n           sum_recursion u v.\\n\\nArguments sum_map {X Y X' Y'} _ _ _.
+LHS: Definition sum_map\\n  : forall (X Y X' Y' : Type),\\n      (X -> X') -> (Y -> Y') -> Sum X Y -> Sum X' Y'
+RHS: fun (X Y X' Y' : Type) (f : X -> X') (g : Y -> Y')\\n       =>\\n         let\\n           u : X -> Sum X' Y' := fun x => left (f x)\\n         in let\\n           v : Y -> Sum X' Y' := fun y => right (g y)\\n         in\\n           sum_recursion u v.\\n\\nArguments sum_map {X Y X' Y'} _ _ _.
 SortKey: A
 
 Label: ave0dtr6
@@ -698,10 +441,9 @@ Class: Notation
 File: src/base/primitive.v
 Begin: 8
 End: 9
-Content: LHS := RHS
+Content: Notation "X -> Y" := (forall (_ : X), Y)\\n  (at level 99, right associativity, Y at level 200).
 LHS: Notation "X -> Y"
-RHS: (forall (_ : X), Y)
-+      (at level 99, right associativity, Y at level 200).
+RHS: (forall (_ : X), Y)\\n  (at level 99, right associativity, Y at level 200).
 SortKey: J
 
 Label: 776l3lwg
@@ -710,7 +452,7 @@ Class: Inductive
 File: src/base/primitive.v
 Begin: 17
 End: 17
-Content: LHS := RHS
+Content: Inductive False: Type := .
 LHS: Inductive False: Type
 RHS: .
 SortKey: D
@@ -721,9 +463,8 @@ Class: Definition
 File: src/base/primitive.v
 Begin: 21
 End: 23
-Content: LHS := RHS
-LHS: Definition false_induction
-+      : forall (F : False -> Type) (x : False), F x
+Content: Definition false_induction\\n  : forall (F : False -> Type) (x : False), F x\\n  := False_rect.
+LHS: Definition false_induction\\n  : forall (F : False -> Type) (x : False), F x
 RHS: False_rect.
 SortKey: A
 
@@ -733,7 +474,7 @@ Class: Inductive
 File: src/base/primitive.v
 Begin: 31
 End: 31
-Content: LHS := RHS
+Content: Inductive True : Type := only : True.
 LHS: Inductive True : Type
 RHS: only : True.
 SortKey: D
@@ -744,9 +485,8 @@ Class: Definition
 File: src/base/primitive.v
 Begin: 35
 End: 37
-Content: LHS := RHS
-LHS: Definition true_induction
-+      : forall (F : True -> Type), F only -> forall (x : True), F x
+Content: Definition true_induction\\n  : forall (F : True -> Type), F only -> forall (x : True), F x\\n  := True_rect.
+LHS: Definition true_induction\\n  : forall (F : True -> Type), F only -> forall (x : True), F x
 RHS: True_rect.
 SortKey: A
 
@@ -756,7 +496,7 @@ Class: Inductive
 File: src/base/primitive.v
 Begin: 45
 End: 45
-Content: LHS := RHS
+Content: Inductive Boolean : Type := yes : Boolean | no : Boolean.
 LHS: Inductive Boolean : Type
 RHS: yes : Boolean | no : Boolean.
 SortKey: D
@@ -767,10 +507,8 @@ Class: Definition
 File: src/base/primitive.v
 Begin: 49
 End: 52
-Content: LHS := RHS
-LHS: Definition boolean_induction
-+      : forall (F : Boolean -> Type),
-+          F yes -> F no -> forall (x : Boolean), F x
+Content: Definition boolean_induction\\n  : forall (F : Boolean -> Type),\\n      F yes -> F no -> forall (x : Boolean), F x\\n  := Boolean_rect.
+LHS: Definition boolean_induction\\n  : forall (F : Boolean -> Type),\\n      F yes -> F no -> forall (x : Boolean), F x
 RHS: Boolean_rect.
 SortKey: A
 
@@ -780,7 +518,7 @@ Class: Inductive
 File: src/base/primitive.v
 Begin: 60
 End: 61
-Content: LHS := RHS
+Content: Inductive Natural : Type\\n  := zero : Natural | successor : Natural -> Natural.
 LHS: Inductive Natural : Type
 RHS: zero : Natural | successor : Natural -> Natural.
 SortKey: D
@@ -791,12 +529,8 @@ Class: Definition
 File: src/base/primitive.v
 Begin: 65
 End: 70
-Content: LHS := RHS
-LHS: Definition natural_induction
-+      : forall (F : Natural -> Type),
-+          F zero
-+            -> (forall (n : Natural), F n -> F (successor n))
-+                -> forall (n : Natural), F n
+Content: Definition natural_induction\\n  : forall (F : Natural -> Type),\\n      F zero\\n        -> (forall (n : Natural), F n -> F (successor n))\\n            -> forall (n : Natural), F n\\n  := Natural_rect.
+LHS: Definition natural_induction\\n  : forall (F : Natural -> Type),\\n      F zero\\n        -> (forall (n : Natural), F n -> F (successor n))\\n            -> forall (n : Natural), F n
 RHS: Natural_rect.
 SortKey: A
 
@@ -806,12 +540,9 @@ Class: Inductive
 File: src/base/primitive.v
 Begin: 78
 End: 82
-Content: LHS := RHS
+Content: Inductive Equal (X : Type) (x : X) : X -> Type\\n  := reflexive : Equal X x x.\\n\\nArguments Equal {X} x  _.\\nArguments reflexive {X} x.
 LHS: Inductive Equal (X : Type) (x : X) : X -> Type
-RHS: reflexive : Equal X x x.
-+
-+    Arguments Equal {X} x  _.
-+    Arguments reflexive {X} x.
+RHS: reflexive : Equal X x x.\\n\\nArguments Equal {X} x  _.\\nArguments reflexive {X} x.
 SortKey: D
 
 Label: xxyabzuf
@@ -820,15 +551,9 @@ Class: Definition
 File: src/base/primitive.v
 Begin: 86
 End: 93
-Content: LHS := RHS
-LHS: Definition equal_induction
-+      : forall (X : Type)
-+               (x : X)
-+               (F : forall (y : X), Equal x y -> Type),
-+          F x (reflexive x) -> forall (y : X) (p : Equal x y), F y p
-RHS: Equal_rect.
-+
-+    Arguments equal_induction {X} x F _ y p.
+Content: Definition equal_induction\\n  : forall (X : Type)\\n           (x : X)\\n           (F : forall (y : X), Equal x y -> Type),\\n      F x (reflexive x) -> forall (y : X) (p : Equal x y), F y p\\n  := Equal_rect.\\n\\nArguments equal_induction {X} x F _ y p.
+LHS: Definition equal_induction\\n  : forall (X : Type)\\n           (x : X)\\n           (F : forall (y : X), Equal x y -> Type),\\n      F x (reflexive x) -> forall (y : X) (p : Equal x y), F y p
+RHS: Equal_rect.\\n\\nArguments equal_induction {X} x F _ y p.
 SortKey: A
 
 Label: agn2f6jd
@@ -837,14 +562,9 @@ Class: Record
 File: src/base/primitive.v
 Begin: 101
 End: 107
-Content: LHS := RHS
+Content: Record _Sigma (X : Type) (F : X -> Type) : Type\\n  := sigma {sigma1 : X; sigma2 : F sigma1}.\\n\\nArguments _Sigma {X} F.\\nArguments sigma {X} F _ _.\\nArguments sigma1 {X F} _.\\nArguments sigma2 {X F} _.
 LHS: Record _Sigma (X : Type) (F : X -> Type) : Type
-RHS: sigma {sigma1 : X; sigma2 : F sigma1}.
-+
-+    Arguments _Sigma {X} F.
-+    Arguments sigma {X} F _ _.
-+    Arguments sigma1 {X F} _.
-+    Arguments sigma2 {X F} _.
+RHS: sigma {sigma1 : X; sigma2 : F sigma1}.\\n\\nArguments _Sigma {X} F.\\nArguments sigma {X} F _ _.\\nArguments sigma1 {X F} _.\\nArguments sigma2 {X F} _.
 SortKey: G
 
 Label: 497e8me5
@@ -853,10 +573,9 @@ Class: Notation
 File: src/base/primitive.v
 Begin: 111
 End: 113
-Content: LHS := RHS
+Content: Notation "'Sigma' x .. y , P"\\n  := (_Sigma (fun x => .. (_Sigma (fun y => P)) ..))\\n       (at level 200, x binder, y binder, right associativity).
 LHS: Notation "'Sigma' x .. y , P"
-RHS: (_Sigma (fun x => .. (_Sigma (fun y => P)) ..))
-+           (at level 200, x binder, y binder, right associativity).
+RHS: (_Sigma (fun x => .. (_Sigma (fun y => P)) ..))\\n       (at level 200, x binder, y binder, right associativity).
 SortKey: J
 
 Label: 909vtogz
@@ -865,8 +584,7 @@ Class: Vernacular
 File: src/base/same.v
 Begin: 8
 End: 9
-Content: Require Import ufcoq.base.primitive.
-+        Require Import ufcoq.base.construct.
+Content: Require Import ufcoq.base.primitive.\\nRequire Import ufcoq.base.construct.
 LHS: NA
 RHS: NA
 SortKey: T
@@ -877,12 +595,9 @@ Class: Example
 File: src/base/same.v
 Begin: 17
 End: 21
-Content: LHS := RHS
-LHS: Example _function_eta_conversion
-+      : forall (X : Type) (F : X -> Type) (f : forall (x : X), F x),
-+          Equal f (fun (x : X) => f x)
-RHS: fun (X : Type) (F : X -> Type) (f : forall (x : X), F x)
-+          => reflexive f.
+Content: Example _function_eta_conversion\\n  : forall (X : Type) (F : X -> Type) (f : forall (x : X), F x),\\n      Equal f (fun (x : X) => f x)\\n  := fun (X : Type) (F : X -> Type) (f : forall (x : X), F x)\\n      => reflexive f.
+LHS: Example _function_eta_conversion\\n  : forall (X : Type) (F : X -> Type) (f : forall (x : X), F x),\\n      Equal f (fun (x : X) => f x)
+RHS: fun (X : Type) (F : X -> Type) (f : forall (x : X), F x)\\n      => reflexive f.
 SortKey: Z
 
 Label: r3y1kpvr
@@ -891,25 +606,9 @@ Class: Example
 File: src/base/same.v
 Begin: 25
 End: 42
-Content: LHS := RHS
-LHS: Example _function_compose_associative
-+      : forall (W : Type)
-+               (X : Type)
-+               (Y : Type)
-+               (G : Y -> Type)
-+               (g : forall (y : Y), G y)
-+               (f : X -> Y)
-+               (e : W -> X),
-+          Equal (function_compose (function_compose g f) e)
-+                (function_compose g (function_compose f e))
-RHS: fun (W : Type)
-+             (X : Type)
-+             (Y : Type)
-+             (G : Y -> Type)
-+             (g : forall (y : Y), G y)
-+             (f : X -> Y)
-+             (e : W -> X)
-+           => reflexive (function_compose (function_compose g f) e).
+Content: Example _function_compose_associative\\n  : forall (W : Type)\\n           (X : Type)\\n           (Y : Type)\\n           (G : Y -> Type)\\n           (g : forall (y : Y), G y)\\n           (f : X -> Y)\\n           (e : W -> X),\\n      Equal (function_compose (function_compose g f) e)\\n            (function_compose g (function_compose f e))\\n  := fun (W : Type)\\n         (X : Type)\\n         (Y : Type)\\n         (G : Y -> Type)\\n         (g : forall (y : Y), G y)\\n         (f : X -> Y)\\n         (e : W -> X)\\n       => reflexive (function_compose (function_compose g f) e).
+LHS: Example _function_compose_associative\\n  : forall (W : Type)\\n           (X : Type)\\n           (Y : Type)\\n           (G : Y -> Type)\\n           (g : forall (y : Y), G y)\\n           (f : X -> Y)\\n           (e : W -> X),\\n      Equal (function_compose (function_compose g f) e)\\n            (function_compose g (function_compose f e))
+RHS: fun (W : Type)\\n         (X : Type)\\n         (Y : Type)\\n         (G : Y -> Type)\\n         (g : forall (y : Y), G y)\\n         (f : X -> Y)\\n         (e : W -> X)\\n       => reflexive (function_compose (function_compose g f) e).
 SortKey: Z
 
 Label: hso05la4
@@ -918,12 +617,9 @@ Class: Example
 File: src/base/same.v
 Begin: 46
 End: 50
-Content: LHS := RHS
-LHS: Example _function_compose_left_unit
-+      : forall (X Y : Type) (f : X -> Y),
-+          Equal f (function_compose (@identity_function Y) f)
-RHS: fun (X Y : Type) (f : X -> Y)
-+           => reflexive f.
+Content: Example _function_compose_left_unit\\n  : forall (X Y : Type) (f : X -> Y),\\n      Equal f (function_compose (@identity_function Y) f)\\n  := fun (X Y : Type) (f : X -> Y)\\n       => reflexive f.
+LHS: Example _function_compose_left_unit\\n  : forall (X Y : Type) (f : X -> Y),\\n      Equal f (function_compose (@identity_function Y) f)
+RHS: fun (X Y : Type) (f : X -> Y)\\n       => reflexive f.
 SortKey: Z
 
 Label: ey5cl868
@@ -932,16 +628,9 @@ Class: Example
 File: src/base/same.v
 Begin: 54
 End: 62
-Content: LHS := RHS
-LHS: Example _function_compose_right_unit
-+      : forall (X : Type)
-+               (G : X -> Type)
-+               (g : forall (x : X), G x),
-+          Equal g (function_compose  g (@identity_function X))
-RHS: fun (X : Type)
-+             (G : X -> Type)
-+             (g : forall (x : X), G x)
-+           => reflexive g.
+Content: Example _function_compose_right_unit\\n  : forall (X : Type)\\n           (G : X -> Type)\\n           (g : forall (x : X), G x),\\n      Equal g (function_compose  g (@identity_function X))\\n  := fun (X : Type)\\n         (G : X -> Type)\\n         (g : forall (x : X), G x)\\n       => reflexive g.
+LHS: Example _function_compose_right_unit\\n  : forall (X : Type)\\n           (G : X -> Type)\\n           (g : forall (x : X), G x),\\n      Equal g (function_compose  g (@identity_function X))
+RHS: fun (X : Type)\\n         (G : X -> Type)\\n         (g : forall (x : X), G x)\\n       => reflexive g.
 SortKey: Z
 
 Label: tuh9sgix
@@ -950,12 +639,9 @@ Class: Example
 File: src/base/same.v
 Begin: 70
 End: 74
-Content: LHS := RHS
-LHS: Example _true_induction_only
-+      : forall (F : True -> Type) (x : F only),
-+          Equal x (true_induction F x only)
-RHS: fun (F : True -> Type) (x : F only)
-+           => reflexive x.
+Content: Example _true_induction_only\\n  : forall (F : True -> Type) (x : F only),\\n      Equal x (true_induction F x only)\\n  := fun (F : True -> Type) (x : F only)\\n       => reflexive x.
+LHS: Example _true_induction_only\\n  : forall (F : True -> Type) (x : F only),\\n      Equal x (true_induction F x only)
+RHS: fun (F : True -> Type) (x : F only)\\n       => reflexive x.
 SortKey: Z
 
 Label: iww5ck0g
@@ -964,9 +650,8 @@ Class: Example
 File: src/base/same.v
 Begin: 78
 End: 80
-Content: LHS := RHS
-LHS: Example _true_recursion_only
-+      : forall (X : Type) (x : X), Equal x (true_recursion x only)
+Content: Example _true_recursion_only\\n  : forall (X : Type) (x : X), Equal x (true_recursion x only)\\n  := fun (X : Type) (x : X) => reflexive x.
+LHS: Example _true_recursion_only\\n  : forall (X : Type) (x : X), Equal x (true_recursion x only)
 RHS: fun (X : Type) (x : X) => reflexive x.
 SortKey: Z
 
@@ -976,9 +661,8 @@ Class: Example
 File: src/base/same.v
 Begin: 84
 End: 86
-Content: LHS := RHS
-LHS: Example _to_true_only
-+      : forall (X : Type) (x : X), Equal only (to_true x)
+Content: Example _to_true_only\\n  : forall (X : Type) (x : X), Equal only (to_true x)\\n  := fun (X : Type) (x : X) => reflexive only.
+LHS: Example _to_true_only\\n  : forall (X : Type) (x : X), Equal only (to_true x)
 RHS: fun (X : Type) (x : X) => reflexive only.
 SortKey: Z
 
@@ -988,10 +672,8 @@ Class: Example
 File: src/base/same.v
 Begin: 94
 End: 97
-Content: LHS := RHS
-LHS: Example _boolean_induction_yes
-+      : forall (F : Boolean -> Type) (y : F yes) (n : F no),
-+          Equal y (boolean_induction F y n yes)
+Content: Example _boolean_induction_yes\\n  : forall (F : Boolean -> Type) (y : F yes) (n : F no),\\n      Equal y (boolean_induction F y n yes)\\n  := fun (F : Boolean -> Type) (y : F yes) (n : F no) => reflexive y.
+LHS: Example _boolean_induction_yes\\n  : forall (F : Boolean -> Type) (y : F yes) (n : F no),\\n      Equal y (boolean_induction F y n yes)
 RHS: fun (F : Boolean -> Type) (y : F yes) (n : F no) => reflexive y.
 SortKey: Z
 
@@ -1001,10 +683,8 @@ Class: Example
 File: src/base/same.v
 Begin: 101
 End: 104
-Content: LHS := RHS
-LHS: Example _boolean_induction_no
-+      : forall (F : Boolean -> Type) (y : F yes) (n : F no),
-+          Equal n (boolean_induction F y n no)
+Content: Example _boolean_induction_no\\n  : forall (F : Boolean -> Type) (y : F yes) (n : F no),\\n      Equal n (boolean_induction F y n no)\\n  := fun (F : Boolean -> Type) (y : F yes) (n : F no) => reflexive n.
+LHS: Example _boolean_induction_no\\n  : forall (F : Boolean -> Type) (y : F yes) (n : F no),\\n      Equal n (boolean_induction F y n no)
 RHS: fun (F : Boolean -> Type) (y : F yes) (n : F no) => reflexive n.
 SortKey: Z
 
@@ -1014,9 +694,8 @@ Class: Example
 File: src/base/same.v
 Begin: 108
 End: 110
-Content: LHS := RHS
-LHS: Example _boolean_recursion_yes
-+      : forall (X : Type) (y n : X), Equal y (boolean_recursion y n yes)
+Content: Example _boolean_recursion_yes\\n  : forall (X : Type) (y n : X), Equal y (boolean_recursion y n yes)\\n  := fun (X : Type) (y n : X) => reflexive y.
+LHS: Example _boolean_recursion_yes\\n  : forall (X : Type) (y n : X), Equal y (boolean_recursion y n yes)
 RHS: fun (X : Type) (y n : X) => reflexive y.
 SortKey: Z
 
@@ -1026,9 +705,8 @@ Class: Example
 File: src/base/same.v
 Begin: 114
 End: 116
-Content: LHS := RHS
-LHS: Example _boolean_recursion_no
-+      : forall (X : Type) (y n : X), Equal n (boolean_recursion y n no)
+Content: Example _boolean_recursion_no\\n  : forall (X : Type) (y n : X), Equal n (boolean_recursion y n no)\\n  := fun (X : Type) (y n : X) => reflexive n.
+LHS: Example _boolean_recursion_no\\n  : forall (X : Type) (y n : X), Equal n (boolean_recursion y n no)
 RHS: fun (X : Type) (y n : X) => reflexive n.
 SortKey: Z
 
@@ -1038,16 +716,9 @@ Class: Example
 File: src/base/same.v
 Begin: 124
 End: 132
-Content: LHS := RHS
-LHS: Example _natural_induction_zero
-+      : forall (F : Natural -> Type)
-+               (z : F zero)
-+               (s : forall (n : Natural), F n -> F (successor n)),
-+          Equal z (natural_induction F z s zero)
-RHS: fun (F : Natural -> Type)
-+             (z : F zero)
-+             (s : forall (n : Natural), F n -> F (successor n))
-+           => reflexive z.
+Content: Example _natural_induction_zero\\n  : forall (F : Natural -> Type)\\n           (z : F zero)\\n           (s : forall (n : Natural), F n -> F (successor n)),\\n      Equal z (natural_induction F z s zero)\\n  := fun (F : Natural -> Type)\\n         (z : F zero)\\n         (s : forall (n : Natural), F n -> F (successor n))\\n       => reflexive z.
+LHS: Example _natural_induction_zero\\n  : forall (F : Natural -> Type)\\n           (z : F zero)\\n           (s : forall (n : Natural), F n -> F (successor n)),\\n      Equal z (natural_induction F z s zero)
+RHS: fun (F : Natural -> Type)\\n         (z : F zero)\\n         (s : forall (n : Natural), F n -> F (successor n))\\n       => reflexive z.
 SortKey: Z
 
 Label: ojb7dh9z
@@ -1056,19 +727,9 @@ Class: Example
 File: src/base/same.v
 Begin: 136
 End: 147
-Content: LHS := RHS
-LHS: Example _natural_induction_successor
-+      : forall (F : Natural -> Type)
-+               (z : F zero)
-+               (s : forall (n : Natural), F n -> F (successor n))
-+               (n : Natural),
-+          Equal (s n (natural_induction F z s n))
-+                (natural_induction F z s (successor n))
-RHS: fun (F : Natural -> Type)
-+             (z : F zero)
-+             (s : forall (n : Natural), F n -> F (successor n))
-+             (n : Natural)
-+           => reflexive (s n (natural_induction F z s n)).
+Content: Example _natural_induction_successor\\n  : forall (F : Natural -> Type)\\n           (z : F zero)\\n           (s : forall (n : Natural), F n -> F (successor n))\\n           (n : Natural),\\n      Equal (s n (natural_induction F z s n))\\n            (natural_induction F z s (successor n))\\n  := fun (F : Natural -> Type)\\n         (z : F zero)\\n         (s : forall (n : Natural), F n -> F (successor n))\\n         (n : Natural)\\n       => reflexive (s n (natural_induction F z s n)).
+LHS: Example _natural_induction_successor\\n  : forall (F : Natural -> Type)\\n           (z : F zero)\\n           (s : forall (n : Natural), F n -> F (successor n))\\n           (n : Natural),\\n      Equal (s n (natural_induction F z s n))\\n            (natural_induction F z s (successor n))
+RHS: fun (F : Natural -> Type)\\n         (z : F zero)\\n         (s : forall (n : Natural), F n -> F (successor n))\\n         (n : Natural)\\n       => reflexive (s n (natural_induction F z s n)).
 SortKey: Z
 
 Label: rzfhv79d
@@ -1077,12 +738,9 @@ Class: Example
 File: src/base/same.v
 Begin: 151
 End: 155
-Content: LHS := RHS
-LHS: Example _natural_recursion_zero
-+      : forall (X : Type) (z : X) (s : Natural -> X -> X),
-+          Equal z (natural_recursion z s zero)
-RHS: fun (X : Type) (z : X) (s : Natural -> X -> X)
-+           => reflexive z.
+Content: Example _natural_recursion_zero\\n  : forall (X : Type) (z : X) (s : Natural -> X -> X),\\n      Equal z (natural_recursion z s zero)\\n  := fun (X : Type) (z : X) (s : Natural -> X -> X)\\n       => reflexive z.
+LHS: Example _natural_recursion_zero\\n  : forall (X : Type) (z : X) (s : Natural -> X -> X),\\n      Equal z (natural_recursion z s zero)
+RHS: fun (X : Type) (z : X) (s : Natural -> X -> X)\\n       => reflexive z.
 SortKey: Z
 
 Label: hrrncvpb
@@ -1091,13 +749,9 @@ Class: Example
 File: src/base/same.v
 Begin: 159
 End: 164
-Content: LHS := RHS
-LHS: Example _natural_recursion_successor
-+      : forall (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural),
-+          Equal (s n (natural_recursion z s n))
-+                (natural_recursion z s (successor n))
-RHS: fun (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural)
-+         => reflexive (s n (natural_recursion z s n)).
+Content: Example _natural_recursion_successor\\n  : forall (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural),\\n      Equal (s n (natural_recursion z s n))\\n            (natural_recursion z s (successor n))\\n  := fun (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural)\\n     => reflexive (s n (natural_recursion z s n)).
+LHS: Example _natural_recursion_successor\\n  : forall (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural),\\n      Equal (s n (natural_recursion z s n))\\n            (natural_recursion z s (successor n))
+RHS: fun (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural)\\n     => reflexive (s n (natural_recursion z s n)).
 SortKey: Z
 
 Label: upakg9n0
@@ -1106,12 +760,9 @@ Class: Example
 File: src/base/same.v
 Begin: 168
 End: 172
-Content: LHS := RHS
-LHS: Example _natural_recursion_simple_zero
-+      : forall (X : Type) (z : X) (s : X -> X),
-+          Equal z (natural_recursion_simple z s zero)
-RHS: fun (X : Type) (z : X) (s : X -> X)
-+           => reflexive z.
+Content: Example _natural_recursion_simple_zero\\n  : forall (X : Type) (z : X) (s : X -> X),\\n      Equal z (natural_recursion_simple z s zero)\\n  := fun (X : Type) (z : X) (s : X -> X)\\n       => reflexive z.
+LHS: Example _natural_recursion_simple_zero\\n  : forall (X : Type) (z : X) (s : X -> X),\\n      Equal z (natural_recursion_simple z s zero)
+RHS: fun (X : Type) (z : X) (s : X -> X)\\n       => reflexive z.
 SortKey: Z
 
 Label: tsfievor
@@ -1120,13 +771,9 @@ Class: Example
 File: src/base/same.v
 Begin: 176
 End: 181
-Content: LHS := RHS
-LHS: Example _natural_recursion_simple_successor
-+      : forall (X : Type) (z : X) (s : X -> X) (n : Natural),
-+          Equal (s (natural_recursion_simple z s n))
-+                (natural_recursion_simple z s (successor n))
-RHS: fun (X : Type) (z : X) (s : X -> X) (n : Natural)
-+           => reflexive (s (natural_recursion_simple z s n)).
+Content: Example _natural_recursion_simple_successor\\n  : forall (X : Type) (z : X) (s : X -> X) (n : Natural),\\n      Equal (s (natural_recursion_simple z s n))\\n            (natural_recursion_simple z s (successor n))\\n  := fun (X : Type) (z : X) (s : X -> X) (n : Natural)\\n       => reflexive (s (natural_recursion_simple z s n)).
+LHS: Example _natural_recursion_simple_successor\\n  : forall (X : Type) (z : X) (s : X -> X) (n : Natural),\\n      Equal (s (natural_recursion_simple z s n))\\n            (natural_recursion_simple z s (successor n))
+RHS: fun (X : Type) (z : X) (s : X -> X) (n : Natural)\\n       => reflexive (s (natural_recursion_simple z s n)).
 SortKey: Z
 
 Label: fznk9p3u
@@ -1135,18 +782,9 @@ Class: Example
 File: src/base/same.v
 Begin: 189
 End: 199
-Content: LHS := RHS
-LHS: Example _equal_induction_reflexive
-+      : forall (X : Type)
-+               (x : X)
-+               (F : forall (y : X), Equal x y -> Type)
-+               (e : F x (reflexive x)),
-+          Equal e (equal_induction x F e x (reflexive x))
-RHS: fun (X : Type)
-+             (x : X)
-+             (F : forall (y : X), Equal x y -> Type)
-+             (e : F x (reflexive x))
-+           => reflexive e.
+Content: Example _equal_induction_reflexive\\n  : forall (X : Type)\\n           (x : X)\\n           (F : forall (y : X), Equal x y -> Type)\\n           (e : F x (reflexive x)),\\n      Equal e (equal_induction x F e x (reflexive x))\\n  := fun (X : Type)\\n         (x : X)\\n         (F : forall (y : X), Equal x y -> Type)\\n         (e : F x (reflexive x))\\n       => reflexive e.
+LHS: Example _equal_induction_reflexive\\n  : forall (X : Type)\\n           (x : X)\\n           (F : forall (y : X), Equal x y -> Type)\\n           (e : F x (reflexive x)),\\n      Equal e (equal_induction x F e x (reflexive x))
+RHS: fun (X : Type)\\n         (x : X)\\n         (F : forall (y : X), Equal x y -> Type)\\n         (e : F x (reflexive x))\\n       => reflexive e.
 SortKey: Z
 
 Label: obnor2k3
@@ -1155,12 +793,9 @@ Class: Example
 File: src/base/same.v
 Begin: 203
 End: 207
-Content: LHS := RHS
-LHS: Example _transport_reflexive
-+      : forall (X : Type) (F : X -> Type) (x y : X),
-+          Equal (@identity_function (F x)) (transport F (reflexive x))
-RHS: fun (X : Type) (F : X -> Type) (x y : X)
-+           => reflexive (@identity_function (F x)).
+Content: Example _transport_reflexive\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal (@identity_function (F x)) (transport F (reflexive x))\\n  := fun (X : Type) (F : X -> Type) (x y : X)\\n       => reflexive (@identity_function (F x)).
+LHS: Example _transport_reflexive\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal (@identity_function (F x)) (transport F (reflexive x))
+RHS: fun (X : Type) (F : X -> Type) (x y : X)\\n       => reflexive (@identity_function (F x)).
 SortKey: Z
 
 Label: iqo3w2uh
@@ -1169,13 +804,9 @@ Class: Example
 File: src/base/same.v
 Begin: 211
 End: 216
-Content: LHS := RHS
-LHS: Example _transport_inverse_reflexive
-+      : forall (X : Type) (F : X -> Type) (x y : X),
-+          Equal (@identity_function (F x))
-+                (transport_inverse F (reflexive x))
-RHS: fun (X : Type) (F : X -> Type) (x y : X)
-+           => reflexive (@identity_function (F x)).
+Content: Example _transport_inverse_reflexive\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal (@identity_function (F x))\\n            (transport_inverse F (reflexive x))\\n  := fun (X : Type) (F : X -> Type) (x y : X)\\n       => reflexive (@identity_function (F x)).
+LHS: Example _transport_inverse_reflexive\\n  : forall (X : Type) (F : X -> Type) (x y : X),\\n      Equal (@identity_function (F x))\\n            (transport_inverse F (reflexive x))
+RHS: fun (X : Type) (F : X -> Type) (x y : X)\\n       => reflexive (@identity_function (F x)).
 SortKey: Z
 
 Label: qts05vtg
@@ -1184,12 +815,9 @@ Class: Example
 File: src/base/same.v
 Begin: 224
 End: 228
-Content: LHS := RHS
-LHS: Example _sigma_type_eta_conversion
-+      : forall (X : Type) (F : X -> Type) (t : Sigma (x : X), F x),
-+          Equal t (sigma F (sigma1 t) (sigma2 t))
-RHS: fun (X : Type) (F : X -> Type) (t : Sigma (x : X), F x)
-+           => reflexive t.
+Content: Example _sigma_type_eta_conversion\\n  : forall (X : Type) (F : X -> Type) (t : Sigma (x : X), F x),\\n      Equal t (sigma F (sigma1 t) (sigma2 t))\\n  := fun (X : Type) (F : X -> Type) (t : Sigma (x : X), F x)\\n       => reflexive t.
+LHS: Example _sigma_type_eta_conversion\\n  : forall (X : Type) (F : X -> Type) (t : Sigma (x : X), F x),\\n      Equal t (sigma F (sigma1 t) (sigma2 t))
+RHS: fun (X : Type) (F : X -> Type) (t : Sigma (x : X), F x)\\n       => reflexive t.
 SortKey: Z
 
 Label: mrl11i2o
@@ -1198,18 +826,9 @@ Class: Example
 File: src/base/same.v
 Begin: 232
 End: 242
-Content: LHS := RHS
-LHS: Example _sigma_curry_uncurry
-+      : forall (X : Type)
-+               (F : X -> Type)
-+               (G : (Sigma (x : X), F x) -> Type)
-+               (f : forall (x : X) (y : F x), G (sigma F x y)),
-+          Equal f (sigma_curry (sigma_uncurry f))
-RHS: fun (X : Type)
-+             (F : X -> Type)
-+             (G : (Sigma (x : X), F x) -> Type)
-+             (f : forall (x : X) (y : F x), G (sigma F x y))
-+           => reflexive f.
+Content: Example _sigma_curry_uncurry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type)\\n           (f : forall (x : X) (y : F x), G (sigma F x y)),\\n      Equal f (sigma_curry (sigma_uncurry f))\\n  := fun (X : Type)\\n         (F : X -> Type)\\n         (G : (Sigma (x : X), F x) -> Type)\\n         (f : forall (x : X) (y : F x), G (sigma F x y))\\n       => reflexive f.
+LHS: Example _sigma_curry_uncurry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type)\\n           (f : forall (x : X) (y : F x), G (sigma F x y)),\\n      Equal f (sigma_curry (sigma_uncurry f))
+RHS: fun (X : Type)\\n         (F : X -> Type)\\n         (G : (Sigma (x : X), F x) -> Type)\\n         (f : forall (x : X) (y : F x), G (sigma F x y))\\n       => reflexive f.
 SortKey: Z
 
 Label: 4zlly4cd
@@ -1218,18 +837,9 @@ Class: Example
 File: src/base/same.v
 Begin: 246
 End: 256
-Content: LHS := RHS
-LHS: Example _sigma_uncurry_curry
-+      : forall (X : Type)
-+               (F : X -> Type)
-+               (G : (Sigma (x : X), F x) -> Type)
-+               (g : forall (t : Sigma (x : X), F x), G t),
-+          Equal g (sigma_uncurry (sigma_curry g))
-RHS: fun (X : Type)
-+             (F : X -> Type)
-+             (G : (Sigma (x : X), F x) -> Type)
-+             (g : forall (t : Sigma (x : X), F x), G t)
-+           => reflexive g.
+Content: Example _sigma_uncurry_curry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type)\\n           (g : forall (t : Sigma (x : X), F x), G t),\\n      Equal g (sigma_uncurry (sigma_curry g))\\n  := fun (X : Type)\\n         (F : X -> Type)\\n         (G : (Sigma (x : X), F x) -> Type)\\n         (g : forall (t : Sigma (x : X), F x), G t)\\n       => reflexive g.
+LHS: Example _sigma_uncurry_curry\\n  : forall (X : Type)\\n           (F : X -> Type)\\n           (G : (Sigma (x : X), F x) -> Type)\\n           (g : forall (t : Sigma (x : X), F x), G t),\\n      Equal g (sigma_uncurry (sigma_curry g))
+RHS: fun (X : Type)\\n         (F : X -> Type)\\n         (G : (Sigma (x : X), F x) -> Type)\\n         (g : forall (t : Sigma (x : X), F x), G t)\\n       => reflexive g.
 SortKey: Z
 
 Label: wruha80w
@@ -1238,12 +848,9 @@ Class: Example
 File: src/base/same.v
 Begin: 264
 End: 268
-Content: LHS := RHS
-LHS: Example _product_eta_conversion
-+      : forall (X Y : Type) (t : Product X Y),
-+          Equal t (pair (first t) (second t))
-RHS: fun (X Y : Type) (t : Product X Y)
-+           => reflexive t.
+Content: Example _product_eta_conversion\\n  : forall (X Y : Type) (t : Product X Y),\\n      Equal t (pair (first t) (second t))\\n  := fun (X Y : Type) (t : Product X Y)\\n       => reflexive t.
+LHS: Example _product_eta_conversion\\n  : forall (X Y : Type) (t : Product X Y),\\n      Equal t (pair (first t) (second t))
+RHS: fun (X Y : Type) (t : Product X Y)\\n       => reflexive t.
 SortKey: Z
 
 Label: h1vgtr2g
@@ -1252,16 +859,9 @@ Class: Example
 File: src/base/same.v
 Begin: 272
 End: 280
-Content: LHS := RHS
-LHS: Example _curry_uncurry
-+      : forall (X Y : Type)
-+               (F : Product X Y -> Type)
-+               (f : forall (x : X) (y : Y), F (pair x y)),
-+            Equal f (curry (uncurry f))
-RHS: fun (X Y : Type)
-+             (F : Product X Y -> Type)
-+             (f : forall (x : X) (y : Y), F (pair x y))
-+           => reflexive f.
+Content: Example _curry_uncurry\\n  : forall (X Y : Type)\\n           (F : Product X Y -> Type)\\n           (f : forall (x : X) (y : Y), F (pair x y)),\\n        Equal f (curry (uncurry f))\\n  := fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (f : forall (x : X) (y : Y), F (pair x y))\\n       => reflexive f.
+LHS: Example _curry_uncurry\\n  : forall (X Y : Type)\\n           (F : Product X Y -> Type)\\n           (f : forall (x : X) (y : Y), F (pair x y)),\\n        Equal f (curry (uncurry f))
+RHS: fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (f : forall (x : X) (y : Y), F (pair x y))\\n       => reflexive f.
 SortKey: Z
 
 Label: u70g12vv
@@ -1270,16 +870,9 @@ Class: Example
 File: src/base/same.v
 Begin: 284
 End: 292
-Content: LHS := RHS
-LHS: Example _uncurry_curry
-+      : forall (X Y : Type)
-+               (F : Product X Y -> Type)
-+               (g : forall (t : Product X Y), F t),
-+          Equal g (uncurry (curry g))
-RHS: fun (X Y : Type)
-+             (F : Product X Y -> Type)
-+             (g : forall (t : Product X Y), F t)
-+           => reflexive g.
+Content: Example _uncurry_curry\\n  : forall (X Y : Type)\\n           (F : Product X Y -> Type)\\n           (g : forall (t : Product X Y), F t),\\n      Equal g (uncurry (curry g))\\n  := fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (g : forall (t : Product X Y), F t)\\n       => reflexive g.
+LHS: Example _uncurry_curry\\n  : forall (X Y : Type)\\n           (F : Product X Y -> Type)\\n           (g : forall (t : Product X Y), F t),\\n      Equal g (uncurry (curry g))
+RHS: fun (X Y : Type)\\n         (F : Product X Y -> Type)\\n         (g : forall (t : Product X Y), F t)\\n       => reflexive g.
 SortKey: Z
 
 Label: rdugvrpr
@@ -1288,22 +881,9 @@ Class: Example
 File: src/base/same.v
 Begin: 296
 End: 310
-Content: LHS := RHS
-LHS: Example _pair_function_first
-+      : forall (T : Type)
-+               (F : T -> Type)
-+               (G : T -> Type)
-+               (f : forall (t : T), F t)
-+               (g : forall (t : T), G t)
-+               (t : T),
-+          Equal (f t) (first (pair_function f g t))
-RHS: fun (T : Type)
-+             (F : T -> Type)
-+             (G : T -> Type)
-+             (f : forall   (t : T), F t)
-+             (g : forall (t : T), G t)
-+             (t : T)
-+           => reflexive (f t).
+Content: Example _pair_function_first\\n  : forall (T : Type)\\n           (F : T -> Type)\\n           (G : T -> Type)\\n           (f : forall (t : T), F t)\\n           (g : forall (t : T), G t)\\n           (t : T),\\n      Equal (f t) (first (pair_function f g t))\\n  := fun (T : Type)\\n         (F : T -> Type)\\n         (G : T -> Type)\\n         (f : forall   (t : T), F t)\\n         (g : forall (t : T), G t)\\n         (t : T)\\n       => reflexive (f t).
+LHS: Example _pair_function_first\\n  : forall (T : Type)\\n           (F : T -> Type)\\n           (G : T -> Type)\\n           (f : forall (t : T), F t)\\n           (g : forall (t : T), G t)\\n           (t : T),\\n      Equal (f t) (first (pair_function f g t))
+RHS: fun (T : Type)\\n         (F : T -> Type)\\n         (G : T -> Type)\\n         (f : forall   (t : T), F t)\\n         (g : forall (t : T), G t)\\n         (t : T)\\n       => reflexive (f t).
 SortKey: Z
 
 Label: z30hsvte
@@ -1312,22 +892,9 @@ Class: Example
 File: src/base/same.v
 Begin: 314
 End: 328
-Content: LHS := RHS
-LHS: Example _pair_function_second
-+      : forall (T : Type)
-+               (F : T -> Type)
-+               (G : T -> Type)
-+               (f : forall (t : T), F t)
-+               (g : forall (t : T), G t)
-+               (t : T),
-+          Equal (g t) (second (pair_function f g t))
-RHS: fun (T : Type)
-+             (F : T -> Type)
-+             (G : T -> Type)
-+             (f : forall   (t : T), F t)
-+             (g : forall (t : T), G t)
-+             (t : T)
-+           => reflexive (g t).
+Content: Example _pair_function_second\\n  : forall (T : Type)\\n           (F : T -> Type)\\n           (G : T -> Type)\\n           (f : forall (t : T), F t)\\n           (g : forall (t : T), G t)\\n           (t : T),\\n      Equal (g t) (second (pair_function f g t))\\n  := fun (T : Type)\\n         (F : T -> Type)\\n         (G : T -> Type)\\n         (f : forall   (t : T), F t)\\n         (g : forall (t : T), G t)\\n         (t : T)\\n       => reflexive (g t).
+LHS: Example _pair_function_second\\n  : forall (T : Type)\\n           (F : T -> Type)\\n           (G : T -> Type)\\n           (f : forall (t : T), F t)\\n           (g : forall (t : T), G t)\\n           (t : T),\\n      Equal (g t) (second (pair_function f g t))
+RHS: fun (T : Type)\\n         (F : T -> Type)\\n         (G : T -> Type)\\n         (f : forall   (t : T), F t)\\n         (g : forall (t : T), G t)\\n         (t : T)\\n       => reflexive (g t).
 SortKey: Z
 
 Label: sh7mqmkt
@@ -1336,17 +903,9 @@ Class: Example
 File: src/base/same.v
 Begin: 332
 End: 341
-Content: LHS := RHS
-LHS: Example _product_map_first
-+      : forall (X Y X' Y' : Type)
-+               (f : X -> X')
-+               (g : Y -> Y'),
-+          Equal (function_compose f first)
-+                (function_compose first (product_map f g))
-RHS: fun (X Y X' Y' : Type)
-+             (f : X -> X')
-+             (g : Y -> Y')
-+           => reflexive (function_compose f first).
+Content: Example _product_map_first\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose f first)\\n            (function_compose first (product_map f g))\\n  := fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose f first).
+LHS: Example _product_map_first\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose f first)\\n            (function_compose first (product_map f g))
+RHS: fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose f first).
 SortKey: Z
 
 Label: 2cjp777x
@@ -1355,17 +914,9 @@ Class: Example
 File: src/base/same.v
 Begin: 345
 End: 354
-Content: LHS := RHS
-LHS: Example _product_map_second
-+      : forall (X Y X' Y' : Type)
-+               (f : X -> X')
-+               (g : Y -> Y'),
-+          Equal (function_compose g second)
-+                (function_compose second (product_map f g))
-RHS: fun (X Y X' Y' : Type)
-+             (f : X -> X')
-+             (g : Y -> Y')
-+           => reflexive (function_compose g second).
+Content: Example _product_map_second\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose g second)\\n            (function_compose second (product_map f g))\\n  := fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose g second).
+LHS: Example _product_map_second\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose g second)\\n            (function_compose second (product_map f g))
+RHS: fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose g second).
 SortKey: Z
 
 Label: hut1r4st
@@ -1374,18 +925,9 @@ Class: Example
 File: src/base/same.v
 Begin: 362
 End: 372
-Content: LHS := RHS
-LHS: Example _sum_induction_left
-+      : forall (X Y : Type)
-+               (F : Sum X Y -> Type)
-+               (f : forall (x : X), F (left x))
-+               (g : forall (y : Y), F (right y)),
-+          Equal f (function_compose (sum_induction F f g) left)
-RHS: fun (X Y : Type)
-+             (F : Sum X Y -> Type)
-+             (f : forall (x : X), F (left x))
-+             (g : forall (y : Y), F (right y))
-+           => reflexive f.
+Content: Example _sum_induction_left\\n  : forall (X Y : Type)\\n           (F : Sum X Y -> Type)\\n           (f : forall (x : X), F (left x))\\n           (g : forall (y : Y), F (right y)),\\n      Equal f (function_compose (sum_induction F f g) left)\\n  := fun (X Y : Type)\\n         (F : Sum X Y -> Type)\\n         (f : forall (x : X), F (left x))\\n         (g : forall (y : Y), F (right y))\\n       => reflexive f.
+LHS: Example _sum_induction_left\\n  : forall (X Y : Type)\\n           (F : Sum X Y -> Type)\\n           (f : forall (x : X), F (left x))\\n           (g : forall (y : Y), F (right y)),\\n      Equal f (function_compose (sum_induction F f g) left)
+RHS: fun (X Y : Type)\\n         (F : Sum X Y -> Type)\\n         (f : forall (x : X), F (left x))\\n         (g : forall (y : Y), F (right y))\\n       => reflexive f.
 SortKey: Z
 
 Label: w7zh5r1a
@@ -1394,18 +936,9 @@ Class: Example
 File: src/base/same.v
 Begin: 376
 End: 386
-Content: LHS := RHS
-LHS: Example _sum_induction_right
-+      : forall (X Y : Type)
-+               (F : Sum X Y -> Type)
-+               (f : forall (x : X), F (left x))
-+               (g : forall (y : Y), F (right y)),
-+          Equal g (function_compose (sum_induction F f g) right)
-RHS: fun (X Y : Type)
-+             (F : Sum X Y -> Type)
-+             (f : forall (x : X), F (left x))
-+             (g : forall (y : Y), F (right y))
-+           => reflexive g.
+Content: Example _sum_induction_right\\n  : forall (X Y : Type)\\n           (F : Sum X Y -> Type)\\n           (f : forall (x : X), F (left x))\\n           (g : forall (y : Y), F (right y)),\\n      Equal g (function_compose (sum_induction F f g) right)\\n  := fun (X Y : Type)\\n         (F : Sum X Y -> Type)\\n         (f : forall (x : X), F (left x))\\n         (g : forall (y : Y), F (right y))\\n       => reflexive g.
+LHS: Example _sum_induction_right\\n  : forall (X Y : Type)\\n           (F : Sum X Y -> Type)\\n           (f : forall (x : X), F (left x))\\n           (g : forall (y : Y), F (right y)),\\n      Equal g (function_compose (sum_induction F f g) right)
+RHS: fun (X Y : Type)\\n         (F : Sum X Y -> Type)\\n         (f : forall (x : X), F (left x))\\n         (g : forall (y : Y), F (right y))\\n       => reflexive g.
 SortKey: Z
 
 Label: jwfgf3zw
@@ -1414,16 +947,9 @@ Class: Example
 File: src/base/same.v
 Begin: 390
 End: 398
-Content: LHS := RHS
-LHS: Example _sum_recursion_left
-+      : forall (X Y Z : Type)
-+               (f : X -> Z)
-+               (g : Y -> Z),
-+          Equal f (function_compose (sum_recursion f g) left)
-RHS: fun (X Y Z : Type)
-+             (f : X -> Z)
-+             (g : Y -> Z)
-+           => reflexive f.
+Content: Example _sum_recursion_left\\n  : forall (X Y Z : Type)\\n           (f : X -> Z)\\n           (g : Y -> Z),\\n      Equal f (function_compose (sum_recursion f g) left)\\n  := fun (X Y Z : Type)\\n         (f : X -> Z)\\n         (g : Y -> Z)\\n       => reflexive f.
+LHS: Example _sum_recursion_left\\n  : forall (X Y Z : Type)\\n           (f : X -> Z)\\n           (g : Y -> Z),\\n      Equal f (function_compose (sum_recursion f g) left)
+RHS: fun (X Y Z : Type)\\n         (f : X -> Z)\\n         (g : Y -> Z)\\n       => reflexive f.
 SortKey: Z
 
 Label: ll3xza2h
@@ -1432,16 +958,9 @@ Class: Example
 File: src/base/same.v
 Begin: 402
 End: 410
-Content: LHS := RHS
-LHS: Example _sum_recursion_right
-+      : forall (X Y Z : Type)
-+               (f : X -> Z)
-+               (g : Y -> Z),
-+          Equal g (function_compose (sum_recursion f g) right)
-RHS: fun (X Y Z : Type)
-+             (f : X -> Z)
-+             (g : Y -> Z)
-+           => reflexive g.
+Content: Example _sum_recursion_right\\n  : forall (X Y Z : Type)\\n           (f : X -> Z)\\n           (g : Y -> Z),\\n      Equal g (function_compose (sum_recursion f g) right)\\n  := fun (X Y Z : Type)\\n         (f : X -> Z)\\n         (g : Y -> Z)\\n       => reflexive g.
+LHS: Example _sum_recursion_right\\n  : forall (X Y Z : Type)\\n           (f : X -> Z)\\n           (g : Y -> Z),\\n      Equal g (function_compose (sum_recursion f g) right)
+RHS: fun (X Y Z : Type)\\n         (f : X -> Z)\\n         (g : Y -> Z)\\n       => reflexive g.
 SortKey: Z
 
 Label: eb0iol83
@@ -1450,17 +969,9 @@ Class: Example
 File: src/base/same.v
 Begin: 414
 End: 423
-Content: LHS := RHS
-LHS: Example _sum_map_left
-+      : forall (X Y X' Y' : Type)
-+               (f : X -> X')
-+               (g : Y -> Y'),
-+          Equal (function_compose left f)
-+                (function_compose (sum_map f g) left)
-RHS: fun (X Y X' Y' : Type)
-+             (f : X -> X')
-+             (g : Y -> Y')
-+           => reflexive (function_compose left f).
+Content: Example _sum_map_left\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose left f)\\n            (function_compose (sum_map f g) left)\\n  := fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose left f).
+LHS: Example _sum_map_left\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose left f)\\n            (function_compose (sum_map f g) left)
+RHS: fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose left f).
 SortKey: Z
 
 Label: minkb801
@@ -1469,17 +980,9 @@ Class: Example
 File: src/base/same.v
 Begin: 427
 End: 436
-Content: LHS := RHS
-LHS: Example _sum_map_right
-+      : forall (X Y X' Y' : Type)
-+               (f : X -> X')
-+               (g : Y -> Y'),
-+          Equal (function_compose right g)
-+                (function_compose (sum_map f g) right)
-RHS: fun (X Y X' Y' : Type)
-+             (f : X -> X')
-+             (g : Y -> Y')
-+           => reflexive (function_compose right g).
+Content: Example _sum_map_right\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose right g)\\n            (function_compose (sum_map f g) right)\\n  := fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose right g).
+LHS: Example _sum_map_right\\n  : forall (X Y X' Y' : Type)\\n           (f : X -> X')\\n           (g : Y -> Y'),\\n      Equal (function_compose right g)\\n            (function_compose (sum_map f g) right)
+RHS: fun (X Y X' Y' : Type)\\n         (f : X -> X')\\n         (g : Y -> Y')\\n       => reflexive (function_compose right g).
 SortKey: Z
 
 Label: e82fgb1k
@@ -1488,8 +991,7 @@ Class: Vernacular
 File: src/base/equal.v
 Begin: 8
 End: 9
-Content: Require Import ufcoq.base.primitive.
-+        Require Import ufcoq.base.construct.
+Content: Require Import ufcoq.base.primitive.\\nRequire Import ufcoq.base.construct.
 LHS: NA
 RHS: NA
 SortKey: T
@@ -1500,15 +1002,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 17
 End: 24
-Content: LHS := RHS
-LHS: Definition equal_compose
-+      : forall (X : Type) (x y z : X), Equal x y -> Equal y z -> Equal x z
-RHS: fun (X : Type)
-+             (x y z : X)
-+           => let F : X -> Type := fun (a : X) => Equal a z
-+              in transport_inverse F.
-+
-+    Arguments equal_compose {X x y z} _ _.
+Content: Definition equal_compose\\n  : forall (X : Type) (x y z : X), Equal x y -> Equal y z -> Equal x z\\n  := fun (X : Type)\\n         (x y z : X)\\n       => let F : X -> Type := fun (a : X) => Equal a z\\n          in transport_inverse F.\\n\\nArguments equal_compose {X x y z} _ _.
+LHS: Definition equal_compose\\n  : forall (X : Type) (x y z : X), Equal x y -> Equal y z -> Equal x z
+RHS: fun (X : Type)\\n         (x y z : X)\\n       => let F : X -> Type := fun (a : X) => Equal a z\\n          in transport_inverse F.\\n\\nArguments equal_compose {X x y z} _ _.
 SortKey: A
 
 Label: ky5unwbq
@@ -1517,10 +1013,8 @@ Class: Example
 File: src/base/equal.v
 Begin: 28
 End: 31
-Content: LHS := RHS
-LHS: Example _equal_left_unit
-+      : forall (X : Type) (x y : X) (p : Equal x y),
-+          Equal p (equal_compose (reflexive x) p)
+Content: Example _equal_left_unit\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal p (equal_compose (reflexive x) p)\\n  := fun (X : Type) (x y : X) (p : Equal x y) => reflexive p.
+LHS: Example _equal_left_unit\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal p (equal_compose (reflexive x) p)
 RHS: fun (X : Type) (x y : X) (p : Equal x y) => reflexive p.
 SortKey: Z
 
@@ -1530,22 +1024,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 35
 End: 49
-Content: LHS := RHS
-LHS: Definition equal_right_unit
-+      : forall (X : Type) (x y : X) (p : Equal x y),
-+          Equal p (equal_compose p (reflexive y))
-RHS: fun (X : Type) (x : X)
-+           =>
-+             let
-+               F : forall (a : X), Equal x a -> Type
-+                 := fun (a : X) (e : Equal x a)
-+                      => Equal e (equal_compose e (reflexive a))
-+             in let
-+               base : F x (reflexive x) := reflexive (reflexive x)
-+             in
-+               equal_induction x F base.
-+
-+    Arguments equal_right_unit {X x y} p.
+Content: Definition equal_right_unit\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal p (equal_compose p (reflexive y))\\n  := fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (a : X), Equal x a -> Type\\n             := fun (a : X) (e : Equal x a)\\n                  => Equal e (equal_compose e (reflexive a))\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_right_unit {X x y} p.
+LHS: Definition equal_right_unit\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal p (equal_compose p (reflexive y))
+RHS: fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (a : X), Equal x a -> Type\\n             := fun (a : X) (e : Equal x a)\\n                  => Equal e (equal_compose e (reflexive a))\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_right_unit {X x y} p.
 SortKey: A
 
 Label: qj3cqa2b
@@ -1554,38 +1035,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 53
 End: 83
-Content: LHS := RHS
-LHS: Definition equal_associative
-+      : forall (X : Type)
-+               (w x y z : X)
-+               (p : Equal w x)
-+               (q : Equal x y)
-+               (r : Equal y z),
-+          Equal (equal_compose (equal_compose p q) r)
-+                (equal_compose p (equal_compose q r))
-RHS: fun (X : Type)
-+             (w x y z : X)
-+             (p : Equal w x)
-+             (q : Equal x y)
-+             (r : Equal y z)
-+           =>
-+             let
-+               F : forall (a : X), Equal w a -> Type
-+                 := fun (a : X) (i : Equal w a)
-+                      => forall (j : Equal a y),
-+                           Equal (equal_compose (equal_compose i j) r)
-+                                 (equal_compose i (equal_compose j r))
-+             in let
-+               base : F w (reflexive w)
-+                 := fun (j : Equal w y)
-+                      => reflexive (equal_compose j r)
-+             in let
-+               inductive : forall (a : X) (i : Equal w a), F a i
-+                 := equal_induction w F base
-+             in
-+               inductive x p q.
-+
-+    Arguments equal_associative {X w x y z} p q r.
+Content: Definition equal_associative\\n  : forall (X : Type)\\n           (w x y z : X)\\n           (p : Equal w x)\\n           (q : Equal x y)\\n           (r : Equal y z),\\n      Equal (equal_compose (equal_compose p q) r)\\n            (equal_compose p (equal_compose q r))\\n  := fun (X : Type)\\n         (w x y z : X)\\n         (p : Equal w x)\\n         (q : Equal x y)\\n         (r : Equal y z)\\n       =>\\n         let\\n           F : forall (a : X), Equal w a -> Type\\n             := fun (a : X) (i : Equal w a)\\n                  => forall (j : Equal a y),\\n                       Equal (equal_compose (equal_compose i j) r)\\n                             (equal_compose i (equal_compose j r))\\n         in let\\n           base : F w (reflexive w)\\n             := fun (j : Equal w y)\\n                  => reflexive (equal_compose j r)\\n         in let\\n           inductive : forall (a : X) (i : Equal w a), F a i\\n             := equal_induction w F base\\n         in\\n           inductive x p q.\\n\\nArguments equal_associative {X w x y z} p q r.
+LHS: Definition equal_associative\\n  : forall (X : Type)\\n           (w x y z : X)\\n           (p : Equal w x)\\n           (q : Equal x y)\\n           (r : Equal y z),\\n      Equal (equal_compose (equal_compose p q) r)\\n            (equal_compose p (equal_compose q r))
+RHS: fun (X : Type)\\n         (w x y z : X)\\n         (p : Equal w x)\\n         (q : Equal x y)\\n         (r : Equal y z)\\n       =>\\n         let\\n           F : forall (a : X), Equal w a -> Type\\n             := fun (a : X) (i : Equal w a)\\n                  => forall (j : Equal a y),\\n                       Equal (equal_compose (equal_compose i j) r)\\n                             (equal_compose i (equal_compose j r))\\n         in let\\n           base : F w (reflexive w)\\n             := fun (j : Equal w y)\\n                  => reflexive (equal_compose j r)\\n         in let\\n           inductive : forall (a : X) (i : Equal w a), F a i\\n             := equal_induction w F base\\n         in\\n           inductive x p q.\\n\\nArguments equal_associative {X w x y z} p q r.
 SortKey: A
 
 Label: smege15s
@@ -1594,31 +1046,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 87
 End: 110
-Content: LHS := RHS
-LHS: Definition equal_compose_left_equal
-+      : forall (X : Type) (x y : X) (p p' : Equal x y),
-+          Equal p p'
-+            -> forall (z : X) (q : Equal y z),
-+                 Equal (equal_compose p q) (equal_compose p' q)
-RHS: fun (X : Type)
-+             (x y : X)
-+             (p p' : Equal x y)
-+             (u : Equal p p')
-+             (z : X)
-+             (q : Equal y z)
-+           =>
-+             let
-+               F : forall (i : Equal x y), Equal p i -> Type
-+                 := fun (i  : Equal x y)
-+                      => constant_function (Equal (equal_compose p q)
-+                                                  (equal_compose i q))
-+             in let
-+               base : F p (reflexive p)
-+                 := reflexive (equal_compose p q)
-+             in
-+               equal_induction p F base p' u.
-+
-+    Arguments equal_compose_left_equal {X x y p p'} _ {z} q.
+Content: Definition equal_compose_left_equal\\n  : forall (X : Type) (x y : X) (p p' : Equal x y),\\n      Equal p p'\\n        -> forall (z : X) (q : Equal y z),\\n             Equal (equal_compose p q) (equal_compose p' q)\\n  := fun (X : Type)\\n         (x y : X)\\n         (p p' : Equal x y)\\n         (u : Equal p p')\\n         (z : X)\\n         (q : Equal y z)\\n       =>\\n         let\\n           F : forall (i : Equal x y), Equal p i -> Type\\n             := fun (i  : Equal x y)\\n                  => constant_function (Equal (equal_compose p q)\\n                                              (equal_compose i q))\\n         in let\\n           base : F p (reflexive p)\\n             := reflexive (equal_compose p q)\\n         in\\n           equal_induction p F base p' u.\\n\\nArguments equal_compose_left_equal {X x y p p'} _ {z} q.
+LHS: Definition equal_compose_left_equal\\n  : forall (X : Type) (x y : X) (p p' : Equal x y),\\n      Equal p p'\\n        -> forall (z : X) (q : Equal y z),\\n             Equal (equal_compose p q) (equal_compose p' q)
+RHS: fun (X : Type)\\n         (x y : X)\\n         (p p' : Equal x y)\\n         (u : Equal p p')\\n         (z : X)\\n         (q : Equal y z)\\n       =>\\n         let\\n           F : forall (i : Equal x y), Equal p i -> Type\\n             := fun (i  : Equal x y)\\n                  => constant_function (Equal (equal_compose p q)\\n                                              (equal_compose i q))\\n         in let\\n           base : F p (reflexive p)\\n             := reflexive (equal_compose p q)\\n         in\\n           equal_induction p F base p' u.\\n\\nArguments equal_compose_left_equal {X x y p p'} _ {z} q.
 SortKey: A
 
 Label: g6ql88po
@@ -1627,33 +1057,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 114
 End: 139
-Content: LHS := RHS
-LHS: Definition equal_compose_right_equal
-+      : forall (X : Type)
-+               (x y : X)
-+               (p : Equal x y)
-+               (z : X)
-+               (q q' : Equal y z),
-+          Equal q q' -> Equal (equal_compose p q) (equal_compose p q')
-RHS: fun (X : Type)
-+             (x y : X)
-+             (p : Equal x y)
-+             (z : X)
-+             (q q' : Equal y z)
-+             (v : Equal q q')
-+           =>
-+             let
-+               F : forall (j : Equal y z), Equal q j -> Type
-+                 := fun (j  : Equal y z)
-+                      => constant_function (Equal (equal_compose p q)
-+                                                  (equal_compose p j))
-+             in let
-+               base : F q (reflexive q)
-+                 := reflexive (equal_compose p q)
-+             in
-+               equal_induction q F base q' v.
-+
-+    Arguments equal_compose_right_equal {X x y} p {z q q'} _.
+Content: Definition equal_compose_right_equal\\n  : forall (X : Type)\\n           (x y : X)\\n           (p : Equal x y)\\n           (z : X)\\n           (q q' : Equal y z),\\n      Equal q q' -> Equal (equal_compose p q) (equal_compose p q')\\n  := fun (X : Type)\\n         (x y : X)\\n         (p : Equal x y)\\n         (z : X)\\n         (q q' : Equal y z)\\n         (v : Equal q q')\\n       =>\\n         let\\n           F : forall (j : Equal y z), Equal q j -> Type\\n             := fun (j  : Equal y z)\\n                  => constant_function (Equal (equal_compose p q)\\n                                              (equal_compose p j))\\n         in let\\n           base : F q (reflexive q)\\n             := reflexive (equal_compose p q)\\n         in\\n           equal_induction q F base q' v.\\n\\nArguments equal_compose_right_equal {X x y} p {z q q'} _.
+LHS: Definition equal_compose_right_equal\\n  : forall (X : Type)\\n           (x y : X)\\n           (p : Equal x y)\\n           (z : X)\\n           (q q' : Equal y z),\\n      Equal q q' -> Equal (equal_compose p q) (equal_compose p q')
+RHS: fun (X : Type)\\n         (x y : X)\\n         (p : Equal x y)\\n         (z : X)\\n         (q q' : Equal y z)\\n         (v : Equal q q')\\n       =>\\n         let\\n           F : forall (j : Equal y z), Equal q j -> Type\\n             := fun (j  : Equal y z)\\n                  => constant_function (Equal (equal_compose p q)\\n                                              (equal_compose p j))\\n         in let\\n           base : F q (reflexive q)\\n             := reflexive (equal_compose p q)\\n         in\\n           equal_induction q F base q' v.\\n\\nArguments equal_compose_right_equal {X x y} p {z q q'} _.
 SortKey: A
 
 Label: npsmi0d4
@@ -1662,31 +1068,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 143
 End: 166
-Content: LHS := RHS
-LHS: Definition equal_compose_equal
-+      : forall (X : Type)
-+               (x y z : X)
-+               (p p' : Equal x y)
-+               (q q' : Equal y z),
-+          Equal p p' -> Equal q q'
-+            -> Equal (equal_compose p q) (equal_compose p' q')
-RHS: fun (X : Type)
-+             (x y z : X)
-+             (p p' : Equal x y)
-+             (q q' : Equal y z)
-+             (u : Equal p p')
-+             (v : Equal q q')
-+           =>
-+             let
-+               e : Equal (equal_compose p q) (equal_compose p' q)
-+                 := equal_compose_left_equal u q
-+             in let
-+               f : Equal (equal_compose p' q) (equal_compose p' q')
-+                 := equal_compose_right_equal p' v
-+             in
-+               equal_compose e f.
-+
-+    Arguments equal_compose_equal {X x y z p p' q q'} _ _.
+Content: Definition equal_compose_equal\\n  : forall (X : Type)\\n           (x y z : X)\\n           (p p' : Equal x y)\\n           (q q' : Equal y z),\\n      Equal p p' -> Equal q q'\\n        -> Equal (equal_compose p q) (equal_compose p' q')\\n  := fun (X : Type)\\n         (x y z : X)\\n         (p p' : Equal x y)\\n         (q q' : Equal y z)\\n         (u : Equal p p')\\n         (v : Equal q q')\\n       =>\\n         let\\n           e : Equal (equal_compose p q) (equal_compose p' q)\\n             := equal_compose_left_equal u q\\n         in let\\n           f : Equal (equal_compose p' q) (equal_compose p' q')\\n             := equal_compose_right_equal p' v\\n         in\\n           equal_compose e f.\\n\\nArguments equal_compose_equal {X x y z p p' q q'} _ _.
+LHS: Definition equal_compose_equal\\n  : forall (X : Type)\\n           (x y z : X)\\n           (p p' : Equal x y)\\n           (q q' : Equal y z),\\n      Equal p p' -> Equal q q'\\n        -> Equal (equal_compose p q) (equal_compose p' q')
+RHS: fun (X : Type)\\n         (x y z : X)\\n         (p p' : Equal x y)\\n         (q q' : Equal y z)\\n         (u : Equal p p')\\n         (v : Equal q q')\\n       =>\\n         let\\n           e : Equal (equal_compose p q) (equal_compose p' q)\\n             := equal_compose_left_equal u q\\n         in let\\n           f : Equal (equal_compose p' q) (equal_compose p' q')\\n             := equal_compose_right_equal p' v\\n         in\\n           equal_compose e f.\\n\\nArguments equal_compose_equal {X x y z p p' q q'} _ _.
 SortKey: A
 
 Label: 37wczvy0
@@ -1695,20 +1079,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 174
 End: 186
-Content: LHS := RHS
-LHS: Definition equal_inverse
-+      : forall (X : Type) (x y : X), Equal x y -> Equal y x
-RHS: fun (X : Type) (x : X)
-+           =>
-+             let
-+               F : forall (y : X), Equal x y -> Type
-+                 := fun (y : X) => constant_function (Equal y x)
-+             in let
-+               base : F x (reflexive x) := reflexive x
-+             in
-+               equal_induction x F base.
-+
-+    Arguments equal_inverse {X x y} _.
+Content: Definition equal_inverse\\n  : forall (X : Type) (x y : X), Equal x y -> Equal y x\\n  := fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (y : X), Equal x y -> Type\\n             := fun (y : X) => constant_function (Equal y x)\\n         in let\\n           base : F x (reflexive x) := reflexive x\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_inverse {X x y} _.
+LHS: Definition equal_inverse\\n  : forall (X : Type) (x y : X), Equal x y -> Equal y x
+RHS: fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (y : X), Equal x y -> Type\\n             := fun (y : X) => constant_function (Equal y x)\\n         in let\\n           base : F x (reflexive x) := reflexive x\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_inverse {X x y} _.
 SortKey: A
 
 Label: fehutg63
@@ -1717,10 +1090,8 @@ Class: Example
 File: src/base/equal.v
 Begin: 190
 End: 193
-Content: LHS := RHS
-LHS: Example _equal_inverse_reflexive
-+      : forall (X : Type) (x : X),
-+          Equal (reflexive x) (equal_inverse (reflexive x))
+Content: Example _equal_inverse_reflexive\\n  : forall (X : Type) (x : X),\\n      Equal (reflexive x) (equal_inverse (reflexive x))\\n  := fun (X : Type) (x : X) => reflexive (reflexive x).
+LHS: Example _equal_inverse_reflexive\\n  : forall (X : Type) (x : X),\\n      Equal (reflexive x) (equal_inverse (reflexive x))
 RHS: fun (X : Type) (x : X) => reflexive (reflexive x).
 SortKey: Z
 
@@ -1730,23 +1101,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 197
 End: 212
-Content: LHS := RHS
-LHS: Definition equal_left_inverse
-+      : forall (X : Type) (x y : X) (p : Equal x y),
-+          Equal (reflexive y) (equal_compose (equal_inverse p) p)
-RHS: fun (X : Type) (x : X)
-+           =>
-+             let
-+               F : forall (y : X), Equal x y -> Type
-+                 := fun (y : X) (p : Equal x y)
-+                      => Equal (reflexive y)
-+                               (equal_compose (equal_inverse p) p)
-+             in let
-+               base : F x (reflexive x) := reflexive (reflexive x)
-+             in
-+               equal_induction x F base.
-+
-+    Arguments equal_left_inverse {X x y} p.
+Content: Definition equal_left_inverse\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal (reflexive y) (equal_compose (equal_inverse p) p)\\n  := fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (y : X), Equal x y -> Type\\n             := fun (y : X) (p : Equal x y)\\n                  => Equal (reflexive y)\\n                           (equal_compose (equal_inverse p) p)\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_left_inverse {X x y} p.
+LHS: Definition equal_left_inverse\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal (reflexive y) (equal_compose (equal_inverse p) p)
+RHS: fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (y : X), Equal x y -> Type\\n             := fun (y : X) (p : Equal x y)\\n                  => Equal (reflexive y)\\n                           (equal_compose (equal_inverse p) p)\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_left_inverse {X x y} p.
 SortKey: A
 
 Label: eay5nxer
@@ -1755,23 +1112,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 216
 End: 231
-Content: LHS := RHS
-LHS: Definition equal_right_inverse
-+      : forall (X : Type) (x y : X) (p : Equal x y),
-+          Equal (reflexive x) (equal_compose p (equal_inverse p))
-RHS: fun (X : Type) (x : X)
-+           =>
-+             let
-+               F : forall (y : X), Equal x y -> Type
-+                 := fun (y : X) (p : Equal x y)
-+                      => Equal (reflexive x)
-+                               (equal_compose p (equal_inverse p))
-+             in let
-+               base : F x (reflexive x) := reflexive (reflexive x)
-+             in
-+               equal_induction x F base.
-+
-+    Arguments equal_right_inverse {X x y} p.
+Content: Definition equal_right_inverse\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal (reflexive x) (equal_compose p (equal_inverse p))\\n  := fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (y : X), Equal x y -> Type\\n             := fun (y : X) (p : Equal x y)\\n                  => Equal (reflexive x)\\n                           (equal_compose p (equal_inverse p))\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_right_inverse {X x y} p.
+LHS: Definition equal_right_inverse\\n  : forall (X : Type) (x y : X) (p : Equal x y),\\n      Equal (reflexive x) (equal_compose p (equal_inverse p))
+RHS: fun (X : Type) (x : X)\\n       =>\\n         let\\n           F : forall (y : X), Equal x y -> Type\\n             := fun (y : X) (p : Equal x y)\\n                  => Equal (reflexive x)\\n                           (equal_compose p (equal_inverse p))\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_right_inverse {X x y} p.
 SortKey: A
 
 Label: lxgjdap3
@@ -1780,21 +1123,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 239
 End: 252
-Content: LHS := RHS
-LHS: Definition equal_map
-+      : forall (X Y : Type) (f : X -> Y) (x x' : X),
-+          Equal x x' -> Equal (f x) (f x')
-RHS: fun (X Y : Type) (f : X -> Y) (x : X)
-+           =>
-+             let
-+               F : forall (x' : X), Equal x x' -> Type
-+                 := fun (x' : X) => constant_function (Equal (f x) (f x'))
-+             in let
-+               base : F x (reflexive x) := reflexive (f x)
-+             in
-+               equal_induction x F base.
-+
-+    Arguments equal_map {X Y} f {x x'} _.
+Content: Definition equal_map\\n  : forall (X Y : Type) (f : X -> Y) (x x' : X),\\n      Equal x x' -> Equal (f x) (f x')\\n  := fun (X Y : Type) (f : X -> Y) (x : X)\\n       =>\\n         let\\n           F : forall (x' : X), Equal x x' -> Type\\n             := fun (x' : X) => constant_function (Equal (f x) (f x'))\\n         in let\\n           base : F x (reflexive x) := reflexive (f x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_map {X Y} f {x x'} _.
+LHS: Definition equal_map\\n  : forall (X Y : Type) (f : X -> Y) (x x' : X),\\n      Equal x x' -> Equal (f x) (f x')
+RHS: fun (X Y : Type) (f : X -> Y) (x : X)\\n       =>\\n         let\\n           F : forall (x' : X), Equal x x' -> Type\\n             := fun (x' : X) => constant_function (Equal (f x) (f x'))\\n         in let\\n           base : F x (reflexive x) := reflexive (f x)\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_map {X Y} f {x x'} _.
 SortKey: A
 
 Label: udxkkzqg
@@ -1803,12 +1134,9 @@ Class: Example
 File: src/base/equal.v
 Begin: 256
 End: 260
-Content: LHS := RHS
-LHS: Example _equal_map_unital
-+      : forall (X Y : Type) (f : X -> Y) (x : X),
-+          Equal (reflexive (f x)) (equal_map f (reflexive x))
-RHS: fun (X Y : Type) (f : X -> Y) (x : X)
-+           => reflexive (reflexive (f x)).
+Content: Example _equal_map_unital\\n  : forall (X Y : Type) (f : X -> Y) (x : X),\\n      Equal (reflexive (f x)) (equal_map f (reflexive x))\\n  := fun (X Y : Type) (f : X -> Y) (x : X)\\n       => reflexive (reflexive (f x)).
+LHS: Example _equal_map_unital\\n  : forall (X Y : Type) (f : X -> Y) (x : X),\\n      Equal (reflexive (f x)) (equal_map f (reflexive x))
+RHS: fun (X Y : Type) (f : X -> Y) (x : X)\\n       => reflexive (reflexive (f x)).
 SortKey: Z
 
 Label: bul2i30n
@@ -1817,31 +1145,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 264
 End: 287
-Content: LHS := RHS
-LHS: Definition equal_map_multiplicative
-+      : forall (X Y : Type)
-+               (f : X -> Y)
-+               (x1 x2 x3 : X)
-+               (p : Equal x1 x2)
-+               (q : Equal x2 x3),
-+          Equal (equal_map f (equal_compose p q))
-+                (equal_compose (equal_map f p) (equal_map f q))
-RHS: fun (X Y : Type) (f : X -> Y) (x1 x2 x3 : X)
-+           =>
-+             let
-+               F : forall (a : X), Equal x1 a -> Type
-+                 := fun (a : X) (p : Equal x1 a)
-+                      => forall (q : Equal a x3),
-+                           Equal (equal_map f (equal_compose p q))
-+                                 (equal_compose (equal_map f p) (equal_map f q))
-+             in let
-+               base : F x1 (reflexive x1)
-+                 := fun (q : Equal x1 x3)
-+                      => reflexive (equal_map f q)
-+             in
-+               equal_induction x1 F base x2.
-+
-+    Arguments equal_map_multiplicative {X Y} f {x1 x2 x3} p q.
+Content: Definition equal_map_multiplicative\\n  : forall (X Y : Type)\\n           (f : X -> Y)\\n           (x1 x2 x3 : X)\\n           (p : Equal x1 x2)\\n           (q : Equal x2 x3),\\n      Equal (equal_map f (equal_compose p q))\\n            (equal_compose (equal_map f p) (equal_map f q))\\n  := fun (X Y : Type) (f : X -> Y) (x1 x2 x3 : X)\\n       =>\\n         let\\n           F : forall (a : X), Equal x1 a -> Type\\n             := fun (a : X) (p : Equal x1 a)\\n                  => forall (q : Equal a x3),\\n                       Equal (equal_map f (equal_compose p q))\\n                             (equal_compose (equal_map f p) (equal_map f q))\\n         in let\\n           base : F x1 (reflexive x1)\\n             := fun (q : Equal x1 x3)\\n                  => reflexive (equal_map f q)\\n         in\\n           equal_induction x1 F base x2.\\n\\nArguments equal_map_multiplicative {X Y} f {x1 x2 x3} p q.
+LHS: Definition equal_map_multiplicative\\n  : forall (X Y : Type)\\n           (f : X -> Y)\\n           (x1 x2 x3 : X)\\n           (p : Equal x1 x2)\\n           (q : Equal x2 x3),\\n      Equal (equal_map f (equal_compose p q))\\n            (equal_compose (equal_map f p) (equal_map f q))
+RHS: fun (X Y : Type) (f : X -> Y) (x1 x2 x3 : X)\\n       =>\\n         let\\n           F : forall (a : X), Equal x1 a -> Type\\n             := fun (a : X) (p : Equal x1 a)\\n                  => forall (q : Equal a x3),\\n                       Equal (equal_map f (equal_compose p q))\\n                             (equal_compose (equal_map f p) (equal_map f q))\\n         in let\\n           base : F x1 (reflexive x1)\\n             := fun (q : Equal x1 x3)\\n                  => reflexive (equal_map f q)\\n         in\\n           equal_induction x1 F base x2.\\n\\nArguments equal_map_multiplicative {X Y} f {x1 x2 x3} p q.
 SortKey: A
 
 Label: 5e7zp56e
@@ -1850,24 +1156,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 291
 End: 307
-Content: LHS := RHS
-LHS: Definition equal_map_inverse
-+      : forall (X Y : Type) (f : X -> Y) (x x' : X) (p : Equal x x'),
-+          Equal (equal_map f (equal_inverse p))
-+                (equal_inverse (equal_map f p))
-RHS: fun (X Y : Type) (f : X -> Y) (x : X)
-+           =>
-+             let
-+               F : forall (x' : X), Equal x x' -> Type
-+                 := fun (x' : X) (p : Equal x x')
-+                      => Equal (equal_map f (equal_inverse p))
-+                               (equal_inverse (equal_map f p))
-+             in let
-+               base : F x (reflexive x) := reflexive (reflexive (f x))
-+             in
-+               equal_induction x F base.
-+
-+    Arguments equal_map_inverse {X Y} f {x x'} p.
+Content: Definition equal_map_inverse\\n  : forall (X Y : Type) (f : X -> Y) (x x' : X) (p : Equal x x'),\\n      Equal (equal_map f (equal_inverse p))\\n            (equal_inverse (equal_map f p))\\n  := fun (X Y : Type) (f : X -> Y) (x : X)\\n       =>\\n         let\\n           F : forall (x' : X), Equal x x' -> Type\\n             := fun (x' : X) (p : Equal x x')\\n                  => Equal (equal_map f (equal_inverse p))\\n                           (equal_inverse (equal_map f p))\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive (f x))\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_map_inverse {X Y} f {x x'} p.
+LHS: Definition equal_map_inverse\\n  : forall (X Y : Type) (f : X -> Y) (x x' : X) (p : Equal x x'),\\n      Equal (equal_map f (equal_inverse p))\\n            (equal_inverse (equal_map f p))
+RHS: fun (X Y : Type) (f : X -> Y) (x : X)\\n       =>\\n         let\\n           F : forall (x' : X), Equal x x' -> Type\\n             := fun (x' : X) (p : Equal x x')\\n                  => Equal (equal_map f (equal_inverse p))\\n                           (equal_inverse (equal_map f p))\\n         in let\\n           base : F x (reflexive x) := reflexive (reflexive (f x))\\n         in\\n           equal_induction x F base.\\n\\nArguments equal_map_inverse {X Y} f {x x'} p.
 SortKey: A
 
 Label: omtjvrai
@@ -1876,29 +1167,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 315
 End: 336
-Content: LHS := RHS
-LHS: Definition equal_left_cancel
-+      : forall (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z),
-+          Equal (equal_compose p q) (equal_compose p q') -> Equal q q'
-RHS: fun (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z)
-+           =>
-+             let
-+               F : forall (a : X), Equal x a -> Type
-+                 := fun (a : X) (i : Equal x a)
-+                      => forall (j j' :  Equal a z),
-+                           Equal (equal_compose i j) (equal_compose i j')
-+                             -> Equal j j'
-+             in let
-+               base : F x (reflexive x)
-+                 := fun (j j' : Equal x z)
-+                      => @identity_function (Equal j j')
-+             in let
-+               inductive : forall (a : X) (i : Equal x a), F a i
-+                 := equal_induction x F base
-+             in
-+               inductive y p q q'.
-+
-+    Arguments equal_left_cancel {X x y z} p q q' _.
+Content: Definition equal_left_cancel\\n  : forall (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z),\\n      Equal (equal_compose p q) (equal_compose p q') -> Equal q q'\\n  := fun (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z)\\n       =>\\n         let\\n           F : forall (a : X), Equal x a -> Type\\n             := fun (a : X) (i : Equal x a)\\n                  => forall (j j' :  Equal a z),\\n                       Equal (equal_compose i j) (equal_compose i j')\\n                         -> Equal j j'\\n         in let\\n           base : F x (reflexive x)\\n             := fun (j j' : Equal x z)\\n                  => @identity_function (Equal j j')\\n         in let\\n           inductive : forall (a : X) (i : Equal x a), F a i\\n             := equal_induction x F base\\n         in\\n           inductive y p q q'.\\n\\nArguments equal_left_cancel {X x y z} p q q' _.
+LHS: Definition equal_left_cancel\\n  : forall (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z),\\n      Equal (equal_compose p q) (equal_compose p q') -> Equal q q'
+RHS: fun (X : Type) (x y z : X) (p : Equal x y) (q q' : Equal y z)\\n       =>\\n         let\\n           F : forall (a : X), Equal x a -> Type\\n             := fun (a : X) (i : Equal x a)\\n                  => forall (j j' :  Equal a z),\\n                       Equal (equal_compose i j) (equal_compose i j')\\n                         -> Equal j j'\\n         in let\\n           base : F x (reflexive x)\\n             := fun (j j' : Equal x z)\\n                  => @identity_function (Equal j j')\\n         in let\\n           inductive : forall (a : X) (i : Equal x a), F a i\\n             := equal_induction x F base\\n         in\\n           inductive y p q q'.\\n\\nArguments equal_left_cancel {X x y z} p q q' _.
 SortKey: A
 
 Label: 865g4mt7
@@ -1907,33 +1178,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 340
 End: 365
-Content: LHS := RHS
-LHS: Definition equal_left_remove
-+      : forall (X : Type)
-+               (x y : X)
-+               (p p' : Equal x y),
-+          Equal p p'
-+            -> forall (z : X) (q q' : Equal y z),
-+                 Equal (equal_compose p q) (equal_compose p' q')
-+                   -> Equal q q'
-RHS: fun (X : Type)
-+             (x y : X)
-+             (p p' : Equal x y)
-+             (u : Equal p p')
-+             (z : X)
-+             (q q' : Equal y z)
-+             (e : Equal (equal_compose p q) (equal_compose p' q'))
-+           =>
-+             let
-+               e1 : Equal (equal_compose p q') (equal_compose p' q')
-+                  := equal_compose_left_equal u q'
-+             in let
-+               e2 : Equal (equal_compose p q) (equal_compose p q')
-+                  := equal_compose e (equal_inverse e1)
-+             in
-+               equal_left_cancel p q q' e2.
-+
-+    Arguments equal_left_remove {X x y p p'} _ {z} q q' _.
+Content: Definition equal_left_remove\\n  : forall (X : Type)\\n           (x y : X)\\n           (p p' : Equal x y),\\n      Equal p p'\\n        -> forall (z : X) (q q' : Equal y z),\\n             Equal (equal_compose p q) (equal_compose p' q')\\n               -> Equal q q'\\n  := fun (X : Type)\\n         (x y : X)\\n         (p p' : Equal x y)\\n         (u : Equal p p')\\n         (z : X)\\n         (q q' : Equal y z)\\n         (e : Equal (equal_compose p q) (equal_compose p' q'))\\n       =>\\n         let\\n           e1 : Equal (equal_compose p q') (equal_compose p' q')\\n              := equal_compose_left_equal u q'\\n         in let\\n           e2 : Equal (equal_compose p q) (equal_compose p q')\\n              := equal_compose e (equal_inverse e1)\\n         in\\n           equal_left_cancel p q q' e2.\\n\\nArguments equal_left_remove {X x y p p'} _ {z} q q' _.
+LHS: Definition equal_left_remove\\n  : forall (X : Type)\\n           (x y : X)\\n           (p p' : Equal x y),\\n      Equal p p'\\n        -> forall (z : X) (q q' : Equal y z),\\n             Equal (equal_compose p q) (equal_compose p' q')\\n               -> Equal q q'
+RHS: fun (X : Type)\\n         (x y : X)\\n         (p p' : Equal x y)\\n         (u : Equal p p')\\n         (z : X)\\n         (q q' : Equal y z)\\n         (e : Equal (equal_compose p q) (equal_compose p' q'))\\n       =>\\n         let\\n           e1 : Equal (equal_compose p q') (equal_compose p' q')\\n              := equal_compose_left_equal u q'\\n         in let\\n           e2 : Equal (equal_compose p q) (equal_compose p q')\\n              := equal_compose e (equal_inverse e1)\\n         in\\n           equal_left_cancel p q q' e2.\\n\\nArguments equal_left_remove {X x y p p'} _ {z} q q' _.
 SortKey: A
 
 Label: 8gh9140h
@@ -1942,39 +1189,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 369
 End: 400
-Content: LHS := RHS
-LHS: Definition equal_right_cancel
-+      : forall (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z),
-+          Equal (equal_compose p q) (equal_compose p' q) -> Equal p p'
-RHS: fun (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z)
-+           =>
-+             let
-+               F : forall (a : X), Equal y a -> Type
-+                 := fun (a : X) (j : Equal y a)
-+                      => forall (i i' :  Equal x y),
-+                           Equal (equal_compose i j) (equal_compose i' j)
-+                             -> Equal i i'
-+             in let
-+               base : F y (reflexive y)
-+                 := fun (i i' : Equal x y)
-+                        (u : Equal (equal_compose i (reflexive y))
-+                                   (equal_compose i' (reflexive y)))
-+                      =>
-+                        let
-+                          e1 : Equal i (equal_compose i (reflexive y))
-+                             := equal_right_unit i
-+                        in let
-+                          e2 : Equal (equal_compose i' (reflexive y)) i'
-+                             := equal_inverse (equal_right_unit i')
-+                        in
-+                          equal_compose (equal_compose e1 u) e2
-+             in let
-+               inductive : forall (a : X) (j : Equal y a), F a j
-+                 := equal_induction y F base
-+             in
-+               inductive z q p p'.
-+
-+    Arguments equal_right_cancel {X x y z} p p' q _.
+Content: Definition equal_right_cancel\\n  : forall (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z),\\n      Equal (equal_compose p q) (equal_compose p' q) -> Equal p p'\\n  := fun (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z)\\n       =>\\n         let\\n           F : forall (a : X), Equal y a -> Type\\n             := fun (a : X) (j : Equal y a)\\n                  => forall (i i' :  Equal x y),\\n                       Equal (equal_compose i j) (equal_compose i' j)\\n                         -> Equal i i'\\n         in let\\n           base : F y (reflexive y)\\n             := fun (i i' : Equal x y)\\n                    (u : Equal (equal_compose i (reflexive y))\\n                               (equal_compose i' (reflexive y)))\\n                  =>\\n                    let\\n                      e1 : Equal i (equal_compose i (reflexive y))\\n                         := equal_right_unit i\\n                    in let\\n                      e2 : Equal (equal_compose i' (reflexive y)) i'\\n                         := equal_inverse (equal_right_unit i')\\n                    in\\n                      equal_compose (equal_compose e1 u) e2\\n         in let\\n           inductive : forall (a : X) (j : Equal y a), F a j\\n             := equal_induction y F base\\n         in\\n           inductive z q p p'.\\n\\nArguments equal_right_cancel {X x y z} p p' q _.
+LHS: Definition equal_right_cancel\\n  : forall (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z),\\n      Equal (equal_compose p q) (equal_compose p' q) -> Equal p p'
+RHS: fun (X : Type) (x y z : X) (p p' : Equal x y) (q : Equal y z)\\n       =>\\n         let\\n           F : forall (a : X), Equal y a -> Type\\n             := fun (a : X) (j : Equal y a)\\n                  => forall (i i' :  Equal x y),\\n                       Equal (equal_compose i j) (equal_compose i' j)\\n                         -> Equal i i'\\n         in let\\n           base : F y (reflexive y)\\n             := fun (i i' : Equal x y)\\n                    (u : Equal (equal_compose i (reflexive y))\\n                               (equal_compose i' (reflexive y)))\\n                  =>\\n                    let\\n                      e1 : Equal i (equal_compose i (reflexive y))\\n                         := equal_right_unit i\\n                    in let\\n                      e2 : Equal (equal_compose i' (reflexive y)) i'\\n                         := equal_inverse (equal_right_unit i')\\n                    in\\n                      equal_compose (equal_compose e1 u) e2\\n         in let\\n           inductive : forall (a : X) (j : Equal y a), F a j\\n             := equal_induction y F base\\n         in\\n           inductive z q p p'.\\n\\nArguments equal_right_cancel {X x y z} p p' q _.
 SortKey: A
 
 Label: sqhuo1hf
@@ -1983,34 +1200,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 404
 End: 430
-Content: LHS := RHS
-LHS: Definition equal_right_remove
-+      : forall (X : Type)
-+               (x y : X)
-+               (p p' : Equal x y)
-+               (z : X)
-+               (q q' : Equal y z),
-+          Equal q q'
-+            -> Equal (equal_compose p q) (equal_compose p' q')
-+              -> Equal p p'
-RHS: fun (X : Type)
-+             (x y : X)
-+             (p p' : Equal x y)
-+             (z : X)
-+             (q q' : Equal y z)
-+             (v : Equal q q')
-+             (e : Equal (equal_compose p q) (equal_compose p' q'))
-+           =>
-+             let
-+               e1 : Equal (equal_compose p' q) (equal_compose p' q')
-+                  := equal_compose_right_equal p' v
-+             in let
-+               e2 : Equal (equal_compose p q) (equal_compose p' q)
-+                  := equal_compose e (equal_inverse e1)
-+             in
-+               equal_right_cancel p p' q e2.
-+
-+    Arguments equal_right_remove {X x y} p p' {z} {q q'} _ _.
+Content: Definition equal_right_remove\\n  : forall (X : Type)\\n           (x y : X)\\n           (p p' : Equal x y)\\n           (z : X)\\n           (q q' : Equal y z),\\n      Equal q q'\\n        -> Equal (equal_compose p q) (equal_compose p' q')\\n          -> Equal p p'\\n  := fun (X : Type)\\n         (x y : X)\\n         (p p' : Equal x y)\\n         (z : X)\\n         (q q' : Equal y z)\\n         (v : Equal q q')\\n         (e : Equal (equal_compose p q) (equal_compose p' q'))\\n       =>\\n         let\\n           e1 : Equal (equal_compose p' q) (equal_compose p' q')\\n              := equal_compose_right_equal p' v\\n         in let\\n           e2 : Equal (equal_compose p q) (equal_compose p' q)\\n              := equal_compose e (equal_inverse e1)\\n         in\\n           equal_right_cancel p p' q e2.\\n\\nArguments equal_right_remove {X x y} p p' {z} {q q'} _ _.
+LHS: Definition equal_right_remove\\n  : forall (X : Type)\\n           (x y : X)\\n           (p p' : Equal x y)\\n           (z : X)\\n           (q q' : Equal y z),\\n      Equal q q'\\n        -> Equal (equal_compose p q) (equal_compose p' q')\\n          -> Equal p p'
+RHS: fun (X : Type)\\n         (x y : X)\\n         (p p' : Equal x y)\\n         (z : X)\\n         (q q' : Equal y z)\\n         (v : Equal q q')\\n         (e : Equal (equal_compose p q) (equal_compose p' q'))\\n       =>\\n         let\\n           e1 : Equal (equal_compose p' q) (equal_compose p' q')\\n              := equal_compose_right_equal p' v\\n         in let\\n           e2 : Equal (equal_compose p q) (equal_compose p' q)\\n              := equal_compose e (equal_inverse e1)\\n         in\\n           equal_right_cancel p p' q e2.\\n\\nArguments equal_right_remove {X x y} p p' {z} {q q'} _ _.
 SortKey: A
 
 Label: x71kqflr
@@ -2019,14 +1211,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 438
 End: 444
-Content: LHS := RHS
-LHS: Definition equal_left_unit_unique
-+      : forall (X : Type) (x y : X) (p : Equal x x) (q : Equal x y),
-+          Equal q (equal_compose p q) -> Equal (reflexive x) p
-RHS: fun (X : Type) (x y : X) (p : Equal x x) (q : Equal x y)
-+           => equal_right_cancel (reflexive x) p q.
-+
-+    Arguments equal_left_unit_unique {X x y} p {q} _.
+Content: Definition equal_left_unit_unique\\n  : forall (X : Type) (x y : X) (p : Equal x x) (q : Equal x y),\\n      Equal q (equal_compose p q) -> Equal (reflexive x) p\\n  := fun (X : Type) (x y : X) (p : Equal x x) (q : Equal x y)\\n       => equal_right_cancel (reflexive x) p q.\\n\\nArguments equal_left_unit_unique {X x y} p {q} _.
+LHS: Definition equal_left_unit_unique\\n  : forall (X : Type) (x y : X) (p : Equal x x) (q : Equal x y),\\n      Equal q (equal_compose p q) -> Equal (reflexive x) p
+RHS: fun (X : Type) (x y : X) (p : Equal x x) (q : Equal x y)\\n       => equal_right_cancel (reflexive x) p q.\\n\\nArguments equal_left_unit_unique {X x y} p {q} _.
 SortKey: A
 
 Label: m1jqzny4
@@ -2035,27 +1222,9 @@ Class: Definition
 File: src/base/equal.v
 Begin: 448
 End: 467
-Content: LHS := RHS
-LHS: Definition equal_right_unit_unique
-+      : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y y),
-+          Equal p (equal_compose p q) -> Equal (reflexive y) q
-RHS: fun (X : Type)
-+             (x y : X)
-+             (p : Equal x y)
-+             (q : Equal y y)
-+             (u : Equal p (equal_compose p q))
-+           =>
-+             let
-+               e : Equal p (equal_compose p (reflexive y))
-+                 := equal_right_unit p
-+             in let
-+               f : Equal (equal_compose p (reflexive y))
-+                         (equal_compose p q)
-+                 := equal_compose (equal_inverse e) u
-+             in
-+               equal_left_cancel p (reflexive y) q f.
-+
-+    Arguments equal_right_unit_unique {X x y p} q _.
+Content: Definition equal_right_unit_unique\\n  : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y y),\\n      Equal p (equal_compose p q) -> Equal (reflexive y) q\\n  := fun (X : Type)\\n         (x y : X)\\n         (p : Equal x y)\\n         (q : Equal y y)\\n         (u : Equal p (equal_compose p q))\\n       =>\\n         let\\n           e : Equal p (equal_compose p (reflexive y))\\n             := equal_right_unit p\\n         in let\\n           f : Equal (equal_compose p (reflexive y))\\n                     (equal_compose p q)\\n             := equal_compose (equal_inverse e) u\\n         in\\n           equal_left_cancel p (reflexive y) q f.\\n\\nArguments equal_right_unit_unique {X x y p} q _.
+LHS: Definition equal_right_unit_unique\\n  : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y y),\\n      Equal p (equal_compose p q) -> Equal (reflexive y) q
+RHS: fun (X : Type)\\n         (x y : X)\\n         (p : Equal x y)\\n         (q : Equal y y)\\n         (u : Equal p (equal_compose p q))\\n       =>\\n         let\\n           e : Equal p (equal_compose p (reflexive y))\\n             := equal_right_unit p\\n         in let\\n           f : Equal (equal_compose p (reflexive y))\\n                     (equal_compose p q)\\n             := equal_compose (equal_inverse e) u\\n         in\\n           equal_left_cancel p (reflexive y) q f.\\n\\nArguments equal_right_unit_unique {X x y p} q _.
 SortKey: A
 
 ### End of file

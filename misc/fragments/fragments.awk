@@ -19,15 +19,15 @@
 ## %sort: SortKey Name File Begin
 ## %doc: Fragments from files
 ## + Label: a unique identifier for the fragment
-## + Name: The name of the main object of the fragment if applicable else NA
-## + Class: The category of the main object of the fragment
+## + Name: the name of the main object of the fragment if applicable else NA
+## + Class: the category of the main object of the fragment
 ## + File: the file containing the fragment
 ## + Begin: the number in the file of the first line of the fragment
 ## + End: the number in the file of the last line of the fragment
 ## + Content: the text of the fragment
-## + LHS: left hand side of first := in Content if applicable else NA
-## + RHS: right hand side of first := in Content if applicable else NA
-## + SortKey: String used for sorting the records
+## + LHS: the left hand side of the first := in Content if applicable else NA
+## + RHS: the right hand side of the first := in Content if applicable else NA
+## + SortKey: a string used for sorting the records
 ##
 ## I assume that this script will be run with gawk although I am not
 ## using any special gawk features here and any POSIX compliant awk
@@ -104,15 +104,15 @@ function finalise(l_index, l_output) {
 %%sort: SortKey Name File Begin\n\
 %%doc: Fragments from files\n\
 + Label: a unique identifier for the fragment\n\
-+ Name: The name of the main object of the fragment if applicable else NA\n\
-+ Class: The category of the main object of the fragment\n\
++ Name: the name of the main object of the fragment if applicable else NA\n\
++ Class: the category of the main object of the fragment\n\
 + File: the file containing the fragment\n\
 + Begin: the number in the file of the first line of the fragment\n\
 + End: the number in the file of the last line of the fragment\n\
 + Content: the text of the fragment\n\
-+ LHS: left hand side of first := in Content if applicable else NA\n\
-+ RHS: right hand side of first := in Content if applicable else NA\n\
-+ SortKey: String used for sorting the records\n"
++ LHS: the left hand side of the first := in Content if applicable else NA\n\
++ RHS: the right hand side of the first := in Content if applicable else NA\n\
++ SortKey: a string used for sorting the records\n"
 
     for (l_index = 1; l_index <= fragment_count; l_index++) {
         l_output = l_output \
@@ -219,8 +219,6 @@ function generate_fragment_data(label, file, begin, end, content) {
         rhs = substr(content, rhs_begin)
         sub("^:=[\n[:space:]]*", "", rhs)
 
-        content = "LHS := RHS"
-
         class_pattern = \
             "^[[:space:]]*" \
             "(Definition|Example|Inductive|Record|Notation)" \
@@ -272,9 +270,9 @@ function generate_fragment_data(label, file, begin, end, content) {
     if (class ~ "Example")
         sortkey = "Z"
 
-    gsub("\n", "\n+        ", content)
-    gsub("\n", "\n+    ", lhs)
-    gsub("\n", "\n+    ", rhs)
+    gsub("\n", "\\\\n", content)
+    gsub("\n", "\\\\n", lhs)
+    gsub("\n", "\\\\n", rhs)
 
     label_field = sprintf("\nLabel: %s", label)
     name_field = sprintf("\nName: %s", name)
