@@ -53,7 +53,7 @@ endif
 ## The default target
 .PHONY: all
 
-all:
+all: nixbuild
 	dune build --display=short @install
 	if command -v xclip > /dev/null 2>&1; then \
 		realpath ${TOC_FILE} | xclip -r -sel clip ; \

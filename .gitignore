@@ -1,6 +1,8 @@
 ###  Files that should be ignored by Git
 
+*.dsv
 *.opam
+*.rec
 *.tags
 .nix
 .nixbuild_done
