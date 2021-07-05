@@ -1,1 +1,1 @@
-{{Label}}{{Name}}{{File}} (lines {{Begin}}-{{End}}){{LHS ~ "NA" ? Content : LHS}}
+{{Label}}{{Name}}{{File}} (lines {{Begin}}-{{End}}){{LHS ~ "NA" ? Content : LHS}}{{Arguments ~ "NA" ? "Arguments NA" : Arguments}}

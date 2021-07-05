@@ -27,6 +27,7 @@
 ## + Content: the text of the fragment
 ## + LHS: the left hand side of the first := in Content if applicable else NA
 ## + RHS: the right hand side of the first := in Content if applicable else NA
+## + Arguments: the Arguments for the fragment if applicable else NA
 ## + SortKey: a string used for sorting the records
 ##
 ## I assume that this script will be run with gawk although I am not
@@ -112,6 +113,7 @@ function finalise(l_index, l_output) {
 + Content: the text of the fragment\n\
 + LHS: the left hand side of the first := in Content if applicable else NA\n\
 + RHS: the right hand side of the first := in Content if applicable else NA\n\
++ Arguments: the Arguments declarations in the fragment if applicable else NA\n\
 + SortKey: a string used for sorting the records\n"
 
     for (l_index = 1; l_index <= fragment_count; l_index++) {
@@ -270,9 +272,19 @@ function generate_fragment_data(label, file, begin, end, content) {
     if (class ~ "Example")
         sortkey = "Z"
 
-    gsub("\n", "\\\\n", content)
-    gsub("\n", "\\\\n", lhs)
-    gsub("\n", "\\\\n", rhs)
+    arguments_begin = index(content, "Arguments")
+
+    if (arguments_begin > 0) {
+        arguments = substr(content, arguments_begin)
+    }
+    else {
+        arguments = "NA"
+    }
+
+    gsub("\n", "\\n", content)
+    gsub("\n", "\\n", lhs)
+    gsub("\n", "\\n", rhs)
+    gsub("\n", "\\n", arguments)
 
     label_field = sprintf("\nLabel: %s", label)
     name_field = sprintf("\nName: %s", name)
@@ -283,6 +295,7 @@ function generate_fragment_data(label, file, begin, end, content) {
     content_field = sprintf("\nContent: %s", content)
     lhs_field = sprintf("\nLHS: %s", lhs)
     rhs_field = sprintf("\nRHS: %s", rhs)
+    arguments_field = sprintf("\nArguments: %s", arguments)
     sortkey_field = sprintf("\nSortKey: %s", sortkey)
 
     return \
@@ -295,6 +308,7 @@ function generate_fragment_data(label, file, begin, end, content) {
         content_field \
         lhs_field \
         rhs_field \
+        arguments_field \
         sortkey_field \
         "\n"
 }

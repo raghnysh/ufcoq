@@ -25,6 +25,12 @@ FRAGMENTS_DATABASE = misc/fragments/fragments.rec
 ## Program to generate the above database
 FRAGMENTS_PROGRAM = misc/fragments/fragments.awk
 
+## Fragments delimiter-separated values (DSV) file
+FRAGMENTS_DSV_FILE = misc/fragments/fragments.dsv
+
+## Template for the above DSV file
+FRAGMENTS_DSV_TEMPLATE = misc/fragments/template
+
 ## The root of the physical paths of the Coq modules of the project.
 COQ_ROOT = src
 
@@ -69,12 +75,20 @@ fragments-database: ${FRAGMENTS_DATABASE}
 ${FRAGMENTS_DATABASE}: ${COQ_FILES}
 	awk -f ${FRAGMENTS_PROGRAM} $^ > $@
 
+.PHONY: fragments-dsv
+
+fragments-dsv: ${FRAGMENTS_DSV_FILE}
+
+${FRAGMENTS_DSV_FILE}: ${FRAGMENTS_DATABASE} ${FRAGMENTS_DSV_TEMPLATE}
+	recsel ${FRAGMENTS_DATABASE} | \
+		recfmt -f ${FRAGMENTS_DSV_TEMPLATE} > $@
+
 ## Target for cleaning the dune output
 .PHONY: clean
 
 clean:
 	dune clean
-	${RM} ${OPAM_FILES} ${FRAGMENTS_DATABASE}
+	${RM} ${OPAM_FILES} ${FRAGMENTS_DATABASE} ${FRAGMENTS_DSV_FILE}
 
 ## Target for cleaning the dune and nix-build outputs
 .PHONY: distclean
