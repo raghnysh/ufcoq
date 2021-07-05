@@ -148,4 +148,14 @@ Modification of `tab-to-tab-stop'."
 ;; Do not raise buffers to display output.
 (proof-auto-raise-toggle 0)
 
+;;; ==================================================================
+;;; Use Helm to select and insert fragments
+;;; ==================================================================
+
+(load (expand-file-name "helm-fragments.el" project:emacs-directory)
+      t nil t)
+
+(when (boundp 'coq-mode-map)
+  (define-key coq-mode-map (kbd "C-c f") #'helm-fragments:run))
+
 ;;; End of file
