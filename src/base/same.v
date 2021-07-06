@@ -7,6 +7,7 @@
 (* begfrag:909vtogz *)
 Require Import ufcoq.base.primitive.
 Require Import ufcoq.base.construct.
+Require Import ufcoq.base.equal.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -434,6 +435,93 @@ Example _sum_map_right
          (f : X -> X')
          (g : Y -> Y')
        => reflexive (function_compose right g).
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Equality types again                                         *)
+(* ================================================================ *)
+
+(* begfrag:7c62tbn3 *)
+Example _equal_right_unit_reflexive
+  : forall (X : Type) (x : X),
+      Equal (reflexive (reflexive x)) (equal_right_unit (reflexive x))
+  := fun (X : Type) (x : X) => reflexive (reflexive (reflexive x)).
+(* endfrag *)
+
+(* begfrag:i00h874x *)
+Example _equal_associative_reflexive
+  : forall (X : Type) (x y z : X) (q : Equal x y) (r : Equal y z),
+      Equal (reflexive (equal_compose q r))
+            (equal_associative (reflexive x) q r)
+  := fun (X : Type) (x y z : X) (q : Equal x y) (r : Equal y z)
+       => reflexive (reflexive (equal_compose q r)).
+(* endfrag *)
+
+(* begfrag:2fxkvz8a *)
+Example _equal_compose_left_equal_reflexive
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+      Equal (reflexive (equal_compose p q))
+            (equal_compose_left_equal (reflexive p) q)
+  := fun (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z)
+       => reflexive (reflexive (equal_compose p q)).
+(* endfrag *)
+
+(* begfrag:sjeygzmw *)
+Example _equal_compose_right_equal_reflexive
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+      Equal (reflexive (equal_compose p q))
+            (equal_compose_right_equal p (reflexive q))
+  := fun (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z)
+       => reflexive (reflexive (equal_compose p q)).
+(* endfrag *)
+
+(* begfrag:zo8r3is0 *)
+Example _equal_compose_equal_reflexive1
+  : forall (X : Type)
+           (x y z : X)
+           (p : Equal x y)
+           (q q' : Equal y z)
+           (v : Equal q q'),
+      Equal (equal_compose_right_equal p v)
+            (equal_compose_equal (reflexive p) v)
+  := fun (X : Type)
+         (x y z : X)
+         (p : Equal x y)
+         (q q' : Equal y z)
+         (v : Equal q q')
+       => reflexive (equal_compose_right_equal p v).
+(* endfrag *)
+
+(* begfrag:d2ojj3vr *)
+Example _equal_compose_equal_reflexive2
+  : forall (X : Type)
+           (x y z : X)
+           (p p' : Equal x y)
+           (q : Equal y z)
+           (u : Equal p p'),
+      Equal (equal_compose_left_equal u q)
+            (equal_compose_equal u (reflexive q))
+  := fun (X : Type)
+         (x y z : X)
+         (p p' : Equal x y)
+         (q : Equal y z)
+         (u : Equal p p')
+       => equal_right_unit (equal_compose_left_equal u q).
+(* endfrag *)
+
+(* begfrag:zk4k7yn8 *)
+Example _equal_compose_equal_reflexive12
+  : forall (X : Type)
+           (x y z : X)
+           (p : Equal x y)
+           (q : Equal y z),
+      Equal (reflexive (equal_compose p q))
+            (equal_compose_equal (reflexive p) (reflexive q))
+  := fun (X : Type)
+         (x y z : X)
+         (p : Equal x y)
+         (q : Equal y z)
+       => reflexive (reflexive (equal_compose p q)).
 (* endfrag *)
 
 (* End of file *)
