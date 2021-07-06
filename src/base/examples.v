@@ -524,4 +524,85 @@ Example _equal_compose_equal_reflexive12
        => reflexive (reflexive (equal_compose p q)).
 (* endfrag *)
 
+(* begfrag:qiu7nu2e *)
+Example _equal_left_inverse_reflexive
+  : forall (X : Type) (x : X),
+      Equal (reflexive (reflexive x))
+            (equal_left_inverse (reflexive x))
+  := fun (X : Type) (x : X) => reflexive (reflexive (reflexive x)).
+(* endfrag *)
+
+(* begfrag:1ysdcngb *)
+Example _equal_right_inverse_reflexive
+  : forall (X : Type) (x : X),
+      Equal (reflexive (reflexive x))
+            (equal_right_inverse (reflexive x))
+  := fun (X : Type) (x : X) => reflexive (reflexive (reflexive x)).
+(* endfrag *)
+
+(* begfrag:k8d40n87 *)
+Example _equal_map_multiplicative_reflexive
+  : forall (X Y : Type) (f : X -> Y) (x y : X) (q : Equal x y),
+      Equal (reflexive (equal_map f q))
+            (equal_map_multiplicative f (reflexive x) q)
+  := fun (X Y : Type) (f : X -> Y) (x y : X) (q : Equal x y)
+       => reflexive (reflexive (equal_map f q)).
+(* endfrag *)
+
+(* begfrag:pp439rp8 *)
+Example _equal_map_inverse_reflexive
+  : forall (X Y : Type) (f : X -> Y) (x : X),
+      Equal (reflexive (reflexive (f x)))
+            (equal_map_inverse f (reflexive x))
+  := fun (X Y : Type) (f : X -> Y) (x : X)
+       => reflexive (reflexive (reflexive (f x))).
+(* endfrag *)
+
+(* begfrag:o1fq5t5n *)
+Example _equal_left_cancel_reflexive
+  : forall (X : Type) (x y : X) (q q' : Equal x y),
+      Equal (@identity_function (Equal q q'))
+            (equal_left_cancel (reflexive x) q q')
+  := fun (X : Type) (x y : X) (q q' : Equal x y)
+       => reflexive (@identity_function (Equal q q')).
+(* endfrag *)
+
+(* begfrag:benyiuaw *)
+Example _equal_left_remove_reflexive
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q q' : Equal y z)
+           (e : Equal (equal_compose p q) (equal_compose p q')),
+      Equal (equal_left_cancel p q q' e)
+            (equal_left_remove (reflexive p) q q' e)
+  := fun (X : Type)
+         (x y : X)
+         (p : Equal x y)
+         (z : X)
+         (q q' : Equal y z)
+         (e : Equal (equal_compose p q) (equal_compose p q'))
+       => equal_map (equal_left_cancel p q q')
+                    (equal_right_unit e).
+(* endfrag *)
+
+(* begfrag:6udh8p9g *)
+Example _equal_right_cancel_reflexive
+  : forall (X : Type)
+           (x y : X)
+           (p p' : Equal x y)
+           (u : Equal (equal_compose p (reflexive y))
+                      (equal_compose p' (reflexive y))),
+      Equal (equal_compose (equal_compose (equal_right_unit p) u)
+                           (equal_inverse (equal_right_unit p')))
+            (equal_right_cancel p p' (reflexive y) u)
+  := fun (X : Type)
+         (x y : X)
+         (p p' : Equal x y)
+         (u : Equal (equal_compose p (reflexive y))
+                    (equal_compose p' (reflexive y)))
+       => reflexive (equal_right_cancel p p' (reflexive y) u).
+(* endfrag *)
+
 (* End of file *)
