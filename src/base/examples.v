@@ -1,4 +1,4 @@
-(* Some examples of sameness *)
+(* Some examples arising from other modules *)
 
 (* ================================================================ *)
 (** ** Dependencies                                                 *)
