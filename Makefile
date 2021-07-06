@@ -53,7 +53,12 @@ endif
 ## The default target
 .PHONY: all
 
-all: nixbuild
+all: nixbuild dunebuild fragments-dsv
+
+## Target for building the project with dune
+.PHONY: dunebuild
+
+dunebuild:
 	dune build --display=short @install
 	if command -v xclip > /dev/null 2>&1; then \
 		realpath ${TOC_FILE} | xclip -r -sel clip ; \
@@ -74,6 +79,7 @@ fragments-database: ${FRAGMENTS_DATABASE}
 
 ${FRAGMENTS_DATABASE}: ${COQ_FILES}
 	awk -f ${FRAGMENTS_PROGRAM} $^ > $@
+	recfix $@
 
 .PHONY: fragments-dsv
 
