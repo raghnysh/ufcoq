@@ -664,7 +664,7 @@ Arguments equal_inverse_involutive {X x y} p.
 (* ================================================================ *)
 
 (* begfrag:zgnf348j *)
-Definition put_inverse
+Definition equal_put_inverse
   : forall (X : Type) (x y : X) (p q : Equal x y),
       Equal p q -> Equal (equal_inverse p) (equal_inverse q)
   := fun (X : Type) (x y : X) (p : Equal x y)
@@ -680,11 +680,11 @@ Definition put_inverse
        in
          equal_induction p F base.
 
-Arguments put_inverse {X x y p q} _.
+Arguments equal_put_inverse {X x y p q} _.
 (* endfrag *)
 
 (* begfrag:93zoshti *)
-Definition remove_inverse
+Definition equal_remove_inverse
   : forall (X : Type) (x y : X) (p q : Equal x y),
       Equal (equal_inverse p) (equal_inverse q) -> Equal p q
   := fun (X : Type)
@@ -698,14 +698,14 @@ Definition remove_inverse
          in let
            u2 : Equal (equal_inverse (equal_inverse p))
                       (equal_inverse (equal_inverse q))
-              := put_inverse e
+              := equal_put_inverse e
          in let
            u3 : Equal (equal_inverse (equal_inverse q)) q
               := equal_inverse (equal_inverse_involutive q)
          in
            equal_compose (equal_compose u1 u2) u3.
 
-Arguments remove_inverse {X x y} p q _.
+Arguments equal_remove_inverse {X x y} p q _.
 (* endfrag *)
 
 (* ================================================================ *)
