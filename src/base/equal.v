@@ -728,9 +728,9 @@ Definition equal_move_prefix_right
          let
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
-                => forall (z : X) (q : Equal y z) (r : Equal x z),
-                     Equal (equal_compose p q) r
-                       -> Equal q (equal_compose (equal_inverse p) r)
+                  => forall (z : X) (q : Equal y z) (r : Equal x z),
+                       Equal (equal_compose p q) r
+                         -> Equal q (equal_compose (equal_inverse p) r)
          in let
            base : F x (reflexive x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
@@ -757,9 +757,9 @@ Definition equal_move_prefix_left
          let
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
-                => forall (z : X) (q : Equal y z) (r : Equal x z),
-                     Equal r (equal_compose p q)
-                       -> Equal (equal_compose (equal_inverse p) r) q
+                  => forall (z : X) (q : Equal y z) (r : Equal x z),
+                       Equal r (equal_compose p q)
+                         -> Equal (equal_compose (equal_inverse p) r) q
          in let
            base : F x (reflexive x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
@@ -786,9 +786,9 @@ Definition equal_move_suffix_right
          let
            F : forall (z : X), Equal y z -> Type
              := fun (z : X) (q : Equal y z)
-                => forall (x : X) (p : Equal x y) (r : Equal x z),
-                     Equal (equal_compose p q) r
-                       -> Equal p (equal_compose r (equal_inverse q))
+                  => forall (x : X) (p : Equal x y) (r : Equal x z),
+                       Equal (equal_compose p q) r
+                         -> Equal p (equal_compose r (equal_inverse q))
          in let
            base : F y (reflexive y)
              := fun (x : X)
@@ -826,9 +826,9 @@ Definition equal_move_suffix_left
          let
            F : forall (z : X), Equal y z -> Type
              := fun (z : X) (q : Equal y z)
-                => forall (x : X) (p : Equal x y) (r : Equal x z),
-                     Equal r (equal_compose p q)
-                       -> Equal (equal_compose r (equal_inverse q)) p
+                  => forall (x : X) (p : Equal x y) (r : Equal x z),
+                       Equal r (equal_compose p q)
+                         -> Equal (equal_compose r (equal_inverse q)) p
          in let
            base : F y (reflexive y)
              := fun (x : X)
@@ -848,6 +848,1095 @@ Definition equal_move_suffix_left
            equal_induction y F base.
 
 Arguments equal_move_suffix_left {X y z} q {x} p {r} _.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Associativity of fourfold compositions of equalities         *)
+(* ================================================================ *)
+
+(* begfrag:vwqasqd9 *)
+Definition equal_associative41
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5),
+      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
+            (equal_compose (equal_compose p1 p2) (equal_compose p3 p4))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5),
+                       Equal (equal_compose
+                                (equal_compose (equal_compose p1 p2) p3) p4)
+                             (equal_compose
+                                (equal_compose p1 p2) (equal_compose p3 p4))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                  => equal_associative p2 p3 p4
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative41 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4.
+(* endfrag *)
+
+(* begfrag:htm3siep *)
+Definition equal_associative42
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5),
+      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
+            (equal_compose p1 (equal_compose p2 (equal_compose p3 p4)))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5),
+                       Equal (equal_compose
+                                (equal_compose (equal_compose p1 p2) p3) p4)
+                             (equal_compose
+                                p1 (equal_compose p2 (equal_compose p3 p4)))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                  => equal_associative p2 p3 p4
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative42 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4.
+(* endfrag *)
+
+(* begfrag:6bp6vvke *)
+Definition equal_associative43
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5),
+      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
+            (equal_compose (equal_compose p1 (equal_compose p2 p3)) p4)
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5),
+                       Equal (equal_compose
+                                (equal_compose (equal_compose p1 p2) p3) p4)
+                             (equal_compose
+                                (equal_compose p1 (equal_compose p2 p3)) p4)
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                  => reflexive (equal_compose (equal_compose p2 p3) p4)
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative43 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4.
+(* endfrag *)
+
+(* begfrag:yy35505a *)
+Definition equal_associative44
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5),
+      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
+            (equal_compose p1 (equal_compose (equal_compose p2 p3) p4))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5),
+                       Equal (equal_compose
+                                (equal_compose (equal_compose p1 p2) p3) p4)
+                             (equal_compose
+                                p1 (equal_compose (equal_compose p2 p3) p4))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                  => reflexive (equal_compose (equal_compose p2 p3) p4)
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative44 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Associativity of fivefold compositions of equalities         *)
+(* ================================================================ *)
+
+(* begfrag:vosu70t8 *)
+Definition equal_associative501
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose (equal_compose p1 p2) p3) (equal_compose p4 p5))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   (equal_compose p1 p2) p3) (equal_compose p4 p5))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative41 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative501 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:9195neum *)
+Definition equal_associative502
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose p1 (equal_compose p2 p3)) (equal_compose p4 p5))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   p1 (equal_compose p2 p3)) (equal_compose p4 p5))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative41 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative502 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:5ik0jqo4 *)
+Definition equal_associative503
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               p1 (equal_compose (equal_compose p2 p3) (equal_compose p4 p5)))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                p1 (equal_compose
+                                      (equal_compose p2 p3) (equal_compose p4 p5)))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative41 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative503 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:tmu84qas *)
+Definition equal_associative504
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               p1 (equal_compose p2 (equal_compose p3 (equal_compose p4 p5))))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                p1 (equal_compose
+                                      p2 (equal_compose p3 (equal_compose p4 p5))))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative42 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative504 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:3mvhdnzr *)
+Definition equal_associative505
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose (equal_compose p1 (equal_compose p2 p3)) p4) p5)
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   (equal_compose p1 (equal_compose p2 p3)) p4) p5)
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => reflexive (equal_compose
+                                  (equal_compose (equal_compose p2 p3) p4) p5)
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative505 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:9ayo8k2s *)
+Definition equal_associative506
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose p1 (equal_compose (equal_compose p2 p3) p4)) p5)
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   p1 (equal_compose (equal_compose p2 p3) p4)) p5)
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => reflexive (equal_compose
+                                  (equal_compose (equal_compose p2 p3) p4) p5)
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative506 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:pcffagae *)
+Definition equal_associative507
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               p1 (equal_compose (equal_compose (equal_compose p2 p3) p4) p5))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                p1 (equal_compose
+                                      (equal_compose (equal_compose p2 p3) p4) p5))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => reflexive (equal_compose
+                                  (equal_compose (equal_compose p2 p3) p4) p5)
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative507 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:zy0t91bl *)
+Definition equal_associative508
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               p1 (equal_compose (equal_compose p2 (equal_compose p3 p4)) p5))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                p1 (equal_compose
+                                      (equal_compose p2 (equal_compose p3 p4)) p5))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative43 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative508 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:fsxr6lni *)
+Definition equal_associative509
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               p1 (equal_compose p2 (equal_compose (equal_compose p3 p4) p5)))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                p1 (equal_compose
+                                      p2 (equal_compose (equal_compose p3 p4) p5)))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative44 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative509 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:yms4fe4g *)
+Definition equal_associative510
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose p1 (equal_compose p2 (equal_compose p3 p4))) p5)
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   p1 (equal_compose p2 (equal_compose p3 p4))) p5)
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative43 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative510 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:vg53m3dr *)
+Definition equal_associative511
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose (equal_compose p1 p2) (equal_compose p3 p4)) p5)
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   (equal_compose p1 p2) (equal_compose p3 p4)) p5)
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative43 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative511 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:p0ba31nt *)
+Definition equal_associative512
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose p1 p2) (equal_compose (equal_compose p3 p4) p5))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   p1 p2) (equal_compose (equal_compose p3 p4) p5))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative44 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative512 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* begfrag:3m4jej4m *)
+Definition equal_associative513
+  : forall (X : Type)
+           (x1 x2 : X)
+           (p1 : Equal x1 x2)
+           (x3 : X)
+           (p2 : Equal x2 x3)
+           (x4 : X)
+           (p3 : Equal x3 x4)
+           (x5 : X)
+           (p4 : Equal x4 x5)
+           (x6 : X)
+           (p5 : Equal x5 x6),
+      Equal (equal_compose
+               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+            (equal_compose
+               (equal_compose p1 p2) (equal_compose p3 (equal_compose p4 p5)))
+  := fun (X : Type) (x1 : X)
+       =>
+         let
+           F : forall (x2 : X), Equal x1 x2 -> Type
+             := fun (x2 : X) (p1 : Equal x1 x2)
+                  => forall (x3 : X)
+                            (p2 : Equal x2 x3)
+                            (x4 : X)
+                            (p3 : Equal x3 x4)
+                            (x5 : X)
+                            (p4 : Equal x4 x5)
+                            (x6 : X)
+                            (p5 : Equal x5 x6),
+                       Equal (equal_compose
+                                (equal_compose
+                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                             (equal_compose
+                                (equal_compose
+                                   p1 p2) (equal_compose p3 (equal_compose p4 p5)))
+         in let
+           base : F x1 (reflexive x1)
+             := fun (x3 : X)
+                    (p2 : Equal x1 x3)
+                    (x4 : X)
+                    (p3 : Equal x3 x4)
+                    (x5 : X)
+                    (p4 : Equal x4 x5)
+                    (x6 : X)
+                    (p5 : Equal x5 x6)
+                  => equal_associative42 p2 p3 p4 p5
+         in
+           equal_induction x1 F base.
+
+Arguments equal_associative513 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Expanding an equality                                        *)
+(* ================================================================ *)
+
+(* begfrag:pav3j1ul *)
+Definition equal_expand1
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+      Equal q (equal_compose (equal_compose (equal_inverse p) p) q)
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal y z),
+                       Equal q (equal_compose (equal_compose (equal_inverse p) p) q)
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal x z) => reflexive q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand1 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:mvvftk3d *)
+Definition equal_expand2
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+      Equal q (equal_compose (equal_inverse p) (equal_compose p q))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal y z),
+                       Equal q (equal_compose (equal_inverse p) (equal_compose p q))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal x z) => reflexive q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand2 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:cy9tfe66 *)
+Definition equal_expand3
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal x z),
+      Equal q (equal_compose (equal_compose p (equal_inverse p)) q)
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal x z),
+                       Equal q (equal_compose (equal_compose p (equal_inverse p)) q)
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal x z) => reflexive q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand3 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:l9g32inq *)
+Definition equal_expand4
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal x z),
+      Equal q (equal_compose p (equal_compose (equal_inverse p) q))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal x z),
+                       Equal q (equal_compose p (equal_compose (equal_inverse p) q))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal x z) => reflexive q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand4 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:9bk52g36 *)
+Definition equal_expand5
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal z y),
+      Equal p (equal_compose p (equal_compose (equal_inverse q) q))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal z y),
+                       Equal p (equal_compose p (equal_compose (equal_inverse q) q))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal z x) => equal_left_inverse q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand5 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:qyfzkb9p *)
+Definition equal_expand6
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal z y),
+      Equal p (equal_compose (equal_compose p (equal_inverse q)) q)
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal z y),
+                       Equal p (equal_compose (equal_compose p (equal_inverse q)) q)
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal z x) => equal_left_inverse q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand6 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:imwi89t9 *)
+Definition equal_expand7
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+      Equal p (equal_compose p (equal_compose q (equal_inverse q)))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal y z),
+                       Equal p (equal_compose p (equal_compose q (equal_inverse q)))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal x z) => equal_right_inverse q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand7 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:3e8zmhrz *)
+Definition equal_expand8
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+      Equal p (equal_compose (equal_compose p q) (equal_inverse q))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal y z),
+                       Equal p (equal_compose (equal_compose p q) (equal_inverse q))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal x z) => equal_right_inverse q
+         in
+           equal_induction x F base.
+
+Arguments equal_expand8 {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:g1p8yp91 *)
+Definition equal_expand9
+  : forall (X : Type)
+           (w x : X)
+           (p : Equal w x)
+           (y : X)
+           (q : Equal w y)
+           (z : X)
+           (r : Equal z y),
+      Equal q (equal_compose
+                 (equal_compose
+                    (equal_compose p (equal_compose (equal_inverse p) q))
+                    (equal_inverse r))
+                 r)
+  := fun (X : Type) (w : X)
+       =>
+         let
+           F : forall (x : X), Equal w x -> Type
+             := fun (x : X) (p : Equal w x)
+                  => forall (y : X)
+                            (q : Equal w y)
+                            (z : X)
+                            (r : Equal z y),
+                       Equal q (equal_compose
+                                  (equal_compose
+                                     (equal_compose p (equal_compose (equal_inverse p)
+                                                                     q))
+                                     (equal_inverse r))
+                                  r)
+         in let
+           base : F w (reflexive w)
+             := fun (y : X) (q : Equal w y) (z : X) (r : Equal z y)
+                  => equal_expand6 q r
+         in
+           equal_induction w F base.
+
+Arguments equal_expand9 {X w x} p {y} q {z} r.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Triviality of idempotent equalities                          *)
+(* ================================================================ *)
+
+(* begfrag:ra3f2wje *)
+Definition equal_idempotent_trivial
+  : forall (X : Type) (x : X) (p : Equal x x),
+      Equal p (equal_compose p p) -> Equal (reflexive x) p
+  := fun (X : Type) (x : X) (p : Equal x x)
+       => equal_right_cancel (reflexive x) p p.
+
+Arguments equal_idempotent_trivial {X x p} _.
 (* endfrag *)
 
 (* End of file *)
