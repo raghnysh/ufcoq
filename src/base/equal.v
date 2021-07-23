@@ -1939,4 +1939,130 @@ Definition equal_idempotent_trivial
 Arguments equal_idempotent_trivial {X x p} _.
 (* endfrag *)
 
+(* ================================================================ *)
+(** ** Equalities from elements                                     *)
+(* ================================================================ *)
+
+(* begfrag:ge0788wo *)
+Definition IsEqualFrom : forall (X : Type), X -> Type
+  := fun (X : Type) (x : X) => Sigma (y : X), Equal x y.
+
+Arguments IsEqualFrom {X} _.
+(* endfrag *)
+
+(* begfrag:2b1xb9ym *)
+Definition EqualFrom : Type -> Type
+  := fun (X : Type) => Sigma (x : X), IsEqualFrom x.
+(* endfrag *)
+
+(* begfrag:d2un85gz *)
+Definition equal_from_start
+  : forall (X : Type), EqualFrom X -> X
+  := fun (X : Type) (s : EqualFrom X) => sigma1 s.
+
+Arguments equal_from_start {X} _.
+(* endfrag *)
+
+(* begfrag:2baj0zlh *)
+Definition equal_from_end
+  : forall (X : Type), EqualFrom X -> X
+  := fun (X : Type) (s : EqualFrom X)=> sigma1 (sigma2 s).
+
+Arguments equal_from_end {X} _.
+(* endfrag *)
+
+(* begfrag:4d453em2 *)
+Definition equal_from_equality
+  : forall (X : Type) (s : EqualFrom X),
+      Equal (equal_from_start s) (equal_from_end s)
+  := fun (X : Type) (s : EqualFrom X) => sigma2 (sigma2 s).
+
+Arguments equal_from_equality {X} s.
+(* endfrag *)
+
+(* begfrag:oyuimxk1 *)
+Definition equal_from
+  : forall (X : Type) (x y : X), Equal x y -> EqualFrom X
+  := fun (X : Type) (x y : X) (p : Equal x y)
+       =>
+         let
+           s : IsEqualFrom x
+             := sigma (fun (y1: X) => Equal x y1) y p
+         in
+           sigma (fun (x1 : X) => IsEqualFrom x1) x s.
+
+Arguments equal_from {X x y} _.
+(* endfrag *)
+
+(* begfrag:ru5sabn4 *)
+Definition equal_from_reflexive
+  : forall (X : Type), X -> EqualFrom X
+  := fun (X : Type) (x : X) => equal_from (reflexive x).
+
+Arguments equal_from_reflexive {X} _.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Equalities to elements                                       *)
+(* ================================================================ *)
+
+(* begfrag:kq088axt *)
+Definition IsEqualTo : forall (X : Type), X -> Type
+  := fun (X : Type) (y : X) => Sigma (x : X), Equal x y.
+
+Arguments IsEqualTo {X} _.
+(* endfrag *)
+
+(* begfrag:m50mi51w *)
+Definition EqualTo : Type -> Type
+  := fun (X : Type) => Sigma (y : X), IsEqualTo y.
+(* endfrag *)
+
+(* begfrag:puxybaiy *)
+Definition equal_to_end
+  : forall (X : Type), EqualTo X -> X
+  := fun (X : Type) (s : EqualTo X)=> sigma1 s.
+
+Arguments equal_to_end {X} _.
+(* endfrag *)
+
+(* begfrag:uxh47lia *)
+Definition equal_to_start
+  : forall (X : Type), EqualTo X -> X
+  := fun (X : Type) (s : EqualTo X) => sigma1 (sigma2 s).
+
+Arguments equal_to_start {X} _.
+(* endfrag *)
+
+(* begfrag:sdjeebfe *)
+Definition equal_to_equality
+  : forall (X : Type) (s : EqualTo X),
+      Equal (equal_to_start s) (equal_to_end s)
+  := fun (X : Type) (s : EqualTo X) => sigma2 (sigma2 s).
+
+Arguments equal_to_equality {X} s.
+(* endfrag *)
+
+(* begfrag:ttau83f7 *)
+Definition equal_to
+  : forall (X : Type) (x y : X), Equal x y -> EqualTo X
+  := fun (X : Type) (x y : X) (p : Equal x y)
+       =>
+         let
+           s : IsEqualTo y
+             := sigma (fun (x1: X) => Equal x1 y) x p
+         in
+           sigma (fun (y1 : X) => IsEqualTo y1) y s.
+
+Arguments equal_to {X x y} _.
+(* endfrag *)
+
+(* begfrag:zyffeio3 *)
+Definition equal_to_reflexive
+  : forall (X : Type), X -> EqualTo X
+  := fun (X : Type) (y : X) => equal_to (reflexive y).
+
+Arguments equal_to_reflexive {X} _.
+(* endfrag *)
+
 (* End of file *)
