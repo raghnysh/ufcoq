@@ -457,41 +457,6 @@ Example _equal_associative_reflexive
        => reflexive (reflexive (equal_compose q r)).
 (* endfrag *)
 
-(* begfrag:2fxkvz8a *)
-Example _equal_compose_left_equal_reflexive
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
-      Equal (reflexive (equal_compose p q))
-            (equal_compose_left_equal (reflexive p) q)
-  := fun (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z)
-       => reflexive (reflexive (equal_compose p q)).
-(* endfrag *)
-
-(* begfrag:sjeygzmw *)
-Example _equal_compose_right_equal_reflexive
-  : forall (X : Type) (x z : X) (q q' : Equal x z),
-      Equal (@identity_function (Equal q q'))
-            (equal_compose_right_equal (reflexive x))
-  := fun (X : Type) (x z : X) (q q' : Equal x z)
-       => reflexive (@identity_function (Equal q q')).
-(* endfrag *)
-
-(* begfrag:zo8r3is0 *)
-Example _equal_compose_equal_reflexive1
-  : forall (X : Type)
-           (x y z : X)
-           (p : Equal x y)
-           (q q' : Equal y z)
-           (v : Equal q q'),
-      Equal (equal_compose_right_equal p v)
-            (equal_compose_equal (reflexive p) v)
-  := fun (X : Type)
-         (x y z : X)
-         (p : Equal x y)
-         (q q' : Equal y z)
-         (v : Equal q q')
-       => reflexive (equal_compose_right_equal p v).
-(* endfrag *)
-
 (* begfrag:qiu7nu2e *)
 Example _equal_left_inverse_reflexive
   : forall (X : Type) (x : X),
@@ -697,6 +662,24 @@ Example _equal_move_prefix_left_reflexive
             (equal_move_prefix_left (reflexive x) q)
   := fun (X : Type) (x z : X) (q r : Equal x z)
        => reflexive (@identity_function (Equal r q)).
+(* endfrag *)
+
+(* begfrag:sjeygzmw *)
+Example _equal_left_whisker_reflexive
+  : forall (X : Type) (x z : X) (q q' : Equal x z),
+      Equal (@identity_function (Equal q q'))
+            (equal_left_whisker (reflexive x))
+  := fun (X : Type) (x z : X) (q q' : Equal x z)
+       => reflexive (@identity_function (Equal q q')).
+(* endfrag *)
+
+(* begfrag:2fxkvz8a *)
+Example _equal_right_whisker_reflexive
+  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+      Equal (reflexive (equal_compose p q))
+            (equal_right_whisker (reflexive p) q)
+  := fun (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z)
+       => reflexive (reflexive (equal_compose p q)).
 (* endfrag *)
 
 (* End of file *)

@@ -159,6 +159,20 @@ Definition natural_recursion_simple
 Arguments natural_recursion_simple {X} _ _ _.
 (* endfrag *)
 
+(* begfrag:i6mo1uvy *)
+Definition equal_start : forall (X : Type) (x y : X), Equal x y -> X
+  := fun (X : Type) (x y : X) => constant_function x.
+
+Arguments equal_start {X x y} _.
+(* endfrag *)
+
+(* begfrag:nchhu2pm *)
+Definition equal_end : forall (X : Type) (x y : X), Equal x y -> X
+  := fun (X : Type) (x y : X) => constant_function y.
+
+Arguments equal_end {X x y} _.
+(* endfrag *)
+
 (* begfrag:szbmydj4 *)
 Definition transport
   : forall (X : Type) (F : X -> Type) (x y : X),

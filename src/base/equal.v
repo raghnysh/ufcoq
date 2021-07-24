@@ -78,88 +78,6 @@ Definition equal_associative
 Arguments equal_associative {X w x} p {y} q {z} r.
 (* endfrag *)
 
-(* begfrag:smege15s *)
-Definition equal_compose_left_equal
-  : forall (X : Type) (x y : X) (p p' : Equal x y),
-      Equal p p'
-        -> forall (z : X) (q : Equal y z),
-             Equal (equal_compose p q) (equal_compose p' q)
-  := fun (X : Type) (x y : X) (p : Equal x y)
-       =>
-         let
-           F : forall (p' : Equal x y), Equal p p' -> Type
-             := fun (p'  : Equal x y)
-                  => constant_function
-                       (forall (z : X) (q : Equal y z),
-                          Equal (equal_compose p q)
-                                (equal_compose p' q))
-         in let
-           base : F p (reflexive p)
-             := fun (z : X) (q : Equal y z)
-                  => reflexive (equal_compose p q)
-         in
-           equal_induction p F base.
-
-Arguments equal_compose_left_equal {X x y p p'} _ {z} q.
-(* endfrag *)
-
-(* begfrag:g6ql88po *)
-Definition equal_compose_right_equal
-  : forall (X : Type)
-           (x y : X)
-           (p : Equal x y)
-           (z : X)
-           (q q' : Equal y z),
-      Equal q q' -> Equal (equal_compose p q) (equal_compose p q')
-  := fun (X : Type) (x : X)
-       =>
-         let
-           F : forall (y : X), Equal x y -> Type
-             := fun (y : X) (p : Equal x y)
-                  => forall (z : X) (q q' : Equal y z),
-                       Equal q q'
-                         -> Equal (equal_compose p q)
-                                  (equal_compose p q')
-         in let
-           base : F x (reflexive x)
-             := fun (z : X) (q q' : Equal x z)
-                  => @identity_function (Equal q q')
-         in
-           equal_induction x F base.
-
-Arguments equal_compose_right_equal {X x y} p {z q q'} _.
-(* endfrag *)
-
-(* begfrag:npsmi0d4 *)
-Definition equal_compose_equal
-  : forall (X : Type)
-           (x y : X)
-           (p p' : Equal x y),
-      Equal p p'
-        -> forall (z : X) (q q' : Equal y z),
-             Equal q q'
-               -> Equal (equal_compose p q) (equal_compose p' q')
-  := fun (X : Type)
-         (x y : X)
-         (p : Equal x y)
-       =>
-         let
-           F : forall (p' : Equal x y), Equal p p' -> Type
-             := fun (p' : Equal x y)
-                  => constant_function
-                       (forall (z : X) (q q' : Equal y z),
-                          Equal q q'
-                            -> Equal (equal_compose p q)
-                                     (equal_compose p' q'))
-         in let
-           base: F p (reflexive p)
-             := @equal_compose_right_equal X x y p
-         in
-           equal_induction p F base.
-
-Arguments equal_compose_equal {X x y p p'} _ {z q q'} _.
-(* endfrag *)
-
 (* ================================================================ *)
 (** ** The inverse of an equality                                   *)
 (* ================================================================ *)
@@ -605,7 +523,7 @@ Arguments equal_right_inverse_unique {X x y} p q _.
 (* endfrag *)
 
 (* ================================================================ *)
-(** ** Antimultiplicativity of inversion                           *)
+(** ** Antimultiplicativity of inversion                            *)
 (* ================================================================ *)
 
 (* begfrag:vl4svtgg *)
@@ -2063,6 +1981,466 @@ Definition equal_to_reflexive
   := fun (X : Type) (y : X) => equal_to (reflexive y).
 
 Arguments equal_to_reflexive {X} _.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Horizontal composition of equalities                         *)
+(* ================================================================ *)
+
+(* begfrag:g6ql88po *)
+Definition equal_left_whisker
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q q' : Equal y z),
+      Equal q q' -> Equal (equal_compose p q) (equal_compose p q')
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q q' : Equal y z),
+                       Equal q q'
+                         -> Equal (equal_compose p q)
+                                  (equal_compose p q')
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q q' : Equal x z)
+                  => @identity_function (Equal q q')
+         in
+           equal_induction x F base.
+
+Arguments equal_left_whisker {X x y} p {z q q'} _.
+(* endfrag *)
+
+(* begfrag:smege15s *)
+Definition equal_right_whisker
+  : forall (X : Type) (x y : X) (p p' : Equal x y),
+      Equal p p'
+        -> forall (z : X) (q : Equal y z),
+             Equal (equal_compose p q) (equal_compose p' q)
+  := fun (X : Type) (x y : X) (p : Equal x y)
+       =>
+         let
+           F : forall (p' : Equal x y), Equal p p' -> Type
+             := fun (p' : Equal x y)
+                  => constant_function
+                       (forall (z : X) (q : Equal y z),
+                          Equal (equal_compose p q)
+                                (equal_compose p' q))
+         in let
+           base : F p (reflexive p)
+             := fun (z : X) (q : Equal y z)
+                  => reflexive (equal_compose p q)
+         in
+           equal_induction p F base.
+
+Arguments equal_right_whisker {X x y p p'} _ {z} q.
+(* endfrag *)
+
+(* begfrag:npsmi0d4 *)
+Definition equal_compose_horizontal
+  : forall (X : Type)
+           (x y : X)
+           (p p' : Equal x y),
+      Equal p p'
+        -> forall (z : X) (q q' : Equal y z),
+             Equal q q'
+               -> Equal (equal_compose p q) (equal_compose p' q')
+  := fun (X : Type)
+         (x y : X)
+         (p p' : Equal x y)
+         (u : Equal p p')
+         (z : X)
+         (q q' : Equal y z)
+         (v : Equal q q')
+       =>
+         let
+           e1 : Equal (equal_compose p q) (equal_compose p q')
+              := equal_left_whisker p v
+         in let
+           e2 : Equal (equal_compose p q') (equal_compose p' q')
+              := equal_right_whisker u q'
+         in
+           equal_compose e1 e2.
+
+Arguments equal_compose_horizontal {X x y p p'} _ {z q q'} _.
+(* endfrag *)
+
+(* begfrag:3vb37e5t *)
+Definition equal_compose_horizontal2
+  : forall (X : Type)
+           (x y : X)
+           (p p' : Equal x y),
+      Equal p p'
+        -> forall (z : X) (q q' : Equal y z),
+             Equal q q'
+               -> Equal (equal_compose p q) (equal_compose p' q')
+  := fun (X : Type)
+         (x y : X)
+         (p p' : Equal x y)
+         (u : Equal p p')
+         (z : X)
+         (q q' : Equal y z)
+         (v : Equal q q')
+       =>
+         let
+           e1 : Equal (equal_compose p q) (equal_compose p' q)
+              := equal_right_whisker u q
+         in let
+           e2 : Equal (equal_compose p' q) (equal_compose p' q')
+              := equal_left_whisker p' v
+         in
+           equal_compose e1 e2.
+
+Arguments equal_compose_horizontal2 {X x y p p'} _ {z q q'} _.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Properties of left whiskers                                  *)
+(* ================================================================ *)
+
+(* begfrag:xhpcydus *)
+Example _equal_left_whisker_left_unit
+  : forall (X : Type)
+           (x z : X)
+           (q q' : Equal x z)
+           (v : Equal q q'),
+      Equal v (equal_left_whisker (reflexive x) v)
+  := fun (X : Type)
+         (x z : X)
+         (q q' : Equal x z)
+         (v : Equal q q')
+       => reflexive v.
+(* endfrag *)
+
+(* begfrag:zm6vhjq4 *)
+Definition equal_left_whisker_right_unit
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z),
+      Equal (reflexive (equal_compose p q))
+            (equal_left_whisker p (reflexive q))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X) (q : Equal y z),
+                       Equal (reflexive (equal_compose p q))
+                             (equal_left_whisker p (reflexive q))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X) (q : Equal x z)
+                  => reflexive (reflexive q)
+         in
+           equal_induction x F base.
+
+Arguments equal_left_whisker_right_unit {X x y} p {z} q.
+(* endfrag *)
+
+(* begfrag:jnw5wumu *)
+Definition equal_left_whisker_multiplicative
+  : forall (X : Type)
+           (w x : X)
+           (n : Equal w x)
+           (y : X)
+           (p : Equal x y)
+           (z : X)
+           (q q' : Equal y z)
+           (v : Equal q q'),
+      Equal (equal_left_whisker (equal_compose n p) v)
+            (equal_compose
+               (equal_compose (equal_associative n p q)
+                              (equal_left_whisker
+                                 n (equal_left_whisker p v)))
+               (equal_inverse (equal_associative n p q')))
+  := fun (X : Type) (w : X)
+       =>
+         let
+           F : forall (x : X), Equal w x -> Type
+             := fun (x : X) (n : Equal w x)
+                  => forall (y : X)
+                            (p : Equal x y)
+                            (z : X)
+                            (q q' : Equal y z)
+                            (v : Equal q q'),
+                       Equal (equal_left_whisker
+                                (equal_compose n p) v)
+                             (equal_compose
+                                (equal_compose
+                                   (equal_associative n p q)
+                                   (equal_left_whisker
+                                      n (equal_left_whisker p v)))
+                                (equal_inverse
+                                   (equal_associative n p q')))
+         in let
+           base : F w (reflexive w)
+             := fun (y : X)
+                    (p : Equal w y)
+                    (z : X)
+                    (q q' : Equal y z)
+                    (v : Equal q q')
+                  => equal_right_unit (equal_left_whisker p v)
+         in
+           equal_induction w F base.
+
+Arguments equal_left_whisker_multiplicative
+          {X w x} n {y} p {z} {q q'} v.
+(* endfrag *)
+
+(* begfrag:piv9dpah *)
+Definition equal_left_whisker_distributive
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q q' : Equal y z)
+           (v : Equal q q')
+           (q'' : Equal y z)
+           (v' : Equal q' q''),
+      Equal (equal_left_whisker p (equal_compose v v'))
+            (equal_compose (equal_left_whisker p v)
+                           (equal_left_whisker p v'))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => forall (z : X)
+                            (q q' : Equal y z)
+                            (v : Equal q q')
+                            (q'' : Equal y z)
+                            (v' : Equal q' q''),
+                       Equal (equal_left_whisker p
+                                                 (equal_compose v v'))
+                             (equal_compose (equal_left_whisker p v)
+                                            (equal_left_whisker p v'))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X)
+                    (q q' : Equal x z)
+                    (v : Equal q q')
+                    (q'' : Equal x z)
+                    (v' : Equal q' q'')
+                  => reflexive (equal_compose v v')
+         in
+           equal_induction x F base.
+
+Arguments equal_left_whisker_distributive
+          {X x y} p {z} {q q'} v {q''} v'.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Properties of right whiskers                                 *)
+(* ================================================================ *)
+
+(* begfrag:44tg9h29 *)
+Example _equal_right_whisker_left_unit
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z),
+      Equal (reflexive (equal_compose p q))
+            (equal_right_whisker (reflexive p) q)
+  := fun (X : Type)
+         (x y : X)
+         (p : Equal x y)
+         (z : X)
+         (q : Equal y z)
+       => reflexive (reflexive (equal_compose p q)).
+(* endfrag *)
+
+(* begfrag:c05nogsx *)
+Example _equal_right_whisker_right_unit_base_case
+  : forall (X : Type) (x y : X) (p : Equal x y),
+      Equal (reflexive p)
+            (equal_compose
+               (equal_compose (equal_right_unit p)
+                              (reflexive
+                                 (equal_end (equal_right_unit p))))
+               (equal_inverse (equal_right_unit p)))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+             := fun (y : X) (p : Equal x y)
+                  => Equal (reflexive p)
+                           (equal_compose
+                              (equal_compose
+                                 (equal_right_unit p)
+                                 (reflexive
+                                    (equal_end (equal_right_unit p))))
+                              (equal_inverse (equal_right_unit p)))
+         in let
+           base : F x (reflexive x)
+             := reflexive (reflexive (reflexive x))
+         in
+           equal_induction x F base.
+(* endfrag *)
+
+(* begfrag:q1oa49qd *)
+Definition equal_right_whisker_right_unit
+  : forall (X : Type) (x y : X) (p p' : Equal x y) (u : Equal p p'),
+      Equal u
+            (equal_compose
+               (equal_compose (equal_right_unit p)
+                              (equal_right_whisker u (reflexive y)))
+               (equal_inverse (equal_right_unit p')))
+  := fun (X : Type) (x y : X) (p : Equal x y)
+       =>
+         let
+           F : forall (p' : Equal x y), Equal p p' -> Type
+             := fun (p' : Equal x y) (u : Equal p p')
+                  => Equal u
+                           (equal_compose
+                              (equal_compose
+                                 (equal_right_unit p)
+                                 (equal_right_whisker u
+                                                      (reflexive y)))
+                              (equal_inverse (equal_right_unit p')))
+         in let
+           base : F p (reflexive p)
+             := _equal_right_whisker_right_unit_base_case X x y p
+         in
+           equal_induction p F base.
+
+Arguments equal_right_whisker_right_unit {X x y p p'} u.
+(* endfrag *)
+
+(* begfrag:r45sxbxj *)
+Example _equal_right_whisker_multiplicative_base_case
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z)
+           (w : X)
+           (r : Equal z w),
+      Equal (reflexive (equal_compose p (equal_compose q r)))
+            (equal_compose
+               (equal_compose
+                  (equal_inverse (equal_associative p q r))
+                  (reflexive (equal_compose (equal_compose p q) r)))
+               (equal_associative p q r))
+  := fun (X : Type) (x : X)
+       =>
+         let
+           F : forall (y : X), Equal x y -> Type
+           := fun (y : X) (p : Equal x y)
+                => forall (z : X)
+                          (q : Equal y z)
+                          (w : X)
+                          (r : Equal z w),
+                     Equal (reflexive
+                              (equal_compose p (equal_compose q r)))
+                           (equal_compose
+                              (equal_compose
+                                 (equal_inverse
+                                    (equal_associative p q r))
+                                 (reflexive
+                                    (equal_compose
+                                       (equal_compose p q) r)))
+                              (equal_associative p q r))
+         in let
+           base : F x (reflexive x)
+             := fun (z : X)
+                    (q : Equal x z)
+                    (w : X)
+                    (r : Equal z w)
+                  => reflexive (reflexive (equal_compose q r))
+         in
+           equal_induction x F base.
+(* endfrag *)
+
+(* begfrag:9xxalp0u *)
+Definition equal_right_whisker_multiplicative
+  : forall (X : Type)
+           (x y : X)
+           (p p' : Equal x y)
+           (u : Equal p p')
+           (z : X)
+           (q : Equal y z)
+           (w : X)
+           (r : Equal z w),
+      Equal (equal_right_whisker u (equal_compose q r))
+            (equal_compose
+               (equal_compose
+                  (equal_inverse (equal_associative p q r))
+                  (equal_right_whisker (equal_right_whisker u q) r))
+               (equal_associative p' q r))
+  := fun (X : Type) (x y : X) (p : Equal x y)
+       =>
+         let
+           F : forall (p' : Equal x y), Equal p p' -> Type
+             := fun (p' : Equal x y) (u : Equal p p')
+                  => forall (z : X)
+                            (q : Equal y z)
+                            (w : X)
+                            (r : Equal z w),
+                       Equal (equal_right_whisker
+                                u (equal_compose q r))
+                             (equal_compose
+                                (equal_compose
+                                   (equal_inverse
+                                      (equal_associative p q r))
+                                   (equal_right_whisker
+                                      (equal_right_whisker u q) r))
+                                (equal_associative p' q r))
+
+         in let
+           base : F p (reflexive p)
+             := _equal_right_whisker_multiplicative_base_case X x y p
+         in
+           equal_induction p F base.
+
+Arguments equal_right_whisker_multiplicative
+          {X x y p p'} u {z} q {w} r.
+(* endfrag *)
+
+(* begfrag:mat6rb8r *)
+Definition equal_right_whisker_distributive
+  : forall (X : Type)
+           (x y : X)
+           (p p' : Equal x y)
+           (u : Equal p p')
+           (p'' : Equal x y)
+           (u' : Equal p' p'')
+           (z : X)
+           (q : Equal y z),
+      Equal (equal_right_whisker (equal_compose u u') q)
+            (equal_compose (equal_right_whisker u q)
+                           (equal_right_whisker u' q))
+  := fun (X : Type) (x y : X) (p : Equal x y)
+       =>
+         let
+           F : forall (p' : Equal x y), Equal p p' -> Type
+             := fun (p' : Equal x y) (u : Equal p p')
+                  => forall (p'' : Equal x y)
+                            (u' : Equal p' p'')
+                            (z : X)
+                            (q : Equal y z),
+                       Equal (equal_right_whisker
+                                (equal_compose u u') q)
+                             (equal_compose
+                                (equal_right_whisker u q)
+                                (equal_right_whisker u' q))
+         in let
+           base : F p (reflexive p)
+             := fun (p'' : Equal x y)
+                    (u' : Equal p p'')
+                    (z : X)
+                    (q : Equal y z)
+                  => reflexive (equal_right_whisker u' q)
+         in
+           equal_induction p F base.
+
+Arguments equal_right_whisker_distributive
+          {X x y p p'} u {p''} u' {z} q.
 (* endfrag *)
 
 (* End of file *)
