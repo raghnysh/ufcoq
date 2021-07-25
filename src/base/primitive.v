@@ -76,10 +76,10 @@ Definition natural_induction
 
 (* begfrag:whnabw73 *)
 Inductive Equal (X : Type) (x : X) : X -> Type
-  := reflexive : Equal X x x.
+  := equal_unit : Equal X x x.
 
 Arguments Equal {X} x  _.
-Arguments reflexive {X} x.
+Arguments equal_unit {X} x.
 (* endfrag *)
 
 (* begfrag:xxyabzuf *)
@@ -87,7 +87,7 @@ Definition equal_induction
   : forall (X : Type)
            (x : X)
            (F : forall (y : X), Equal x y -> Type),
-      F x (reflexive x) -> forall (y : X) (p : Equal x y), F y p
+      F x (equal_unit x) -> forall (y : X) (p : Equal x y), F y p
   := Equal_rect.
 
 Arguments equal_induction {X} x F _ y p.

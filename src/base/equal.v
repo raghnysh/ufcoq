@@ -27,22 +27,22 @@ Arguments equal_compose {X x y z} _ _.
 (* begfrag:ky5unwbq *)
 Example _equal_left_unit
   : forall (X : Type) (x y : X) (p : Equal x y),
-      Equal p (equal_compose (reflexive x) p)
-  := fun (X : Type) (x y : X) (p : Equal x y) => reflexive p.
+      Equal p (equal_compose (equal_unit x) p)
+  := fun (X : Type) (x y : X) (p : Equal x y) => equal_unit p.
 (* endfrag *)
 
 (* begfrag:afizq40q *)
 Definition equal_right_unit
   : forall (X : Type) (x y : X) (p : Equal x y),
-      Equal p (equal_compose p (reflexive y))
+      Equal p (equal_compose p (equal_unit y))
   := fun (X : Type) (x : X)
        =>
          let
            F : forall (a : X), Equal x a -> Type
              := fun (a : X) (e : Equal x a)
-                  => Equal e (equal_compose e (reflexive a))
+                  => Equal e (equal_compose e (equal_unit a))
          in let
-           base : F x (reflexive x) := reflexive (reflexive x)
+           base : F x (equal_unit x) := equal_unit (equal_unit x)
          in
            equal_induction x F base.
 
@@ -69,9 +69,9 @@ Definition equal_associative
                        Equal (equal_compose (equal_compose p q) r)
                              (equal_compose p (equal_compose q r))
          in let
-           base : F w (reflexive w)
+           base : F w (equal_unit w)
              := fun (y : X) (q : Equal w y) (z : X) (r : Equal y z)
-                  => reflexive (equal_compose q r)
+                  => equal_unit (equal_compose q r)
          in
            equal_induction w F base.
 
@@ -91,7 +91,7 @@ Definition equal_inverse
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) => constant_function (Equal y x)
          in let
-           base : F x (reflexive x) := reflexive x
+           base : F x (equal_unit x) := equal_unit x
          in
            equal_induction x F base.
 
@@ -99,25 +99,25 @@ Arguments equal_inverse {X x y} _.
 (* endfrag *)
 
 (* begfrag:fehutg63 *)
-Example _equal_inverse_reflexive
+Example _equal_inverse_equal_unit
   : forall (X : Type) (x : X),
-      Equal (reflexive x) (equal_inverse (reflexive x))
-  := fun (X : Type) (x : X) => reflexive (reflexive x).
+      Equal (equal_unit x) (equal_inverse (equal_unit x))
+  := fun (X : Type) (x : X) => equal_unit (equal_unit x).
 (* endfrag *)
 
 (* begfrag:czd5dw60 *)
 Definition equal_left_inverse
   : forall (X : Type) (x y : X) (p : Equal x y),
-      Equal (reflexive y) (equal_compose (equal_inverse p) p)
+      Equal (equal_unit y) (equal_compose (equal_inverse p) p)
   := fun (X : Type) (x : X)
        =>
          let
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
-                  => Equal (reflexive y)
+                  => Equal (equal_unit y)
                            (equal_compose (equal_inverse p) p)
          in let
-           base : F x (reflexive x) := reflexive (reflexive x)
+           base : F x (equal_unit x) := equal_unit (equal_unit x)
          in
            equal_induction x F base.
 
@@ -127,16 +127,16 @@ Arguments equal_left_inverse {X x y} p.
 (* begfrag:eay5nxer *)
 Definition equal_right_inverse
   : forall (X : Type) (x y : X) (p : Equal x y),
-      Equal (reflexive x) (equal_compose p (equal_inverse p))
+      Equal (equal_unit x) (equal_compose p (equal_inverse p))
   := fun (X : Type) (x : X)
        =>
          let
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
-                  => Equal (reflexive x)
+                  => Equal (equal_unit x)
                            (equal_compose p (equal_inverse p))
          in let
-           base : F x (reflexive x) := reflexive (reflexive x)
+           base : F x (equal_unit x) := equal_unit (equal_unit x)
          in
            equal_induction x F base.
 
@@ -157,7 +157,7 @@ Definition equal_map
            F : forall (x' : X), Equal x x' -> Type
              := fun (x' : X) => constant_function (Equal (f x) (f x'))
          in let
-           base : F x (reflexive x) := reflexive (f x)
+           base : F x (equal_unit x) := equal_unit (f x)
          in
            equal_induction x F base.
 
@@ -167,9 +167,9 @@ Arguments equal_map {X Y} f {x x'} _.
 (* begfrag:udxkkzqg *)
 Example _equal_map_unital
   : forall (X Y : Type) (f : X -> Y) (x : X),
-      Equal (reflexive (f x)) (equal_map f (reflexive x))
+      Equal (equal_unit (f x)) (equal_map f (equal_unit x))
   := fun (X Y : Type) (f : X -> Y) (x : X)
-       => reflexive (reflexive (f x)).
+       => equal_unit (equal_unit (f x)).
 (* endfrag *)
 
 (* begfrag:bul2i30n *)
@@ -191,9 +191,9 @@ Definition equal_map_multiplicative
                        Equal (equal_map f (equal_compose p q))
                              (equal_compose (equal_map f p) (equal_map f q))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X) (q : Equal x1 x3)
-                  => reflexive (equal_map f q)
+                  => equal_unit (equal_map f q)
          in
            equal_induction x1 F base.
 
@@ -213,7 +213,7 @@ Definition equal_map_inverse
                   => Equal (equal_map f (equal_inverse p))
                            (equal_inverse (equal_map f p))
          in let
-           base : F x (reflexive x) := reflexive (reflexive (f x))
+           base : F x (equal_unit x) := equal_unit (equal_unit (f x))
          in
            equal_induction x F base.
 
@@ -232,8 +232,8 @@ Definition equal_map_equal
                   => constant_function (Equal (equal_map f p)
                                               (equal_map f q))
          in let
-           base : F p (reflexive p)
-             := reflexive (equal_map f p)
+           base : F p (equal_unit p)
+             := equal_unit (equal_map f p)
          in
            equal_induction p F base.
 
@@ -255,7 +255,7 @@ Definition equal_map_identity_function
              := fun (x' : X) (p : Equal x x')
                   => Equal p (equal_map (@identity_function X) p)
          in let
-           base : F x (reflexive x) := reflexive (reflexive x)
+           base : F x (equal_unit x) := equal_unit (equal_unit x)
          in
            equal_induction x F base.
 
@@ -282,7 +282,7 @@ Definition equal_map_function_compose
                   => Equal (equal_map (function_compose g f) p)
                            (equal_map g (equal_map f p))
          in let
-           base : F x (reflexive x) := reflexive (reflexive (g (f x)))
+           base : F x (equal_unit x) := equal_unit (equal_unit (g (f x)))
          in
            equal_induction x F base.
 
@@ -292,16 +292,16 @@ Arguments equal_map_function_compose {X Y Z} g f {x x'} p.
 (* begfrag:t9j8usog *)
 Definition equal_map_constant_function
   : forall (X Y : Type) (y : Y) (x x' : X) (p : Equal x x'),
-      Equal (reflexive y) (equal_map (@constant_function X Y y) p)
+      Equal (equal_unit y) (equal_map (@constant_function X Y y) p)
   := fun (X Y : Type) (y : Y) (x : X)
        =>
          let
            F : forall (x' : X), Equal x x' -> Type
              := fun (x' : X) (p : Equal x x')
-                  => Equal (reflexive y)
+                  => Equal (equal_unit y)
                            (equal_map (@constant_function X Y y) p)
          in let
-           base : F x (reflexive x) := reflexive (reflexive y)
+           base : F x (equal_unit x) := equal_unit (equal_unit y)
          in
            equal_induction x F base.
 
@@ -329,7 +329,7 @@ Definition equal_left_cancel
                        Equal (equal_compose p q) (equal_compose p q')
                          -> Equal q q'
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q q' : Equal x z)
                   => @identity_function (Equal q q')
          in
@@ -360,7 +360,7 @@ Definition equal_left_remove
                                 (equal_compose p' q')
                             -> Equal q q')
          in let
-           base : F p (reflexive p)
+           base : F p (equal_unit p)
              := fun (z : X) (q q' : Equal y z)
                   => equal_left_cancel p q q'
          in
@@ -385,15 +385,15 @@ Definition equal_right_cancel
                   => Equal (equal_compose p q) (equal_compose p' q)
                        -> Equal p p'
          in let
-           base : F y (reflexive y)
-             := fun (u : Equal (equal_compose p (reflexive y))
-                               (equal_compose p' (reflexive y)))
+           base : F y (equal_unit y)
+             := fun (u : Equal (equal_compose p (equal_unit y))
+                               (equal_compose p' (equal_unit y)))
                   =>
                     let
-                      e1 : Equal p (equal_compose p (reflexive y))
+                      e1 : Equal p (equal_compose p (equal_unit y))
                          := equal_right_unit p
                     in let
-                      e2 : Equal (equal_compose p' (reflexive y)) p'
+                      e2 : Equal (equal_compose p' (equal_unit y)) p'
                          := equal_inverse (equal_right_unit p')
                     in
                       equal_compose (equal_compose e1 u) e2
@@ -427,7 +427,7 @@ Definition equal_right_remove
                                (equal_compose p' q')
                            -> Equal p p')
          in let
-           base : F q (reflexive q)
+           base : F q (equal_unit q)
              := equal_right_cancel p p' q
          in
            equal_induction q F base.
@@ -442,9 +442,9 @@ Arguments equal_right_remove {X x y} p p' {z} {q q'} _ _.
 (* begfrag:x71kqflr *)
 Definition equal_left_unit_unique
   : forall (X : Type) (x y : X) (p : Equal x x) (q : Equal x y),
-      Equal q (equal_compose p q) -> Equal (reflexive x) p
+      Equal q (equal_compose p q) -> Equal (equal_unit x) p
   := fun (X : Type) (x y : X) (p : Equal x x) (q : Equal x y)
-       => equal_right_cancel (reflexive x) p q.
+       => equal_right_cancel (equal_unit x) p q.
 
 Arguments equal_left_unit_unique {X x y} p {q} _.
 (* endfrag *)
@@ -452,7 +452,7 @@ Arguments equal_left_unit_unique {X x y} p {q} _.
 (* begfrag:m1jqzny4 *)
 Definition equal_right_unit_unique
   : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y y),
-      Equal p (equal_compose p q) -> Equal (reflexive y) q
+      Equal p (equal_compose p q) -> Equal (equal_unit y) q
   := fun (X : Type)
          (x : X)
        =>
@@ -461,11 +461,11 @@ Definition equal_right_unit_unique
              := fun (y : X) (p : Equal x y)
                   => forall (q : Equal y y),
                        Equal p (equal_compose p q)
-                         -> Equal (reflexive y) q
+                         -> Equal (equal_unit y) q
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (q : Equal x x)
-                  => @identity_function (Equal (reflexive x) q)
+                  => @identity_function (Equal (equal_unit x) q)
          in
            equal_induction x F base.
 
@@ -479,7 +479,7 @@ Arguments equal_right_unit_unique {X x y p} q _.
 (* begfrag:5f147sym *)
 Definition equal_left_inverse_unique
   : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y x),
-      Equal (equal_compose p q) (reflexive x)
+      Equal (equal_compose p q) (equal_unit x)
         -> Equal p (equal_inverse q)
   := fun (X : Type) (x : X)
        =>
@@ -487,11 +487,11 @@ Definition equal_left_inverse_unique
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (q : Equal y x),
-                       Equal (equal_compose p q) (reflexive x)
+                       Equal (equal_compose p q) (equal_unit x)
                          -> Equal p (equal_inverse q)
          in let
-           base : F x (reflexive x)
-             := fun (q : Equal x x) (e : Equal q (reflexive x))
+           base : F x (equal_unit x)
+             := fun (q : Equal x x) (e : Equal q (equal_unit x))
                   => equal_inverse (equal_map equal_inverse e)
          in
            equal_induction x F base.
@@ -502,7 +502,7 @@ Arguments equal_left_inverse_unique {X x y} p q _.
 (* begfrag:bwldujz3 *)
 Definition equal_right_inverse_unique
   : forall (X : Type) (x y : X) (p : Equal x y) (q : Equal y x),
-      Equal (equal_compose p q) (reflexive x)
+      Equal (equal_compose p q) (equal_unit x)
         -> Equal q (equal_inverse p)
   := fun (X : Type) (x : X)
        =>
@@ -510,12 +510,12 @@ Definition equal_right_inverse_unique
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (q : Equal y x),
-                       Equal (equal_compose p q) (reflexive x)
+                       Equal (equal_compose p q) (equal_unit x)
                          -> Equal q (equal_inverse p)
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (q : Equal x x)
-                  => @identity_function (Equal q (reflexive x))
+                  => @identity_function (Equal q (equal_unit x))
          in
            equal_induction x F base.
 
@@ -545,7 +545,7 @@ Definition equal_inverse_antimultiplicative
                              (equal_compose (equal_inverse q)
                                             (equal_inverse p))
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z)
                   => equal_right_unit (equal_inverse q)
          in
@@ -569,8 +569,8 @@ Definition equal_inverse_involutive
              := fun (y : X) (p : Equal x y)
                   => Equal p (equal_inverse (equal_inverse p))
          in let
-           base : F x (reflexive x)
-             := reflexive (reflexive x)
+           base : F x (equal_unit x)
+             := equal_unit (equal_unit x)
          in
            equal_induction x F base.
 
@@ -593,8 +593,8 @@ Definition equal_put_inverse
                 => constant_function (Equal (equal_inverse p)
                                             (equal_inverse q))
        in let
-         base : F p (reflexive p)
-           := reflexive (equal_inverse p)
+         base : F p (equal_unit p)
+           := equal_unit (equal_inverse p)
        in
          equal_induction p F base.
 
@@ -650,7 +650,7 @@ Definition equal_move_prefix_right
                        Equal (equal_compose p q) r
                          -> Equal q (equal_compose (equal_inverse p) r)
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
                   => @identity_function (Equal q r)
          in
@@ -679,7 +679,7 @@ Definition equal_move_prefix_left
                        Equal r (equal_compose p q)
                          -> Equal (equal_compose (equal_inverse p) r) q
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
                   => @identity_function (Equal r q)
          in
@@ -708,17 +708,17 @@ Definition equal_move_suffix_right
                        Equal (equal_compose p q) r
                          -> Equal p (equal_compose r (equal_inverse q))
          in let
-           base : F y (reflexive y)
+           base : F y (equal_unit y)
              := fun (x : X)
                     (p : Equal x y)
                     (r : Equal x y)
-                    (e : Equal (equal_compose p (reflexive y)) r)
+                    (e : Equal (equal_compose p (equal_unit y)) r)
                   =>
                     let
-                      u1 : Equal p (equal_compose p (reflexive y))
+                      u1 : Equal p (equal_compose p (equal_unit y))
                          := equal_right_unit p
                     in let
-                      u2 : Equal r (equal_compose r (reflexive y))
+                      u2 : Equal r (equal_compose r (equal_unit y))
                          := equal_right_unit r
                     in
                       equal_compose (equal_compose u1 e) u2
@@ -748,17 +748,17 @@ Definition equal_move_suffix_left
                        Equal r (equal_compose p q)
                          -> Equal (equal_compose r (equal_inverse q)) p
          in let
-           base : F y (reflexive y)
+           base : F y (equal_unit y)
              := fun (x : X)
                     (p : Equal x y)
                     (r : Equal x y)
-                    (e : Equal r (equal_compose p (reflexive y)))
+                    (e : Equal r (equal_compose p (equal_unit y)))
                   =>
                     let
-                      u1 : Equal (equal_compose r (reflexive y)) r
+                      u1 : Equal (equal_compose r (equal_unit y)) r
                          := equal_inverse (equal_right_unit r)
                     in let
-                      u2 : Equal (equal_compose p (reflexive y)) p
+                      u2 : Equal (equal_compose p (equal_unit y)) p
                          := equal_inverse (equal_right_unit p)
                     in
                       equal_compose (equal_compose u1 e) u2
@@ -801,7 +801,7 @@ Definition equal_associative41
                              (equal_compose
                                 (equal_compose p1 p2) (equal_compose p3 p4))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -844,7 +844,7 @@ Definition equal_associative42
                              (equal_compose
                                 p1 (equal_compose p2 (equal_compose p3 p4)))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -887,14 +887,14 @@ Definition equal_associative43
                              (equal_compose
                                 (equal_compose p1 (equal_compose p2 p3)) p4)
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
                     (p3 : Equal x3 x4)
                     (x5 : X)
                     (p4 : Equal x4 x5)
-                  => reflexive (equal_compose (equal_compose p2 p3) p4)
+                  => equal_unit (equal_compose (equal_compose p2 p3) p4)
          in
            equal_induction x1 F base.
 
@@ -930,14 +930,14 @@ Definition equal_associative44
                              (equal_compose
                                 p1 (equal_compose (equal_compose p2 p3) p4))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
                     (p3 : Equal x3 x4)
                     (x5 : X)
                     (p4 : Equal x4 x5)
-                  => reflexive (equal_compose (equal_compose p2 p3) p4)
+                  => equal_unit (equal_compose (equal_compose p2 p3) p4)
          in
            equal_induction x1 F base.
 
@@ -985,7 +985,7 @@ Definition equal_associative501
                                 (equal_compose
                                    (equal_compose p1 p2) p3) (equal_compose p4 p5))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1038,7 +1038,7 @@ Definition equal_associative502
                                 (equal_compose
                                    p1 (equal_compose p2 p3)) (equal_compose p4 p5))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1091,7 +1091,7 @@ Definition equal_associative503
                                 p1 (equal_compose
                                       (equal_compose p2 p3) (equal_compose p4 p5)))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1144,7 +1144,7 @@ Definition equal_associative504
                                 p1 (equal_compose
                                       p2 (equal_compose p3 (equal_compose p4 p5))))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1197,7 +1197,7 @@ Definition equal_associative505
                                 (equal_compose
                                    (equal_compose p1 (equal_compose p2 p3)) p4) p5)
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1206,7 +1206,7 @@ Definition equal_associative505
                     (p4 : Equal x4 x5)
                     (x6 : X)
                     (p5 : Equal x5 x6)
-                  => reflexive (equal_compose
+                  => equal_unit (equal_compose
                                   (equal_compose (equal_compose p2 p3) p4) p5)
          in
            equal_induction x1 F base.
@@ -1251,7 +1251,7 @@ Definition equal_associative506
                                 (equal_compose
                                    p1 (equal_compose (equal_compose p2 p3) p4)) p5)
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1260,7 +1260,7 @@ Definition equal_associative506
                     (p4 : Equal x4 x5)
                     (x6 : X)
                     (p5 : Equal x5 x6)
-                  => reflexive (equal_compose
+                  => equal_unit (equal_compose
                                   (equal_compose (equal_compose p2 p3) p4) p5)
          in
            equal_induction x1 F base.
@@ -1305,7 +1305,7 @@ Definition equal_associative507
                                 p1 (equal_compose
                                       (equal_compose (equal_compose p2 p3) p4) p5))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1314,7 +1314,7 @@ Definition equal_associative507
                     (p4 : Equal x4 x5)
                     (x6 : X)
                     (p5 : Equal x5 x6)
-                  => reflexive (equal_compose
+                  => equal_unit (equal_compose
                                   (equal_compose (equal_compose p2 p3) p4) p5)
          in
            equal_induction x1 F base.
@@ -1359,7 +1359,7 @@ Definition equal_associative508
                                 p1 (equal_compose
                                       (equal_compose p2 (equal_compose p3 p4)) p5))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1412,7 +1412,7 @@ Definition equal_associative509
                                 p1 (equal_compose
                                       p2 (equal_compose (equal_compose p3 p4) p5)))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1465,7 +1465,7 @@ Definition equal_associative510
                                 (equal_compose
                                    p1 (equal_compose p2 (equal_compose p3 p4))) p5)
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1518,7 +1518,7 @@ Definition equal_associative511
                                 (equal_compose
                                    (equal_compose p1 p2) (equal_compose p3 p4)) p5)
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1571,7 +1571,7 @@ Definition equal_associative512
                                 (equal_compose
                                    p1 p2) (equal_compose (equal_compose p3 p4) p5))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1624,7 +1624,7 @@ Definition equal_associative513
                                 (equal_compose
                                    p1 p2) (equal_compose p3 (equal_compose p4 p5)))
          in let
-           base : F x1 (reflexive x1)
+           base : F x1 (equal_unit x1)
              := fun (x3 : X)
                     (p2 : Equal x1 x3)
                     (x4 : X)
@@ -1656,8 +1656,8 @@ Definition equal_expand1
                   => forall (z : X) (q : Equal y z),
                        Equal q (equal_compose (equal_compose (equal_inverse p) p) q)
          in let
-           base : F x (reflexive x)
-             := fun (z : X) (q : Equal x z) => reflexive q
+           base : F x (equal_unit x)
+             := fun (z : X) (q : Equal x z) => equal_unit q
          in
            equal_induction x F base.
 
@@ -1676,8 +1676,8 @@ Definition equal_expand2
                   => forall (z : X) (q : Equal y z),
                        Equal q (equal_compose (equal_inverse p) (equal_compose p q))
          in let
-           base : F x (reflexive x)
-             := fun (z : X) (q : Equal x z) => reflexive q
+           base : F x (equal_unit x)
+             := fun (z : X) (q : Equal x z) => equal_unit q
          in
            equal_induction x F base.
 
@@ -1696,8 +1696,8 @@ Definition equal_expand3
                   => forall (z : X) (q : Equal x z),
                        Equal q (equal_compose (equal_compose p (equal_inverse p)) q)
          in let
-           base : F x (reflexive x)
-             := fun (z : X) (q : Equal x z) => reflexive q
+           base : F x (equal_unit x)
+             := fun (z : X) (q : Equal x z) => equal_unit q
          in
            equal_induction x F base.
 
@@ -1716,8 +1716,8 @@ Definition equal_expand4
                   => forall (z : X) (q : Equal x z),
                        Equal q (equal_compose p (equal_compose (equal_inverse p) q))
          in let
-           base : F x (reflexive x)
-             := fun (z : X) (q : Equal x z) => reflexive q
+           base : F x (equal_unit x)
+             := fun (z : X) (q : Equal x z) => equal_unit q
          in
            equal_induction x F base.
 
@@ -1736,7 +1736,7 @@ Definition equal_expand5
                   => forall (z : X) (q : Equal z y),
                        Equal p (equal_compose p (equal_compose (equal_inverse q) q))
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal z x) => equal_left_inverse q
          in
            equal_induction x F base.
@@ -1756,7 +1756,7 @@ Definition equal_expand6
                   => forall (z : X) (q : Equal z y),
                        Equal p (equal_compose (equal_compose p (equal_inverse q)) q)
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal z x) => equal_left_inverse q
          in
            equal_induction x F base.
@@ -1776,7 +1776,7 @@ Definition equal_expand7
                   => forall (z : X) (q : Equal y z),
                        Equal p (equal_compose p (equal_compose q (equal_inverse q)))
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_right_inverse q
          in
            equal_induction x F base.
@@ -1796,7 +1796,7 @@ Definition equal_expand8
                   => forall (z : X) (q : Equal y z),
                        Equal p (equal_compose (equal_compose p q) (equal_inverse q))
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_right_inverse q
          in
            equal_induction x F base.
@@ -1834,7 +1834,7 @@ Definition equal_expand9
                                      (equal_inverse r))
                                   r)
          in let
-           base : F w (reflexive w)
+           base : F w (equal_unit w)
              := fun (y : X) (q : Equal w y) (z : X) (r : Equal z y)
                   => equal_expand6 q r
          in
@@ -1850,9 +1850,9 @@ Arguments equal_expand9 {X w x} p {y} q {z} r.
 (* begfrag:ra3f2wje *)
 Definition equal_idempotent_trivial
   : forall (X : Type) (x : X) (p : Equal x x),
-      Equal p (equal_compose p p) -> Equal (reflexive x) p
+      Equal p (equal_compose p p) -> Equal (equal_unit x) p
   := fun (X : Type) (x : X) (p : Equal x x)
-       => equal_right_cancel (reflexive x) p p.
+       => equal_right_cancel (equal_unit x) p p.
 
 Arguments equal_idempotent_trivial {X x p} _.
 (* endfrag *)
@@ -1913,11 +1913,11 @@ Arguments equal_from {X x y} _.
 (* endfrag *)
 
 (* begfrag:ru5sabn4 *)
-Definition equal_from_reflexive
+Definition equal_from_equal_unit
   : forall (X : Type), X -> EqualFrom X
-  := fun (X : Type) (x : X) => equal_from (reflexive x).
+  := fun (X : Type) (x : X) => equal_from (equal_unit x).
 
-Arguments equal_from_reflexive {X} _.
+Arguments equal_from_equal_unit {X} _.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -1976,11 +1976,11 @@ Arguments equal_to {X x y} _.
 (* endfrag *)
 
 (* begfrag:zyffeio3 *)
-Definition equal_to_reflexive
+Definition equal_to_equal_unit
   : forall (X : Type), X -> EqualTo X
-  := fun (X : Type) (y : X) => equal_to (reflexive y).
+  := fun (X : Type) (y : X) => equal_to (equal_unit y).
 
-Arguments equal_to_reflexive {X} _.
+Arguments equal_to_equal_unit {X} _.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -2005,7 +2005,7 @@ Definition equal_left_whisker
                          -> Equal (equal_compose p q)
                                   (equal_compose p q')
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q q' : Equal x z)
                   => @identity_function (Equal q q')
          in
@@ -2030,9 +2030,9 @@ Definition equal_right_whisker
                           Equal (equal_compose p q)
                                 (equal_compose p' q))
          in let
-           base : F p (reflexive p)
+           base : F p (equal_unit p)
              := fun (z : X) (q : Equal y z)
-                  => reflexive (equal_compose p q)
+                  => equal_unit (equal_compose p q)
          in
            equal_induction p F base.
 
@@ -2107,12 +2107,12 @@ Example _equal_left_whisker_left_unit
            (x z : X)
            (q q' : Equal x z)
            (v : Equal q q'),
-      Equal v (equal_left_whisker (reflexive x) v)
+      Equal v (equal_left_whisker (equal_unit x) v)
   := fun (X : Type)
          (x z : X)
          (q q' : Equal x z)
          (v : Equal q q')
-       => reflexive v.
+       => equal_unit v.
 (* endfrag *)
 
 (* begfrag:zm6vhjq4 *)
@@ -2122,20 +2122,20 @@ Definition equal_left_whisker_right_unit
            (p : Equal x y)
            (z : X)
            (q : Equal y z),
-      Equal (reflexive (equal_compose p q))
-            (equal_left_whisker p (reflexive q))
+      Equal (equal_unit (equal_compose p q))
+            (equal_left_whisker p (equal_unit q))
   := fun (X : Type) (x : X)
        =>
          let
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal y z),
-                       Equal (reflexive (equal_compose p q))
-                             (equal_left_whisker p (reflexive q))
+                       Equal (equal_unit (equal_compose p q))
+                             (equal_left_whisker p (equal_unit q))
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z)
-                  => reflexive (reflexive q)
+                  => equal_unit (equal_unit q)
          in
            equal_induction x F base.
 
@@ -2178,7 +2178,7 @@ Definition equal_left_whisker_multiplicative
                                 (equal_inverse
                                    (equal_associative n p q')))
          in let
-           base : F w (reflexive w)
+           base : F w (equal_unit w)
              := fun (y : X)
                     (p : Equal w y)
                     (z : X)
@@ -2220,13 +2220,13 @@ Definition equal_left_whisker_distributive
                              (equal_compose (equal_left_whisker p v)
                                             (equal_left_whisker p v'))
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X)
                     (q q' : Equal x z)
                     (v : Equal q q')
                     (q'' : Equal x z)
                     (v' : Equal q' q'')
-                  => reflexive (equal_compose v v')
+                  => equal_unit (equal_compose v v')
          in
            equal_induction x F base.
 
@@ -2245,23 +2245,23 @@ Example _equal_right_whisker_left_unit
            (p : Equal x y)
            (z : X)
            (q : Equal y z),
-      Equal (reflexive (equal_compose p q))
-            (equal_right_whisker (reflexive p) q)
+      Equal (equal_unit (equal_compose p q))
+            (equal_right_whisker (equal_unit p) q)
   := fun (X : Type)
          (x y : X)
          (p : Equal x y)
          (z : X)
          (q : Equal y z)
-       => reflexive (reflexive (equal_compose p q)).
+       => equal_unit (equal_unit (equal_compose p q)).
 (* endfrag *)
 
 (* begfrag:c05nogsx *)
 Example _equal_right_whisker_right_unit_base_case
   : forall (X : Type) (x y : X) (p : Equal x y),
-      Equal (reflexive p)
+      Equal (equal_unit p)
             (equal_compose
                (equal_compose (equal_right_unit p)
-                              (reflexive
+                              (equal_unit
                                  (equal_end (equal_right_unit p))))
                (equal_inverse (equal_right_unit p)))
   := fun (X : Type) (x : X)
@@ -2269,16 +2269,16 @@ Example _equal_right_whisker_right_unit_base_case
          let
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
-                  => Equal (reflexive p)
+                  => Equal (equal_unit p)
                            (equal_compose
                               (equal_compose
                                  (equal_right_unit p)
-                                 (reflexive
+                                 (equal_unit
                                     (equal_end (equal_right_unit p))))
                               (equal_inverse (equal_right_unit p)))
          in let
-           base : F x (reflexive x)
-             := reflexive (reflexive (reflexive x))
+           base : F x (equal_unit x)
+             := equal_unit (equal_unit (equal_unit x))
          in
            equal_induction x F base.
 (* endfrag *)
@@ -2289,7 +2289,7 @@ Definition equal_right_whisker_right_unit
       Equal u
             (equal_compose
                (equal_compose (equal_right_unit p)
-                              (equal_right_whisker u (reflexive y)))
+                              (equal_right_whisker u (equal_unit y)))
                (equal_inverse (equal_right_unit p')))
   := fun (X : Type) (x y : X) (p : Equal x y)
        =>
@@ -2301,10 +2301,10 @@ Definition equal_right_whisker_right_unit
                               (equal_compose
                                  (equal_right_unit p)
                                  (equal_right_whisker u
-                                                      (reflexive y)))
+                                                      (equal_unit y)))
                               (equal_inverse (equal_right_unit p')))
          in let
-           base : F p (reflexive p)
+           base : F p (equal_unit p)
              := _equal_right_whisker_right_unit_base_case X x y p
          in
            equal_induction p F base.
@@ -2321,11 +2321,11 @@ Example _equal_right_whisker_multiplicative_base_case
            (q : Equal y z)
            (w : X)
            (r : Equal z w),
-      Equal (reflexive (equal_compose p (equal_compose q r)))
+      Equal (equal_unit (equal_compose p (equal_compose q r)))
             (equal_compose
                (equal_compose
                   (equal_inverse (equal_associative p q r))
-                  (reflexive (equal_compose (equal_compose p q) r)))
+                  (equal_unit (equal_compose (equal_compose p q) r)))
                (equal_associative p q r))
   := fun (X : Type) (x : X)
        =>
@@ -2336,23 +2336,23 @@ Example _equal_right_whisker_multiplicative_base_case
                           (q : Equal y z)
                           (w : X)
                           (r : Equal z w),
-                     Equal (reflexive
+                     Equal (equal_unit
                               (equal_compose p (equal_compose q r)))
                            (equal_compose
                               (equal_compose
                                  (equal_inverse
                                     (equal_associative p q r))
-                                 (reflexive
+                                 (equal_unit
                                     (equal_compose
                                        (equal_compose p q) r)))
                               (equal_associative p q r))
          in let
-           base : F x (reflexive x)
+           base : F x (equal_unit x)
              := fun (z : X)
                     (q : Equal x z)
                     (w : X)
                     (r : Equal z w)
-                  => reflexive (reflexive (equal_compose q r))
+                  => equal_unit (equal_unit (equal_compose q r))
          in
            equal_induction x F base.
 (* endfrag *)
@@ -2393,7 +2393,7 @@ Definition equal_right_whisker_multiplicative
                                 (equal_associative p' q r))
 
          in let
-           base : F p (reflexive p)
+           base : F p (equal_unit p)
              := _equal_right_whisker_multiplicative_base_case X x y p
          in
            equal_induction p F base.
@@ -2430,12 +2430,12 @@ Definition equal_right_whisker_distributive
                                 (equal_right_whisker u q)
                                 (equal_right_whisker u' q))
          in let
-           base : F p (reflexive p)
+           base : F p (equal_unit p)
              := fun (p'' : Equal x y)
                     (u' : Equal p p'')
                     (z : X)
                     (q : Equal y z)
-                  => reflexive (equal_right_whisker u' q)
+                  => equal_unit (equal_right_whisker u' q)
          in
            equal_induction p F base.
 

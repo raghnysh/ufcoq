@@ -100,7 +100,7 @@ Definition functions_equal_values_equal
                   => constant_function
                        (forall (x : X), Equal (f x) (t x))
          in let
-           base : P f (reflexive f) := fun (x : X) => reflexive (f x)
+           base : P f (equal_unit f) := fun (x : X) => equal_unit (f x)
          in
            equal_induction f P base.
 
@@ -185,7 +185,7 @@ Definition transport
            G : forall (a : X), Equal x a -> Type
              := fun (a : X) => constant_function (F x -> F a)
          in let
-           base : G x (reflexive x)
+           base : G x (equal_unit x)
              := @identity_function (F x)
          in
            equal_induction x G base.
@@ -205,7 +205,7 @@ Definition transport_inverse
            G : forall (a : X), Equal x a -> Type
              := fun (a : X) => constant_function (F a -> F x)
          in let
-           base : G x (reflexive x)
+           base : G x (equal_unit x)
              := @identity_function (F x)
          in
            equal_induction x G base.
