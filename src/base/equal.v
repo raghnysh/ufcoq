@@ -65,7 +65,10 @@ Definition equal_associative
          let
            F : forall (x : X), Equal w x -> Type
              := fun (x : X) (p : Equal w x)
-                  => forall (y : X) (q : Equal x y) (z : X) (r : Equal y z),
+                  => forall (y : X)
+                            (q : Equal x y)
+                            (z : X)
+                            (r : Equal y z),
                        Equal (equal_compose (equal_compose p q) r)
                              (equal_compose p (equal_compose q r))
          in let
@@ -189,7 +192,8 @@ Definition equal_map_multiplicative
              := fun (x2 : X) (p : Equal x1 x2)
                   => forall (x3 : X) (q : Equal x2 x3),
                        Equal (equal_map f (equal_compose p q))
-                             (equal_compose (equal_map f p) (equal_map f q))
+                             (equal_compose (equal_map f p)
+                                            (equal_map f q))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X) (q : Equal x1 x3)
@@ -282,7 +286,8 @@ Definition equal_map_function_compose
                   => Equal (equal_map (function_compose g f) p)
                            (equal_map g (equal_map f p))
          in let
-           base : F x (equal_unit x) := equal_unit (equal_unit (g (f x)))
+           base : F x (equal_unit x)
+             := equal_unit (equal_unit (g (f x)))
          in
            equal_induction x F base.
 
@@ -648,7 +653,8 @@ Definition equal_move_prefix_right
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal y z) (r : Equal x z),
                        Equal (equal_compose p q) r
-                         -> Equal q (equal_compose (equal_inverse p) r)
+                         -> Equal q
+                                  (equal_compose (equal_inverse p) r)
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
@@ -677,7 +683,8 @@ Definition equal_move_prefix_left
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal y z) (r : Equal x z),
                        Equal r (equal_compose p q)
-                         -> Equal (equal_compose (equal_inverse p) r) q
+                         -> Equal (equal_compose (equal_inverse p) r)
+                                  q
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
@@ -706,7 +713,8 @@ Definition equal_move_suffix_right
              := fun (z : X) (q : Equal y z)
                   => forall (x : X) (p : Equal x y) (r : Equal x z),
                        Equal (equal_compose p q) r
-                         -> Equal p (equal_compose r (equal_inverse q))
+                         -> Equal p
+                                  (equal_compose r (equal_inverse q))
          in let
            base : F y (equal_unit y)
              := fun (x : X)
@@ -746,7 +754,8 @@ Definition equal_move_suffix_left
              := fun (z : X) (q : Equal y z)
                   => forall (x : X) (p : Equal x y) (r : Equal x z),
                        Equal r (equal_compose p q)
-                         -> Equal (equal_compose r (equal_inverse q)) p
+                         -> Equal (equal_compose r (equal_inverse q))
+                                  p
          in let
            base : F y (equal_unit y)
              := fun (x : X)
@@ -783,8 +792,10 @@ Definition equal_associative41
            (p3 : Equal x3 x4)
            (x5 : X)
            (p4 : Equal x4 x5),
-      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
-            (equal_compose (equal_compose p1 p2) (equal_compose p3 p4))
+      Equal (equal_compose
+               (equal_compose (equal_compose p1 p2) p3) p4)
+            (equal_compose
+               (equal_compose p1 p2) (equal_compose p3 p4))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -797,9 +808,11 @@ Definition equal_associative41
                             (x5 : X)
                             (p4 : Equal x4 x5),
                        Equal (equal_compose
-                                (equal_compose (equal_compose p1 p2) p3) p4)
+                                (equal_compose
+                                   (equal_compose p1 p2) p3) p4)
                              (equal_compose
-                                (equal_compose p1 p2) (equal_compose p3 p4))
+                                (equal_compose p1 p2)
+                                (equal_compose p3 p4))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -826,8 +839,10 @@ Definition equal_associative42
            (p3 : Equal x3 x4)
            (x5 : X)
            (p4 : Equal x4 x5),
-      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
-            (equal_compose p1 (equal_compose p2 (equal_compose p3 p4)))
+      Equal (equal_compose
+               (equal_compose (equal_compose p1 p2) p3) p4)
+            (equal_compose
+               p1 (equal_compose p2 (equal_compose p3 p4)))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -840,9 +855,11 @@ Definition equal_associative42
                             (x5 : X)
                             (p4 : Equal x4 x5),
                        Equal (equal_compose
-                                (equal_compose (equal_compose p1 p2) p3) p4)
+                                (equal_compose
+                                   (equal_compose p1 p2) p3) p4)
                              (equal_compose
-                                p1 (equal_compose p2 (equal_compose p3 p4)))
+                                p1 (equal_compose
+                                      p2 (equal_compose p3 p4)))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -869,8 +886,10 @@ Definition equal_associative43
            (p3 : Equal x3 x4)
            (x5 : X)
            (p4 : Equal x4 x5),
-      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
-            (equal_compose (equal_compose p1 (equal_compose p2 p3)) p4)
+      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3)
+                           p4)
+            (equal_compose (equal_compose p1 (equal_compose p2 p3))
+                           p4)
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -883,9 +902,11 @@ Definition equal_associative43
                             (x5 : X)
                             (p4 : Equal x4 x5),
                        Equal (equal_compose
-                                (equal_compose (equal_compose p1 p2) p3) p4)
+                                (equal_compose
+                                   (equal_compose p1 p2) p3) p4)
                              (equal_compose
-                                (equal_compose p1 (equal_compose p2 p3)) p4)
+                                (equal_compose
+                                   p1 (equal_compose p2 p3)) p4)
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -894,7 +915,8 @@ Definition equal_associative43
                     (p3 : Equal x3 x4)
                     (x5 : X)
                     (p4 : Equal x4 x5)
-                  => equal_unit (equal_compose (equal_compose p2 p3) p4)
+                  => equal_unit (equal_compose (equal_compose p2 p3)
+                                               p4)
          in
            equal_induction x1 F base.
 
@@ -912,8 +934,10 @@ Definition equal_associative44
            (p3 : Equal x3 x4)
            (x5 : X)
            (p4 : Equal x4 x5),
-      Equal (equal_compose (equal_compose (equal_compose p1 p2) p3) p4)
-            (equal_compose p1 (equal_compose (equal_compose p2 p3) p4))
+      Equal (equal_compose
+               (equal_compose (equal_compose p1 p2) p3) p4)
+            (equal_compose p1
+                           (equal_compose (equal_compose p2 p3) p4))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -926,9 +950,11 @@ Definition equal_associative44
                             (x5 : X)
                             (p4 : Equal x4 x5),
                        Equal (equal_compose
-                                (equal_compose (equal_compose p1 p2) p3) p4)
+                                (equal_compose
+                                   (equal_compose p1 p2) p3) p4)
                              (equal_compose
-                                p1 (equal_compose (equal_compose p2 p3) p4))
+                                p1 (equal_compose
+                                      (equal_compose p2 p3) p4))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -937,7 +963,8 @@ Definition equal_associative44
                     (p3 : Equal x3 x4)
                     (x5 : X)
                     (p4 : Equal x4 x5)
-                  => equal_unit (equal_compose (equal_compose p2 p3) p4)
+                  => equal_unit (equal_compose (equal_compose p2 p3)
+                                               p4)
          in
            equal_induction x1 F base.
 
@@ -962,9 +989,11 @@ Definition equal_associative501
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose (equal_compose p1 p2) p3) (equal_compose p4 p5))
+               (equal_compose
+                  (equal_compose p1 p2) p3) (equal_compose p4 p5))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -980,10 +1009,13 @@ Definition equal_associative501
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   (equal_compose p1 p2) p3) (equal_compose p4 p5))
+                                   (equal_compose p1 p2) p3)
+                                (equal_compose p4 p5))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -998,7 +1030,8 @@ Definition equal_associative501
          in
            equal_induction x1 F base.
 
-Arguments equal_associative501 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative501
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:9195neum *)
@@ -1015,9 +1048,11 @@ Definition equal_associative502
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose p1 (equal_compose p2 p3)) (equal_compose p4 p5))
+               (equal_compose
+                  p1 (equal_compose p2 p3)) (equal_compose p4 p5))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1033,10 +1068,13 @@ Definition equal_associative502
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   p1 (equal_compose p2 p3)) (equal_compose p4 p5))
+                                   p1 (equal_compose p2 p3))
+                                (equal_compose p4 p5))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1051,7 +1089,8 @@ Definition equal_associative502
          in
            equal_induction x1 F base.
 
-Arguments equal_associative502 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative502
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:5ik0jqo4 *)
@@ -1068,9 +1107,11 @@ Definition equal_associative503
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               p1 (equal_compose (equal_compose p2 p3) (equal_compose p4 p5)))
+               p1 (equal_compose
+                     (equal_compose p2 p3) (equal_compose p4 p5)))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1086,10 +1127,13 @@ Definition equal_associative503
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 p1 (equal_compose
-                                      (equal_compose p2 p3) (equal_compose p4 p5)))
+                                      (equal_compose p2 p3)
+                                      (equal_compose p4 p5)))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1104,7 +1148,8 @@ Definition equal_associative503
          in
            equal_induction x1 F base.
 
-Arguments equal_associative503 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative503
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:tmu84qas *)
@@ -1121,9 +1166,13 @@ Definition equal_associative504
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               p1 (equal_compose p2 (equal_compose p3 (equal_compose p4 p5))))
+               p1
+               (equal_compose p2
+                              (equal_compose p3
+                                             (equal_compose p4 p5))))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1139,10 +1188,14 @@ Definition equal_associative504
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
-                                p1 (equal_compose
-                                      p2 (equal_compose p3 (equal_compose p4 p5))))
+                                p1
+                                (equal_compose
+                                   p2 (equal_compose
+                                         p3 (equal_compose p4 p5))))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1157,7 +1210,8 @@ Definition equal_associative504
          in
            equal_induction x1 F base.
 
-Arguments equal_associative504 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative504
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:3mvhdnzr *)
@@ -1174,9 +1228,11 @@ Definition equal_associative505
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose (equal_compose p1 (equal_compose p2 p3)) p4) p5)
+               (equal_compose
+                  (equal_compose p1 (equal_compose p2 p3)) p4) p5)
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1192,10 +1248,14 @@ Definition equal_associative505
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   (equal_compose p1 (equal_compose p2 p3)) p4) p5)
+                                   (equal_compose
+                                      p1 (equal_compose p2 p3)) p4)
+                                p5)
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1207,11 +1267,13 @@ Definition equal_associative505
                     (x6 : X)
                     (p5 : Equal x5 x6)
                   => equal_unit (equal_compose
-                                  (equal_compose (equal_compose p2 p3) p4) p5)
+                                  (equal_compose
+                                     (equal_compose p2 p3) p4) p5)
          in
            equal_induction x1 F base.
 
-Arguments equal_associative505 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative505
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:9ayo8k2s *)
@@ -1228,9 +1290,11 @@ Definition equal_associative506
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose p1 (equal_compose (equal_compose p2 p3) p4)) p5)
+               (equal_compose
+                  p1 (equal_compose (equal_compose p2 p3) p4)) p5)
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1246,10 +1310,14 @@ Definition equal_associative506
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   p1 (equal_compose (equal_compose p2 p3) p4)) p5)
+                                   p1 (equal_compose
+                                         (equal_compose p2 p3) p4))
+                                p5)
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1261,11 +1329,13 @@ Definition equal_associative506
                     (x6 : X)
                     (p5 : Equal x5 x6)
                   => equal_unit (equal_compose
-                                  (equal_compose (equal_compose p2 p3) p4) p5)
+                                  (equal_compose
+                                     (equal_compose p2 p3) p4) p5)
          in
            equal_induction x1 F base.
 
-Arguments equal_associative506 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative506
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:pcffagae *)
@@ -1282,9 +1352,11 @@ Definition equal_associative507
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               p1 (equal_compose (equal_compose (equal_compose p2 p3) p4) p5))
+               p1 (equal_compose
+                     (equal_compose (equal_compose p2 p3) p4) p5))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1300,10 +1372,14 @@ Definition equal_associative507
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 p1 (equal_compose
-                                      (equal_compose (equal_compose p2 p3) p4) p5))
+                                      (equal_compose
+                                         (equal_compose p2 p3) p4)
+                                      p5))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1315,11 +1391,13 @@ Definition equal_associative507
                     (x6 : X)
                     (p5 : Equal x5 x6)
                   => equal_unit (equal_compose
-                                  (equal_compose (equal_compose p2 p3) p4) p5)
+                                  (equal_compose
+                                     (equal_compose p2 p3) p4) p5)
          in
            equal_induction x1 F base.
 
-Arguments equal_associative507 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative507
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:zy0t91bl *)
@@ -1336,9 +1414,11 @@ Definition equal_associative508
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               p1 (equal_compose (equal_compose p2 (equal_compose p3 p4)) p5))
+               p1 (equal_compose
+                     (equal_compose p2 (equal_compose p3 p4)) p5))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1354,10 +1434,14 @@ Definition equal_associative508
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 p1 (equal_compose
-                                      (equal_compose p2 (equal_compose p3 p4)) p5))
+                                      (equal_compose
+                                         p2 (equal_compose p3 p4))
+                                      p5))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1372,7 +1456,8 @@ Definition equal_associative508
          in
            equal_induction x1 F base.
 
-Arguments equal_associative508 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative508
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:fsxr6lni *)
@@ -1389,9 +1474,11 @@ Definition equal_associative509
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               p1 (equal_compose p2 (equal_compose (equal_compose p3 p4) p5)))
+               p1 (equal_compose
+                     p2 (equal_compose (equal_compose p3 p4) p5)))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1407,10 +1494,14 @@ Definition equal_associative509
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 p1 (equal_compose
-                                      p2 (equal_compose (equal_compose p3 p4) p5)))
+                                      p2 (equal_compose
+                                            (equal_compose p3 p4)
+                                            p5)))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1425,7 +1516,8 @@ Definition equal_associative509
          in
            equal_induction x1 F base.
 
-Arguments equal_associative509 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative509
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:yms4fe4g *)
@@ -1442,9 +1534,11 @@ Definition equal_associative510
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose p1 (equal_compose p2 (equal_compose p3 p4))) p5)
+               (equal_compose
+                  p1 (equal_compose p2 (equal_compose p3 p4))) p5)
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1460,10 +1554,16 @@ Definition equal_associative510
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   p1 (equal_compose p2 (equal_compose p3 p4))) p5)
+                                   p1
+                                   (equal_compose p2
+                                                  (equal_compose p3
+                                                                 p4)))
+                                p5)
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1478,7 +1578,8 @@ Definition equal_associative510
          in
            equal_induction x1 F base.
 
-Arguments equal_associative510 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative510
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:vg53m3dr *)
@@ -1495,9 +1596,11 @@ Definition equal_associative511
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose (equal_compose p1 p2) (equal_compose p3 p4)) p5)
+               (equal_compose
+                  (equal_compose p1 p2) (equal_compose p3 p4)) p5)
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1513,10 +1616,13 @@ Definition equal_associative511
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   (equal_compose p1 p2) (equal_compose p3 p4)) p5)
+                                   (equal_compose p1 p2)
+                                   (equal_compose p3 p4)) p5)
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1531,7 +1637,8 @@ Definition equal_associative511
          in
            equal_induction x1 F base.
 
-Arguments equal_associative511 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative511
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:p0ba31nt *)
@@ -1548,9 +1655,11 @@ Definition equal_associative512
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose p1 p2) (equal_compose (equal_compose p3 p4) p5))
+               (equal_compose p1 p2)
+               (equal_compose (equal_compose p3 p4) p5))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1566,10 +1675,14 @@ Definition equal_associative512
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   p1 p2) (equal_compose (equal_compose p3 p4) p5))
+                                   p1 p2) (equal_compose
+                                             (equal_compose p3 p4)
+                                             p5))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1584,7 +1697,8 @@ Definition equal_associative512
          in
            equal_induction x1 F base.
 
-Arguments equal_associative512 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative512
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* begfrag:3m4jej4m *)
@@ -1601,9 +1715,11 @@ Definition equal_associative513
            (x6 : X)
            (p5 : Equal x5 x6),
       Equal (equal_compose
-               (equal_compose (equal_compose (equal_compose p1 p2) p3) p4) p5)
+               (equal_compose
+                  (equal_compose (equal_compose p1 p2) p3) p4) p5)
             (equal_compose
-               (equal_compose p1 p2) (equal_compose p3 (equal_compose p4 p5)))
+               (equal_compose p1 p2)
+               (equal_compose p3 (equal_compose p4 p5)))
   := fun (X : Type) (x1 : X)
        =>
          let
@@ -1619,10 +1735,14 @@ Definition equal_associative513
                             (p5 : Equal x5 x6),
                        Equal (equal_compose
                                 (equal_compose
-                                   (equal_compose (equal_compose p1 p2) p3) p4) p5)
+                                   (equal_compose
+                                      (equal_compose p1 p2) p3) p4)
+                                p5)
                              (equal_compose
                                 (equal_compose
-                                   p1 p2) (equal_compose p3 (equal_compose p4 p5)))
+                                   p1 p2)
+                                (equal_compose p3
+                                               (equal_compose p4 p5)))
          in let
            base : F x1 (equal_unit x1)
              := fun (x3 : X)
@@ -1637,7 +1757,8 @@ Definition equal_associative513
          in
            equal_induction x1 F base.
 
-Arguments equal_associative513 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
+Arguments equal_associative513
+          {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -1646,7 +1767,11 @@ Arguments equal_associative513 {X x1 x2} p1 {x3} p2 {x4} p3 {x5} p4 {x6} p5.
 
 (* begfrag:pav3j1ul *)
 Definition equal_expand1
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z),
       Equal q (equal_compose (equal_compose (equal_inverse p) p) q)
   := fun (X : Type) (x : X)
        =>
@@ -1654,7 +1779,9 @@ Definition equal_expand1
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal y z),
-                       Equal q (equal_compose (equal_compose (equal_inverse p) p) q)
+                       Equal q
+                             (equal_compose
+                                (equal_compose (equal_inverse p) p) q)
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_unit q
@@ -1666,7 +1793,11 @@ Arguments equal_expand1 {X x y} p {z} q.
 
 (* begfrag:mvvftk3d *)
 Definition equal_expand2
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z),
       Equal q (equal_compose (equal_inverse p) (equal_compose p q))
   := fun (X : Type) (x : X)
        =>
@@ -1674,7 +1805,9 @@ Definition equal_expand2
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal y z),
-                       Equal q (equal_compose (equal_inverse p) (equal_compose p q))
+                       Equal q
+                             (equal_compose (equal_inverse p)
+                                            (equal_compose p q))
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_unit q
@@ -1686,7 +1819,11 @@ Arguments equal_expand2 {X x y} p {z} q.
 
 (* begfrag:cy9tfe66 *)
 Definition equal_expand3
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal x z),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal x z),
       Equal q (equal_compose (equal_compose p (equal_inverse p)) q)
   := fun (X : Type) (x : X)
        =>
@@ -1694,7 +1831,9 @@ Definition equal_expand3
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal x z),
-                       Equal q (equal_compose (equal_compose p (equal_inverse p)) q)
+                       Equal q
+                             (equal_compose
+                                (equal_compose p (equal_inverse p)) q)
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_unit q
@@ -1706,7 +1845,11 @@ Arguments equal_expand3 {X x y} p {z} q.
 
 (* begfrag:l9g32inq *)
 Definition equal_expand4
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal x z),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal x z),
       Equal q (equal_compose p (equal_compose (equal_inverse p) q))
   := fun (X : Type) (x : X)
        =>
@@ -1714,7 +1857,9 @@ Definition equal_expand4
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal x z),
-                       Equal q (equal_compose p (equal_compose (equal_inverse p) q))
+                       Equal q
+                             (equal_compose
+                                p (equal_compose (equal_inverse p) q))
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_unit q
@@ -1726,7 +1871,11 @@ Arguments equal_expand4 {X x y} p {z} q.
 
 (* begfrag:9bk52g36 *)
 Definition equal_expand5
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal z y),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal z y),
       Equal p (equal_compose p (equal_compose (equal_inverse q) q))
   := fun (X : Type) (x : X)
        =>
@@ -1734,7 +1883,9 @@ Definition equal_expand5
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal z y),
-                       Equal p (equal_compose p (equal_compose (equal_inverse q) q))
+                       Equal p
+                             (equal_compose
+                                p (equal_compose (equal_inverse q) q))
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal z x) => equal_left_inverse q
@@ -1746,7 +1897,11 @@ Arguments equal_expand5 {X x y} p {z} q.
 
 (* begfrag:qyfzkb9p *)
 Definition equal_expand6
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal z y),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal z y),
       Equal p (equal_compose (equal_compose p (equal_inverse q)) q)
   := fun (X : Type) (x : X)
        =>
@@ -1754,7 +1909,9 @@ Definition equal_expand6
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal z y),
-                       Equal p (equal_compose (equal_compose p (equal_inverse q)) q)
+                       Equal p
+                             (equal_compose
+                                (equal_compose p (equal_inverse q)) q)
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal z x) => equal_left_inverse q
@@ -1766,7 +1923,11 @@ Arguments equal_expand6 {X x y} p {z} q.
 
 (* begfrag:imwi89t9 *)
 Definition equal_expand7
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z),
       Equal p (equal_compose p (equal_compose q (equal_inverse q)))
   := fun (X : Type) (x : X)
        =>
@@ -1774,7 +1935,9 @@ Definition equal_expand7
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal y z),
-                       Equal p (equal_compose p (equal_compose q (equal_inverse q)))
+                       Equal p
+                             (equal_compose
+                                p (equal_compose q (equal_inverse q)))
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_right_inverse q
@@ -1786,7 +1949,11 @@ Arguments equal_expand7 {X x y} p {z} q.
 
 (* begfrag:3e8zmhrz *)
 Definition equal_expand8
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z),
       Equal p (equal_compose (equal_compose p q) (equal_inverse q))
   := fun (X : Type) (x : X)
        =>
@@ -1794,7 +1961,9 @@ Definition equal_expand8
            F : forall (y : X), Equal x y -> Type
              := fun (y : X) (p : Equal x y)
                   => forall (z : X) (q : Equal y z),
-                       Equal p (equal_compose (equal_compose p q) (equal_inverse q))
+                       Equal p
+                             (equal_compose (equal_compose p q)
+                                            (equal_inverse q))
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) => equal_right_inverse q
@@ -1815,7 +1984,8 @@ Definition equal_expand9
            (r : Equal z y),
       Equal q (equal_compose
                  (equal_compose
-                    (equal_compose p (equal_compose (equal_inverse p) q))
+                    (equal_compose
+                       p (equal_compose (equal_inverse p) q))
                     (equal_inverse r))
                  r)
   := fun (X : Type) (w : X)
@@ -1829,8 +1999,9 @@ Definition equal_expand9
                             (r : Equal z y),
                        Equal q (equal_compose
                                   (equal_compose
-                                     (equal_compose p (equal_compose (equal_inverse p)
-                                                                     q))
+                                     (equal_compose
+                                        p (equal_compose
+                                             (equal_inverse p) q))
                                      (equal_inverse r))
                                   r)
          in let

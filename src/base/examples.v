@@ -444,7 +444,8 @@ Example _sum_map_right
 (* begfrag:7c62tbn3 *)
 Example _equal_right_unit_equal_unit
   : forall (X : Type) (x : X),
-      Equal (equal_unit (equal_unit x)) (equal_right_unit (equal_unit x))
+      Equal (equal_unit (equal_unit x))
+            (equal_right_unit (equal_unit x))
   := fun (X : Type) (x : X) => equal_unit (equal_unit (equal_unit x)).
 (* endfrag *)
 
@@ -675,10 +676,18 @@ Example _equal_left_whisker_equal_unit
 
 (* begfrag:2fxkvz8a *)
 Example _equal_right_whisker_equal_unit
-  : forall (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z),
+  : forall (X : Type)
+           (x y : X)
+           (p : Equal x y)
+           (z : X)
+           (q : Equal y z),
       Equal (equal_unit (equal_compose p q))
             (equal_right_whisker (equal_unit p) q)
-  := fun (X : Type) (x y : X) (p : Equal x y) (z : X) (q : Equal y z)
+  := fun (X : Type)
+         (x y : X)
+         (p : Equal x y)
+         (z : X)
+         (q : Equal y z)
        => equal_unit (equal_unit (equal_compose p q)).
 (* endfrag *)
 
