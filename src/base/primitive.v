@@ -71,26 +71,26 @@ Definition natural_induction
 (* endfrag *)
 
 (* ================================================================ *)
-(** ** Equality types                                               *)
+(** ** Identity types                                               *)
 (* ================================================================ *)
 
 (* begfrag:whnabw73 *)
-Inductive Equal (X : Type) (x : X) : X -> Type
-  := equal_unit : Equal X x x.
+Inductive Ident (X : Type) (x : X) : X -> Type
+  := ident_unit : Ident X x x.
 
-Arguments Equal {X} x  _.
-Arguments equal_unit {X} x.
+Arguments Ident {X} x  _.
+Arguments ident_unit {X} x.
 (* endfrag *)
 
 (* begfrag:xxyabzuf *)
-Definition equal_induction
+Definition ident_induction
   : forall (X : Type)
            (x : X)
-           (F : forall (y : X), Equal x y -> Type),
-      F x (equal_unit x) -> forall (y : X) (p : Equal x y), F y p
-  := Equal_rect.
+           (F : forall (y : X), Ident x y -> Type),
+      F x (ident_unit x) -> forall (y : X) (p : Ident x y), F y p
+  := Ident_rect.
 
-Arguments equal_induction {X} x F _ y p.
+Arguments ident_induction {X} x F _ y p.
 (* endfrag *)
 
 (* ================================================================ *)

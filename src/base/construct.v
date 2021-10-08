@@ -83,11 +83,11 @@ Arguments constant_function {X Y} _ _.
 (* endfrag *)
 
 (* begfrag:867thqwu *)
-Definition functions_equal_values_equal
+Definition functions_ident_values_ident
   : forall (X : Type)
            (F : X -> Type)
            (f g : forall (x : X), F x),
-      Equal f g -> forall (x : X), Equal (f x) (g x)
+      Ident f g -> forall (x : X), Ident (f x) (g x)
   := fun (X : Type)
          (F : X -> Type)
          (f : forall (x : X), F x)
@@ -95,16 +95,16 @@ Definition functions_equal_values_equal
          let
            T : Type := forall (x : X), F x
          in let
-           P : forall (t : T), Equal f t -> Type
+           P : forall (t : T), Ident f t -> Type
              := fun (t : T)
                   => constant_function
-                       (forall (x : X), Equal (f x) (t x))
+                       (forall (x : X), Ident (f x) (t x))
          in let
-           base : P f (equal_unit f) := fun (x : X) => equal_unit (f x)
+           base : P f (ident_unit f) := fun (x : X) => ident_unit (f x)
          in
-           equal_induction f P base.
+           ident_induction f P base.
 
-Arguments functions_equal_values_equal {X F f g} _ x.
+Arguments functions_ident_values_ident {X F f g} _ x.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -160,35 +160,35 @@ Arguments natural_recursion_simple {X} _ _ _.
 (* endfrag *)
 
 (* begfrag:i6mo1uvy *)
-Definition equal_start : forall (X : Type) (x y : X), Equal x y -> X
+Definition ident_start : forall (X : Type) (x y : X), Ident x y -> X
   := fun (X : Type) (x y : X) => constant_function x.
 
-Arguments equal_start {X x y} _.
+Arguments ident_start {X x y} _.
 (* endfrag *)
 
 (* begfrag:nchhu2pm *)
-Definition equal_end : forall (X : Type) (x y : X), Equal x y -> X
+Definition ident_end : forall (X : Type) (x y : X), Ident x y -> X
   := fun (X : Type) (x y : X) => constant_function y.
 
-Arguments equal_end {X x y} _.
+Arguments ident_end {X x y} _.
 (* endfrag *)
 
 (* begfrag:szbmydj4 *)
 Definition transport
   : forall (X : Type) (F : X -> Type) (x y : X),
-      Equal x y -> F x -> F y
+      Ident x y -> F x -> F y
   := fun (X : Type)
          (F : X -> Type)
          (x : X)
        =>
          let
-           G : forall (a : X), Equal x a -> Type
+           G : forall (a : X), Ident x a -> Type
              := fun (a : X) => constant_function (F x -> F a)
          in let
-           base : G x (equal_unit x)
+           base : G x (ident_unit x)
              := @function_unit (F x)
          in
-           equal_induction x G base.
+           ident_induction x G base.
 
 Arguments transport {X} F {x y} _ _.
 (* endfrag *)
@@ -196,19 +196,19 @@ Arguments transport {X} F {x y} _ _.
 (* begfrag:xsfz3fch *)
 Definition transport_inverse
   : forall (X : Type) (F : X -> Type) (x y : X),
-      Equal x y -> F y -> F x
+      Ident x y -> F y -> F x
   := fun (X : Type)
          (F : X -> Type)
          (x : X)
        =>
          let
-           G : forall (a : X), Equal x a -> Type
+           G : forall (a : X), Ident x a -> Type
              := fun (a : X) => constant_function (F a -> F x)
          in let
-           base : G x (equal_unit x)
+           base : G x (ident_unit x)
              := @function_unit (F x)
          in
-           equal_induction x G base.
+           ident_induction x G base.
 
 Arguments transport_inverse {X} F {x y} _ _.
 (* endfrag *)
