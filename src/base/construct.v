@@ -69,10 +69,10 @@ Arguments function_compose {X Y G} g f _.
 (* endfrag *)
 
 (* begfrag:ct7rwcsm *)
-Definition identity_function : forall (X : Type), X -> X
+Definition function_unit : forall (X : Type), X -> X
   := fun (X : Type) (x : X) => x.
 
-Arguments identity_function {X} _.
+Arguments function_unit {X} _.
 (* endfrag *)
 
 (* begfrag:q4yy6ynm *)
@@ -186,7 +186,7 @@ Definition transport
              := fun (a : X) => constant_function (F x -> F a)
          in let
            base : G x (equal_unit x)
-             := @identity_function (F x)
+             := @function_unit (F x)
          in
            equal_induction x G base.
 
@@ -206,7 +206,7 @@ Definition transport_inverse
              := fun (a : X) => constant_function (F a -> F x)
          in let
            base : G x (equal_unit x)
-             := @identity_function (F x)
+             := @function_unit (F x)
          in
            equal_induction x G base.
 
