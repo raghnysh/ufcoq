@@ -7,7 +7,7 @@
 (* begfrag:909vtogz *)
 Require Import ufcoq.base.primitive.
 Require Import ufcoq.base.construct.
-Require Import ufcoq.base.equal.
+Require Import ufcoq.base.ident.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -17,9 +17,9 @@ Require Import ufcoq.base.equal.
 (* begfrag:ryjyw5yo *)
 Example _function_eta_conversion
   : forall (X : Type) (F : X -> Type) (f : forall (x : X), F x),
-      Equal f (fun (x : X) => f x)
+      Ident f (fun (x : X) => f x)
   := fun (X : Type) (F : X -> Type) (f : forall (x : X), F x)
-      => equal_unit f.
+      => ident_unit f.
 (* endfrag *)
 
 (* begfrag:r3y1kpvr *)
@@ -31,7 +31,7 @@ Example _function_compose_associative
            (g : forall (y : Y), G y)
            (f : X -> Y)
            (e : W -> X),
-      Equal (function_compose (function_compose g f) e)
+      Ident (function_compose (function_compose g f) e)
             (function_compose g (function_compose f e))
   := fun (W : Type)
          (X : Type)
@@ -40,15 +40,15 @@ Example _function_compose_associative
          (g : forall (y : Y), G y)
          (f : X -> Y)
          (e : W -> X)
-       => equal_unit (function_compose (function_compose g f) e).
+       => ident_unit (function_compose (function_compose g f) e).
 (* endfrag *)
 
 (* begfrag:hso05la4 *)
 Example _function_compose_left_unit
   : forall (X Y : Type) (f : X -> Y),
-      Equal f (function_compose (@function_unit Y) f)
+      Ident f (function_compose (@function_unit Y) f)
   := fun (X Y : Type) (f : X -> Y)
-       => equal_unit f.
+       => ident_unit f.
 (* endfrag *)
 
 (* begfrag:ey5cl868 *)
@@ -56,11 +56,11 @@ Example _function_compose_right_unit
   : forall (X : Type)
            (G : X -> Type)
            (g : forall (x : X), G x),
-      Equal g (function_compose  g (@function_unit X))
+      Ident g (function_compose  g (@function_unit X))
   := fun (X : Type)
          (G : X -> Type)
          (g : forall (x : X), G x)
-       => equal_unit g.
+       => ident_unit g.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -70,21 +70,21 @@ Example _function_compose_right_unit
 (* begfrag:tuh9sgix *)
 Example _true_induction_only
   : forall (F : True -> Type) (x : F only),
-      Equal x (true_induction F x only)
+      Ident x (true_induction F x only)
   := fun (F : True -> Type) (x : F only)
-       => equal_unit x.
+       => ident_unit x.
 (* endfrag *)
 
 (* begfrag:iww5ck0g *)
 Example _true_recursion_only
-  : forall (X : Type) (x : X), Equal x (true_recursion x only)
-  := fun (X : Type) (x : X) => equal_unit x.
+  : forall (X : Type) (x : X), Ident x (true_recursion x only)
+  := fun (X : Type) (x : X) => ident_unit x.
 (* endfrag *)
 
 (* begfrag:qgyqpcz3 *)
 Example _to_true_only
-  : forall (X : Type) (x : X), Equal only (to_true x)
-  := fun (X : Type) (x : X) => equal_unit only.
+  : forall (X : Type) (x : X), Ident only (to_true x)
+  := fun (X : Type) (x : X) => ident_unit only.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -94,27 +94,27 @@ Example _to_true_only
 (* begfrag:ogo7jox4 *)
 Example _boolean_induction_yes
   : forall (F : Boolean -> Type) (y : F yes) (n : F no),
-      Equal y (boolean_induction F y n yes)
-  := fun (F : Boolean -> Type) (y : F yes) (n : F no) => equal_unit y.
+      Ident y (boolean_induction F y n yes)
+  := fun (F : Boolean -> Type) (y : F yes) (n : F no) => ident_unit y.
 (* endfrag *)
 
 (* begfrag:6ly41ngr *)
 Example _boolean_induction_no
   : forall (F : Boolean -> Type) (y : F yes) (n : F no),
-      Equal n (boolean_induction F y n no)
-  := fun (F : Boolean -> Type) (y : F yes) (n : F no) => equal_unit n.
+      Ident n (boolean_induction F y n no)
+  := fun (F : Boolean -> Type) (y : F yes) (n : F no) => ident_unit n.
 (* endfrag *)
 
 (* begfrag:2wynnkw2 *)
 Example _boolean_recursion_yes
-  : forall (X : Type) (y n : X), Equal y (boolean_recursion y n yes)
-  := fun (X : Type) (y n : X) => equal_unit y.
+  : forall (X : Type) (y n : X), Ident y (boolean_recursion y n yes)
+  := fun (X : Type) (y n : X) => ident_unit y.
 (* endfrag *)
 
 (* begfrag:4cga60mp *)
 Example _boolean_recursion_no
-  : forall (X : Type) (y n : X), Equal n (boolean_recursion y n no)
-  := fun (X : Type) (y n : X) => equal_unit n.
+  : forall (X : Type) (y n : X), Ident n (boolean_recursion y n no)
+  := fun (X : Type) (y n : X) => ident_unit n.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -126,11 +126,11 @@ Example _natural_induction_zero
   : forall (F : Natural -> Type)
            (z : F zero)
            (s : forall (n : Natural), F n -> F (successor n)),
-      Equal z (natural_induction F z s zero)
+      Ident z (natural_induction F z s zero)
   := fun (F : Natural -> Type)
          (z : F zero)
          (s : forall (n : Natural), F n -> F (successor n))
-       => equal_unit z.
+       => ident_unit z.
 (* endfrag *)
 
 (* begfrag:ojb7dh9z *)
@@ -139,82 +139,82 @@ Example _natural_induction_successor
            (z : F zero)
            (s : forall (n : Natural), F n -> F (successor n))
            (n : Natural),
-      Equal (s n (natural_induction F z s n))
+      Ident (s n (natural_induction F z s n))
             (natural_induction F z s (successor n))
   := fun (F : Natural -> Type)
          (z : F zero)
          (s : forall (n : Natural), F n -> F (successor n))
          (n : Natural)
-       => equal_unit (s n (natural_induction F z s n)).
+       => ident_unit (s n (natural_induction F z s n)).
 (* endfrag *)
 
 (* begfrag:rzfhv79d *)
 Example _natural_recursion_zero
   : forall (X : Type) (z : X) (s : Natural -> X -> X),
-      Equal z (natural_recursion z s zero)
+      Ident z (natural_recursion z s zero)
   := fun (X : Type) (z : X) (s : Natural -> X -> X)
-       => equal_unit z.
+       => ident_unit z.
 (* endfrag *)
 
 (* begfrag:hrrncvpb *)
 Example _natural_recursion_successor
   : forall (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural),
-      Equal (s n (natural_recursion z s n))
+      Ident (s n (natural_recursion z s n))
             (natural_recursion z s (successor n))
   := fun (X : Type) (z : X) (s : Natural -> X -> X) (n : Natural)
-     => equal_unit (s n (natural_recursion z s n)).
+     => ident_unit (s n (natural_recursion z s n)).
 (* endfrag *)
 
 (* begfrag:upakg9n0 *)
 Example _natural_recursion_simple_zero
   : forall (X : Type) (z : X) (s : X -> X),
-      Equal z (natural_recursion_simple z s zero)
+      Ident z (natural_recursion_simple z s zero)
   := fun (X : Type) (z : X) (s : X -> X)
-       => equal_unit z.
+       => ident_unit z.
 (* endfrag *)
 
 (* begfrag:tsfievor *)
 Example _natural_recursion_simple_successor
   : forall (X : Type) (z : X) (s : X -> X) (n : Natural),
-      Equal (s (natural_recursion_simple z s n))
+      Ident (s (natural_recursion_simple z s n))
             (natural_recursion_simple z s (successor n))
   := fun (X : Type) (z : X) (s : X -> X) (n : Natural)
-       => equal_unit (s (natural_recursion_simple z s n)).
+       => ident_unit (s (natural_recursion_simple z s n)).
 (* endfrag *)
 
 (* ================================================================ *)
-(** ** Equality types                                               *)
+(** ** Identity types                                               *)
 (* ================================================================ *)
 
 (* begfrag:fznk9p3u *)
-Example _equal_induction_equal_unit
+Example _ident_induction_ident_unit
   : forall (X : Type)
            (x : X)
-           (F : forall (y : X), Equal x y -> Type)
-           (e : F x (equal_unit x)),
-      Equal e (equal_induction x F e x (equal_unit x))
+           (F : forall (y : X), Ident x y -> Type)
+           (e : F x (ident_unit x)),
+      Ident e (ident_induction x F e x (ident_unit x))
   := fun (X : Type)
          (x : X)
-         (F : forall (y : X), Equal x y -> Type)
-         (e : F x (equal_unit x))
-       => equal_unit e.
+         (F : forall (y : X), Ident x y -> Type)
+         (e : F x (ident_unit x))
+       => ident_unit e.
 (* endfrag *)
 
 (* begfrag:obnor2k3 *)
-Example _transport_equal_unit
+Example _transport_ident_unit
   : forall (X : Type) (F : X -> Type) (x y : X),
-      Equal (@function_unit (F x)) (transport F (equal_unit x))
+      Ident (@function_unit (F x)) (transport F (ident_unit x))
   := fun (X : Type) (F : X -> Type) (x y : X)
-       => equal_unit (@function_unit (F x)).
+       => ident_unit (@function_unit (F x)).
 (* endfrag *)
 
 (* begfrag:iqo3w2uh *)
-Example _transport_inverse_equal_unit
+Example _transport_inverse_ident_unit
   : forall (X : Type) (F : X -> Type) (x y : X),
-      Equal (@function_unit (F x))
-            (transport_inverse F (equal_unit x))
+      Ident (@function_unit (F x))
+            (transport_inverse F (ident_unit x))
   := fun (X : Type) (F : X -> Type) (x y : X)
-       => equal_unit (@function_unit (F x)).
+       => ident_unit (@function_unit (F x)).
 (* endfrag *)
 
 (* ================================================================ *)
@@ -224,9 +224,9 @@ Example _transport_inverse_equal_unit
 (* begfrag:qts05vtg *)
 Example _sigma_type_eta_conversion
   : forall (X : Type) (F : X -> Type) (t : Sigma F),
-      Equal t (sigma F (sigma1 t) (sigma2 t))
+      Ident t (sigma F (sigma1 t) (sigma2 t))
   := fun (X : Type) (F : X -> Type) (t : Sigma F)
-       => equal_unit t.
+       => ident_unit t.
 (* endfrag *)
 
 (* begfrag:mrl11i2o *)
@@ -235,12 +235,12 @@ Example _sigma_curry_uncurry
            (F : X -> Type)
            (G : Sigma F -> Type)
            (f : forall (x : X) (y : F x), G (sigma F x y)),
-      Equal f (sigma_curry (sigma_uncurry f))
+      Ident f (sigma_curry (sigma_uncurry f))
   := fun (X : Type)
          (F : X -> Type)
          (G : Sigma F -> Type)
          (f : forall (x : X) (y : F x), G (sigma F x y))
-       => equal_unit f.
+       => ident_unit f.
 (* endfrag *)
 
 (* begfrag:4zlly4cd *)
@@ -249,12 +249,12 @@ Example _sigma_uncurry_curry
            (F : X -> Type)
            (G : Sigma F -> Type)
            (g : forall (t : Sigma F), G t),
-      Equal g (sigma_uncurry (sigma_curry g))
+      Ident g (sigma_uncurry (sigma_curry g))
   := fun (X : Type)
          (F : X -> Type)
          (G : Sigma F -> Type)
          (g : forall (t : Sigma F), G t)
-       => equal_unit g.
+       => ident_unit g.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -264,9 +264,9 @@ Example _sigma_uncurry_curry
 (* begfrag:wruha80w *)
 Example _product_eta_conversion
   : forall (X Y : Type) (t : Product X Y),
-      Equal t (pair (first t) (second t))
+      Ident t (pair (first t) (second t))
   := fun (X Y : Type) (t : Product X Y)
-       => equal_unit t.
+       => ident_unit t.
 (* endfrag *)
 
 (* begfrag:h1vgtr2g *)
@@ -274,11 +274,11 @@ Example _curry_uncurry
   : forall (X Y : Type)
            (F : Product X Y -> Type)
            (f : forall (x : X) (y : Y), F (pair x y)),
-        Equal f (curry (uncurry f))
+        Ident f (curry (uncurry f))
   := fun (X Y : Type)
          (F : Product X Y -> Type)
          (f : forall (x : X) (y : Y), F (pair x y))
-       => equal_unit f.
+       => ident_unit f.
 (* endfrag *)
 
 (* begfrag:u70g12vv *)
@@ -286,11 +286,11 @@ Example _uncurry_curry
   : forall (X Y : Type)
            (F : Product X Y -> Type)
            (g : forall (t : Product X Y), F t),
-      Equal g (uncurry (curry g))
+      Ident g (uncurry (curry g))
   := fun (X Y : Type)
          (F : Product X Y -> Type)
          (g : forall (t : Product X Y), F t)
-       => equal_unit g.
+       => ident_unit g.
 (* endfrag *)
 
 (* begfrag:rdugvrpr *)
@@ -301,14 +301,14 @@ Example _pair_function_first
            (f : forall (t : T), F t)
            (g : forall (t : T), G t)
            (t : T),
-      Equal (f t) (first (pair_function f g t))
+      Ident (f t) (first (pair_function f g t))
   := fun (T : Type)
          (F : T -> Type)
          (G : T -> Type)
          (f : forall   (t : T), F t)
          (g : forall (t : T), G t)
          (t : T)
-       => equal_unit (f t).
+       => ident_unit (f t).
 (* endfrag *)
 
 (* begfrag:z30hsvte *)
@@ -319,14 +319,14 @@ Example _pair_function_second
            (f : forall (t : T), F t)
            (g : forall (t : T), G t)
            (t : T),
-      Equal (g t) (second (pair_function f g t))
+      Ident (g t) (second (pair_function f g t))
   := fun (T : Type)
          (F : T -> Type)
          (G : T -> Type)
          (f : forall   (t : T), F t)
          (g : forall (t : T), G t)
          (t : T)
-       => equal_unit (g t).
+       => ident_unit (g t).
 (* endfrag *)
 
 (* begfrag:sh7mqmkt *)
@@ -334,12 +334,12 @@ Example _product_map_first
   : forall (X Y X' Y' : Type)
            (f : X -> X')
            (g : Y -> Y'),
-      Equal (function_compose f first)
+      Ident (function_compose f first)
             (function_compose first (product_map f g))
   := fun (X Y X' Y' : Type)
          (f : X -> X')
          (g : Y -> Y')
-       => equal_unit (function_compose f first).
+       => ident_unit (function_compose f first).
 (* endfrag *)
 
 (* begfrag:2cjp777x *)
@@ -347,12 +347,12 @@ Example _product_map_second
   : forall (X Y X' Y' : Type)
            (f : X -> X')
            (g : Y -> Y'),
-      Equal (function_compose g second)
+      Ident (function_compose g second)
             (function_compose second (product_map f g))
   := fun (X Y X' Y' : Type)
          (f : X -> X')
          (g : Y -> Y')
-       => equal_unit (function_compose g second).
+       => ident_unit (function_compose g second).
 (* endfrag *)
 
 (* ================================================================ *)
@@ -365,12 +365,12 @@ Example _sum_induction_left
            (F : Sum X Y -> Type)
            (f : forall (x : X), F (left x))
            (g : forall (y : Y), F (right y)),
-      Equal f (function_compose (sum_induction F f g) left)
+      Ident f (function_compose (sum_induction F f g) left)
   := fun (X Y : Type)
          (F : Sum X Y -> Type)
          (f : forall (x : X), F (left x))
          (g : forall (y : Y), F (right y))
-       => equal_unit f.
+       => ident_unit f.
 (* endfrag *)
 
 (* begfrag:w7zh5r1a *)
@@ -379,12 +379,12 @@ Example _sum_induction_right
            (F : Sum X Y -> Type)
            (f : forall (x : X), F (left x))
            (g : forall (y : Y), F (right y)),
-      Equal g (function_compose (sum_induction F f g) right)
+      Ident g (function_compose (sum_induction F f g) right)
   := fun (X Y : Type)
          (F : Sum X Y -> Type)
          (f : forall (x : X), F (left x))
          (g : forall (y : Y), F (right y))
-       => equal_unit g.
+       => ident_unit g.
 (* endfrag *)
 
 (* begfrag:jwfgf3zw *)
@@ -392,11 +392,11 @@ Example _sum_recursion_left
   : forall (X Y Z : Type)
            (f : X -> Z)
            (g : Y -> Z),
-      Equal f (function_compose (sum_recursion f g) left)
+      Ident f (function_compose (sum_recursion f g) left)
   := fun (X Y Z : Type)
          (f : X -> Z)
          (g : Y -> Z)
-       => equal_unit f.
+       => ident_unit f.
 (* endfrag *)
 
 (* begfrag:ll3xza2h *)
@@ -404,11 +404,11 @@ Example _sum_recursion_right
   : forall (X Y Z : Type)
            (f : X -> Z)
            (g : Y -> Z),
-      Equal g (function_compose (sum_recursion f g) right)
+      Ident g (function_compose (sum_recursion f g) right)
   := fun (X Y Z : Type)
          (f : X -> Z)
          (g : Y -> Z)
-       => equal_unit g.
+       => ident_unit g.
 (* endfrag *)
 
 (* begfrag:eb0iol83 *)
@@ -416,12 +416,12 @@ Example _sum_map_left
   : forall (X Y X' Y' : Type)
            (f : X -> X')
            (g : Y -> Y'),
-      Equal (function_compose left f)
+      Ident (function_compose left f)
             (function_compose (sum_map f g) left)
   := fun (X Y X' Y' : Type)
          (f : X -> X')
          (g : Y -> Y')
-       => equal_unit (function_compose left f).
+       => ident_unit (function_compose left f).
 (* endfrag *)
 
 (* begfrag:minkb801 *)
@@ -429,266 +429,266 @@ Example _sum_map_right
   : forall (X Y X' Y' : Type)
            (f : X -> X')
            (g : Y -> Y'),
-      Equal (function_compose right g)
+      Ident (function_compose right g)
             (function_compose (sum_map f g) right)
   := fun (X Y X' Y' : Type)
          (f : X -> X')
          (g : Y -> Y')
-       => equal_unit (function_compose right g).
+       => ident_unit (function_compose right g).
 (* endfrag *)
 
 (* ================================================================ *)
-(** ** Equality types again                                         *)
+(** ** Identity types again                                         *)
 (* ================================================================ *)
 
 (* begfrag:7c62tbn3 *)
-Example _equal_right_unit_equal_unit
+Example _ident_right_unit_ident_unit
   : forall (X : Type) (x : X),
-      Equal (equal_unit (equal_unit x))
-            (equal_right_unit (equal_unit x))
-  := fun (X : Type) (x : X) => equal_unit (equal_unit (equal_unit x)).
+      Ident (ident_unit (ident_unit x))
+            (ident_right_unit (ident_unit x))
+  := fun (X : Type) (x : X) => ident_unit (ident_unit (ident_unit x)).
 (* endfrag *)
 
 (* begfrag:i00h874x *)
-Example _equal_associative_equal_unit
-  : forall (X : Type) (x y z : X) (q : Equal x y) (r : Equal y z),
-      Equal (equal_unit (equal_compose q r))
-            (equal_associative (equal_unit x) q r)
-  := fun (X : Type) (x y z : X) (q : Equal x y) (r : Equal y z)
-       => equal_unit (equal_unit (equal_compose q r)).
+Example _ident_associative_ident_unit
+  : forall (X : Type) (x y z : X) (q : Ident x y) (r : Ident y z),
+      Ident (ident_unit (ident_compose q r))
+            (ident_associative (ident_unit x) q r)
+  := fun (X : Type) (x y z : X) (q : Ident x y) (r : Ident y z)
+       => ident_unit (ident_unit (ident_compose q r)).
 (* endfrag *)
 
 (* begfrag:qiu7nu2e *)
-Example _equal_left_inverse_equal_unit
+Example _ident_left_inverse_ident_unit
   : forall (X : Type) (x : X),
-      Equal (equal_unit (equal_unit x))
-            (equal_left_inverse (equal_unit x))
-  := fun (X : Type) (x : X) => equal_unit (equal_unit (equal_unit x)).
+      Ident (ident_unit (ident_unit x))
+            (ident_left_inverse (ident_unit x))
+  := fun (X : Type) (x : X) => ident_unit (ident_unit (ident_unit x)).
 (* endfrag *)
 
 (* begfrag:1ysdcngb *)
-Example _equal_right_inverse_equal_unit
+Example _ident_right_inverse_ident_unit
   : forall (X : Type) (x : X),
-      Equal (equal_unit (equal_unit x))
-            (equal_right_inverse (equal_unit x))
-  := fun (X : Type) (x : X) => equal_unit (equal_unit (equal_unit x)).
+      Ident (ident_unit (ident_unit x))
+            (ident_right_inverse (ident_unit x))
+  := fun (X : Type) (x : X) => ident_unit (ident_unit (ident_unit x)).
 (* endfrag *)
 
 (* begfrag:k8d40n87 *)
-Example _equal_map_multiplicative_equal_unit
-  : forall (X Y : Type) (f : X -> Y) (x y : X) (q : Equal x y),
-      Equal (equal_unit (equal_map f q))
-            (equal_map_multiplicative f (equal_unit x) q)
-  := fun (X Y : Type) (f : X -> Y) (x y : X) (q : Equal x y)
-       => equal_unit (equal_unit (equal_map f q)).
+Example _ident_map_multiplicative_ident_unit
+  : forall (X Y : Type) (f : X -> Y) (x y : X) (q : Ident x y),
+      Ident (ident_unit (ident_map f q))
+            (ident_map_multiplicative f (ident_unit x) q)
+  := fun (X Y : Type) (f : X -> Y) (x y : X) (q : Ident x y)
+       => ident_unit (ident_unit (ident_map f q)).
 (* endfrag *)
 
 (* begfrag:pp439rp8 *)
-Example _equal_map_inverse_equal_unit
+Example _ident_map_inverse_ident_unit
   : forall (X Y : Type) (f : X -> Y) (x : X),
-      Equal (equal_unit (equal_unit (f x)))
-            (equal_map_inverse f (equal_unit x))
+      Ident (ident_unit (ident_unit (f x)))
+            (ident_map_inverse f (ident_unit x))
   := fun (X Y : Type) (f : X -> Y) (x : X)
-       => equal_unit (equal_unit (equal_unit (f x))).
+       => ident_unit (ident_unit (ident_unit (f x))).
 (* endfrag *)
 
 (* begfrag:kr2uop9n *)
-Example _equal_map_equal_equal_unit
-  : forall (X Y : Type) (f : X -> Y) (x y : X) (p : Equal x y),
-      Equal (equal_unit (equal_map f p))
-            (equal_map_equal f (equal_unit p))
-  := fun (X Y : Type) (f : X -> Y) (x y : X) (p : Equal x y)
-       => equal_unit (equal_unit (equal_map f p)).
+Example _ident_map_ident_ident_unit
+  : forall (X Y : Type) (f : X -> Y) (x y : X) (p : Ident x y),
+      Ident (ident_unit (ident_map f p))
+            (ident_map_ident f (ident_unit p))
+  := fun (X Y : Type) (f : X -> Y) (x y : X) (p : Ident x y)
+       => ident_unit (ident_unit (ident_map f p)).
 (* endfrag:kr2uop9n *)
 
 (* begfrag:vh3jhxbw *)
-Example _equal_map_function_unit_equal_unit
+Example _ident_map_function_unit_ident_unit
   : forall (X : Type) (x : X),
-      Equal (equal_unit (equal_unit x))
-            (equal_map_function_unit (equal_unit x))
-  := fun (X : Type) (x : X) => equal_unit (equal_unit (equal_unit x)).
+      Ident (ident_unit (ident_unit x))
+            (ident_map_function_unit (ident_unit x))
+  := fun (X : Type) (x : X) => ident_unit (ident_unit (ident_unit x)).
 (* endfrag *)
 
 (* begfrag:tubw30mh *)
-Example _equal_map_function_compose_equal_unit
+Example _ident_map_function_compose_ident_unit
   : forall (X Y Z : Type) (g : Y -> Z) (f : X -> Y) (x : X),
-      Equal (equal_unit (equal_unit (g (f x))))
-            (equal_map_function_compose g f (equal_unit x))
+      Ident (ident_unit (ident_unit (g (f x))))
+            (ident_map_function_compose g f (ident_unit x))
   := fun (X Y Z : Type) (g : Y -> Z) (f : X -> Y) (x : X)
-       => equal_unit (equal_unit (equal_unit (g (f x)))).
+       => ident_unit (ident_unit (ident_unit (g (f x)))).
 (* endfrag *)
 
 (* begfrag:8d4ystf4 *)
-Example _equal_map_constant_function_equal_unit
+Example _ident_map_constant_function_ident_unit
   : forall (X Y : Type) (y : Y) (x : X),
-      Equal (equal_unit (equal_unit y))
-            (equal_map_constant_function y (equal_unit x))
+      Ident (ident_unit (ident_unit y))
+            (ident_map_constant_function y (ident_unit x))
   := fun (X Y : Type) (y : Y) (x : X)
-       => equal_unit (equal_unit (equal_unit y)).
+       => ident_unit (ident_unit (ident_unit y)).
 (* endfrag *)
 
 (* begfrag:o1fq5t5n *)
-Example _equal_left_cancel_equal_unit
-  : forall (X : Type) (x y : X) (q q' : Equal x y),
-      Equal (@function_unit (Equal q q'))
-            (equal_left_cancel (equal_unit x) q q')
-  := fun (X : Type) (x y : X) (q q' : Equal x y)
-       => equal_unit (@function_unit (Equal q q')).
+Example _ident_left_cancel_ident_unit
+  : forall (X : Type) (x y : X) (q q' : Ident x y),
+      Ident (@function_unit (Ident q q'))
+            (ident_left_cancel (ident_unit x) q q')
+  := fun (X : Type) (x y : X) (q q' : Ident x y)
+       => ident_unit (@function_unit (Ident q q')).
 (* endfrag *)
 
 (* begfrag:benyiuaw *)
-Example _equal_left_remove_equal_unit
+Example _ident_left_remove_ident_unit
   : forall (X : Type)
            (x y : X)
-           (p : Equal x y)
+           (p : Ident x y)
            (z : X)
-           (q q' : Equal y z),
-      Equal (equal_left_cancel p q q')
-            (equal_left_remove (equal_unit p) q q')
+           (q q' : Ident y z),
+      Ident (ident_left_cancel p q q')
+            (ident_left_remove (ident_unit p) q q')
   := fun (X : Type)
          (x y : X)
-         (p : Equal x y)
+         (p : Ident x y)
          (z : X)
-         (q q' : Equal y z)
-       => equal_unit (equal_left_cancel p q q').
+         (q q' : Ident y z)
+       => ident_unit (ident_left_cancel p q q').
 (* endfrag *)
 
 (* begfrag:6udh8p9g *)
-Example _equal_right_cancel_equal_unit
+Example _ident_right_cancel_ident_unit
   : forall (X : Type)
            (x y : X)
-           (p p' : Equal x y)
-           (u : Equal (equal_compose p (equal_unit y))
-                      (equal_compose p' (equal_unit y))),
-      Equal (equal_compose (equal_compose (equal_right_unit p) u)
-                           (equal_inverse (equal_right_unit p')))
-            (equal_right_cancel p p' (equal_unit y) u)
+           (p p' : Ident x y)
+           (u : Ident (ident_compose p (ident_unit y))
+                      (ident_compose p' (ident_unit y))),
+      Ident (ident_compose (ident_compose (ident_right_unit p) u)
+                           (ident_inverse (ident_right_unit p')))
+            (ident_right_cancel p p' (ident_unit y) u)
   := fun (X : Type)
          (x y : X)
-         (p p' : Equal x y)
-         (u : Equal (equal_compose p (equal_unit y))
-                    (equal_compose p' (equal_unit y)))
-       => equal_unit (equal_right_cancel p p' (equal_unit y) u).
+         (p p' : Ident x y)
+         (u : Ident (ident_compose p (ident_unit y))
+                    (ident_compose p' (ident_unit y)))
+       => ident_unit (ident_right_cancel p p' (ident_unit y) u).
 (* endfrag *)
 
 (* begfrag:6r77n5me *)
-Example _equal_right_remove_equal_unit
+Example _ident_right_remove_ident_unit
   : forall (X : Type)
            (x y : X)
-           (p p' : Equal x y)
+           (p p' : Ident x y)
            (z : X)
-           (q : Equal y z),
-      Equal (equal_right_cancel p p' q)
-            (equal_right_remove p p' (equal_unit q))
+           (q : Ident y z),
+      Ident (ident_right_cancel p p' q)
+            (ident_right_remove p p' (ident_unit q))
   := fun (X : Type)
          (x y : X)
-         (p p' : Equal x y)
+         (p p' : Ident x y)
          (z : X)
-         (q : Equal y z)
-       => equal_unit (equal_right_cancel p p' q).
+         (q : Ident y z)
+       => ident_unit (ident_right_cancel p p' q).
 (* endfrag *)
 
 (* begfrag:4pwxwrcf *)
-Example _equal_right_unit_unique_equal_unit
-  : forall (X : Type) (x : X) (q : Equal x x),
-      Equal (@function_unit (Equal (equal_unit x) q))
-            (equal_right_unit_unique q)
-  := fun (X : Type) (x : X) (q : Equal x x)
-       => equal_unit (@function_unit (Equal (equal_unit x) q)).
+Example _ident_right_unit_unique_ident_unit
+  : forall (X : Type) (x : X) (q : Ident x x),
+      Ident (@function_unit (Ident (ident_unit x) q))
+            (ident_right_unit_unique q)
+  := fun (X : Type) (x : X) (q : Ident x x)
+       => ident_unit (@function_unit (Ident (ident_unit x) q)).
 (* endfrag *)
 
 (* begfrag:kr5zr15p *)
-Example _equal_left_inverse_unique_equal_unit
+Example _ident_left_inverse_unique_ident_unit
   : forall (X : Type) (x : X),
-      Equal (fun (q : Equal x x) (e : Equal q (equal_unit x))
-               => equal_inverse (equal_map equal_inverse e))
-            (equal_left_inverse_unique (equal_unit x))
+      Ident (fun (q : Ident x x) (e : Ident q (ident_unit x))
+               => ident_inverse (ident_map ident_inverse e))
+            (ident_left_inverse_unique (ident_unit x))
   := fun (X : Type) (x : X)
-       => equal_unit (equal_left_inverse_unique (equal_unit x)).
+       => ident_unit (ident_left_inverse_unique (ident_unit x)).
 (* endfrag:kr5zr15p *)
 
 (* begfrag:kr5zw3bu *)
-Example _equal_right_inverse_unique_equal_unit
+Example _ident_right_inverse_unique_ident_unit
   : forall (X : Type) (x : X),
-      Equal (fun (q : Equal x x)
-               => @function_unit (Equal q (equal_unit x)))
-            (equal_right_inverse_unique (equal_unit x))
+      Ident (fun (q : Ident x x)
+               => @function_unit (Ident q (ident_unit x)))
+            (ident_right_inverse_unique (ident_unit x))
   := fun (X : Type) (x : X)
-       => equal_unit (equal_right_inverse_unique (equal_unit x)).
+       => ident_unit (ident_right_inverse_unique (ident_unit x)).
 (* endfrag:kr5zw3bu *)
 
 (* begfrag:kr60ne8y *)
-Example _equal_inverse_antimultiplicative_equal_unit
+Example _ident_inverse_antimultiplicative_ident_unit
   : forall (X : Type) (x : X),
-      Equal (fun (z : X) (q : Equal x z)
-               => equal_right_unit (equal_inverse q))
-            (@equal_inverse_antimultiplicative
-               X x x (equal_unit x))
+      Ident (fun (z : X) (q : Ident x z)
+               => ident_right_unit (ident_inverse q))
+            (@ident_inverse_antimultiplicative
+               X x x (ident_unit x))
   := fun (X : Type) (x : X)
-       => equal_unit (@equal_inverse_antimultiplicative
-                       X x x (equal_unit x)).
+       => ident_unit (@ident_inverse_antimultiplicative
+                       X x x (ident_unit x)).
 (* endfrag:kr60ne8y *)
 
 (* begfrag:kr60xeqv *)
-Example _equal_inverse_involutive_equal_unit
+Example _ident_inverse_involutive_ident_unit
   : forall (X : Type) (x : X),
-      Equal (equal_unit (equal_unit x))
-            (equal_inverse_involutive (equal_unit x))
+      Ident (ident_unit (ident_unit x))
+            (ident_inverse_involutive (ident_unit x))
   := fun (X : Type) (x : X)
-       => equal_unit (equal_unit (equal_unit x)).
+       => ident_unit (ident_unit (ident_unit x)).
 (* endfrag:kr60xeqv *)
 
 (* begfrag:kr611bsz *)
-Example _equal_put_inverse_equal_unit
-  : forall (X : Type) (x y : X) (p : Equal x y),
-      Equal (equal_unit (equal_inverse p))
-            (equal_put_inverse (equal_unit p))
-  := fun (X : Type) (x y : X) (p : Equal x y)
-       => equal_unit (equal_unit (equal_inverse p)).
+Example _ident_put_inverse_ident_unit
+  : forall (X : Type) (x y : X) (p : Ident x y),
+      Ident (ident_unit (ident_inverse p))
+            (ident_put_inverse (ident_unit p))
+  := fun (X : Type) (x y : X) (p : Ident x y)
+       => ident_unit (ident_unit (ident_inverse p)).
 (* endfrag:kr611bsz *)
 
 (* begfrag:a9yciaq6 *)
-Example _equal_move_prefix_right_equal_unit
-  : forall (X : Type) (x z : X) (q r : Equal x z),
-      Equal (@function_unit (Equal q r))
-            (equal_move_prefix_right (equal_unit x) q)
-  := fun (X : Type) (x z : X) (q r : Equal x z)
-       => equal_unit (@function_unit (Equal q r)).
+Example _ident_move_prefix_right_ident_unit
+  : forall (X : Type) (x z : X) (q r : Ident x z),
+      Ident (@function_unit (Ident q r))
+            (ident_move_prefix_right (ident_unit x) q)
+  := fun (X : Type) (x z : X) (q r : Ident x z)
+       => ident_unit (@function_unit (Ident q r)).
 (* endfrag *)
 
 (* begfrag:r8vhvl7l *)
-Example _equal_move_prefix_left_equal_unit
-  : forall (X : Type) (x z : X) (q r : Equal x z),
-      Equal (@function_unit (Equal r q))
-            (equal_move_prefix_left (equal_unit x) q)
-  := fun (X : Type) (x z : X) (q r : Equal x z)
-       => equal_unit (@function_unit (Equal r q)).
+Example _ident_move_prefix_left_ident_unit
+  : forall (X : Type) (x z : X) (q r : Ident x z),
+      Ident (@function_unit (Ident r q))
+            (ident_move_prefix_left (ident_unit x) q)
+  := fun (X : Type) (x z : X) (q r : Ident x z)
+       => ident_unit (@function_unit (Ident r q)).
 (* endfrag *)
 
 (* begfrag:sjeygzmw *)
-Example _equal_left_whisker_equal_unit
-  : forall (X : Type) (x z : X) (q q' : Equal x z),
-      Equal (@function_unit (Equal q q'))
-            (equal_left_whisker (equal_unit x))
-  := fun (X : Type) (x z : X) (q q' : Equal x z)
-       => equal_unit (@function_unit (Equal q q')).
+Example _ident_left_whisker_ident_unit
+  : forall (X : Type) (x z : X) (q q' : Ident x z),
+      Ident (@function_unit (Ident q q'))
+            (ident_left_whisker (ident_unit x))
+  := fun (X : Type) (x z : X) (q q' : Ident x z)
+       => ident_unit (@function_unit (Ident q q')).
 (* endfrag *)
 
 (* begfrag:2fxkvz8a *)
-Example _equal_right_whisker_equal_unit
+Example _ident_right_whisker_ident_unit
   : forall (X : Type)
            (x y : X)
-           (p : Equal x y)
+           (p : Ident x y)
            (z : X)
-           (q : Equal y z),
-      Equal (equal_unit (equal_compose p q))
-            (equal_right_whisker (equal_unit p) q)
+           (q : Ident y z),
+      Ident (ident_unit (ident_compose p q))
+            (ident_right_whisker (ident_unit p) q)
   := fun (X : Type)
          (x y : X)
-         (p : Equal x y)
+         (p : Ident x y)
          (z : X)
-         (q : Equal y z)
-       => equal_unit (equal_unit (equal_compose p q)).
+         (q : Ident y z)
+       => ident_unit (ident_unit (ident_compose p q)).
 (* endfrag *)
 
 (* End of file *)
