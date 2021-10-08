@@ -249,21 +249,21 @@ Arguments equal_map_equal {X Y} f {x y p q} _.
 (* ================================================================ *)
 
 (* begfrag:rsfbjxq8 *)
-Definition equal_map_identity_function
+Definition equal_map_function_unit
   : forall (X : Type) (x x' : X) (p : Equal x x'),
-      Equal p (equal_map (@identity_function X) p)
+      Equal p (equal_map (@function_unit X) p)
   := fun (X : Type) (x : X)
        =>
          let
            F : forall (x' : X), Equal x x' -> Type
              := fun (x' : X) (p : Equal x x')
-                  => Equal p (equal_map (@identity_function X) p)
+                  => Equal p (equal_map (@function_unit X) p)
          in let
            base : F x (equal_unit x) := equal_unit (equal_unit x)
          in
            equal_induction x F base.
 
-Arguments equal_map_identity_function {X x x'} p.
+Arguments equal_map_function_unit {X x x'} p.
 (* endfrag *)
 
 (* begfrag:tm7axffm *)
@@ -336,7 +336,7 @@ Definition equal_left_cancel
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q q' : Equal x z)
-                  => @identity_function (Equal q q')
+                  => @function_unit (Equal q q')
          in
            equal_induction x F base.
 
@@ -470,7 +470,7 @@ Definition equal_right_unit_unique
          in let
            base : F x (equal_unit x)
              := fun (q : Equal x x)
-                  => @identity_function (Equal (equal_unit x) q)
+                  => @function_unit (Equal (equal_unit x) q)
          in
            equal_induction x F base.
 
@@ -520,7 +520,7 @@ Definition equal_right_inverse_unique
          in let
            base : F x (equal_unit x)
              := fun (q : Equal x x)
-                  => @identity_function (Equal q (equal_unit x))
+                  => @function_unit (Equal q (equal_unit x))
          in
            equal_induction x F base.
 
@@ -658,7 +658,7 @@ Definition equal_move_prefix_right
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
-                  => @identity_function (Equal q r)
+                  => @function_unit (Equal q r)
          in
            equal_induction x F base.
 
@@ -688,7 +688,7 @@ Definition equal_move_prefix_left
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q : Equal x z) (r : Equal x z)
-                  => @identity_function (Equal r q)
+                  => @function_unit (Equal r q)
          in
            equal_induction x F base.
 
@@ -2178,7 +2178,7 @@ Definition equal_left_whisker
          in let
            base : F x (equal_unit x)
              := fun (z : X) (q q' : Equal x z)
-                  => @identity_function (Equal q q')
+                  => @function_unit (Equal q q')
          in
            equal_induction x F base.
 
