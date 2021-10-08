@@ -217,14 +217,14 @@ Arguments transport_inverse {X} F {x y} _ _.
 Definition sigma_induction
   : forall (X : Type)
            (F : X -> Type)
-           (G : (Sigma (x : X), F x) -> Type),
+           (G : Sigma F -> Type),
       (forall (x : X) (y : F x), G (sigma F x y))
-        -> (forall (t : Sigma (x : X), F x), G t)
+        -> (forall (t : Sigma F), G t)
   := fun (X : Type)
          (F : X -> Type)
-         (G : (Sigma (x : X), F x) -> Type)
+         (G : Sigma F -> Type)
          (f : forall (x : X) (y : F x), G (sigma F x y))
-         (t : Sigma (x : X), F x)
+         (t : Sigma F)
     => f (sigma1 t) (sigma2 t).
 
 Arguments sigma_induction {X F G} _ _.
@@ -234,9 +234,9 @@ Arguments sigma_induction {X F G} _ _.
 Definition sigma_uncurry
   : forall (X : Type)
            (F : X -> Type)
-           (G : (Sigma (x : X), F x) -> Type),
+           (G : Sigma F -> Type),
       (forall (x : X) (y : F x), G (sigma F x y))
-        -> forall (t : Sigma (x : X), F x), G t
+        -> forall (t : Sigma F), G t
   := @sigma_induction.
 
 Arguments sigma_uncurry {X F G} _ _.
@@ -246,13 +246,13 @@ Arguments sigma_uncurry {X F G} _ _.
 Definition sigma_curry
   : forall (X : Type)
            (F : X -> Type)
-           (G : (Sigma (x : X), F x) -> Type),
-      (forall (t : Sigma (x : X), F x), G t)
+           (G : Sigma F -> Type),
+      (forall (t : Sigma F), G t)
         -> forall (x : X) (y : F x), G (sigma F x y)
   := fun  (X : Type)
           (F : X -> Type)
-          (G : (Sigma (x : X), F x) -> Type)
-          (g : forall (t : Sigma (x : X), F x), G t)
+          (G : Sigma F -> Type)
+          (g : forall (t : Sigma F), G t)
           (x : X)
           (y : F x)
        => g (sigma F x y).
@@ -265,12 +265,12 @@ Definition sigma_recursion
   : forall (X : Type)
            (F : X -> Type)
            (Y : Type),
-      (forall (x : X), F x -> Y) -> (Sigma (x : X), F x) -> Y
+      (forall (x : X), F x -> Y) -> Sigma F -> Y
   := fun (X : Type)
          (F : X -> Type)
          (Y : Type)
          (f : forall (x : X), F x -> Y)
-         (t : Sigma (x : X), F x)
+         (t : Sigma F)
        => f (sigma1 t) (sigma2 t).
 
 Arguments sigma_recursion {X F} Y _ _.
@@ -282,7 +282,7 @@ Arguments sigma_recursion {X F} Y _ _.
 
 (* begfrag:9ia68b8n *)
 Definition Product : Type -> Type -> Type
-  := fun (X Y : Type) => Sigma (_ : X), Y.
+  := fun (X Y : Type) => Sigma (@constant_function X Type Y).
 (* endfrag *)
 
 (* begfrag:c97wzdtw *)
@@ -404,9 +404,7 @@ Arguments product_map {X Y X' Y'} _ _ _.
 
 (* begfrag:fp5x8226 *)
 Definition Sum : Type -> Type -> Type
-  := fun (X Y : Type)
-       => let F : Boolean -> Type := boolean_recursion X Y
-          in Sigma (b : Boolean), F b.
+  := fun (X Y : Type) => Sigma (boolean_recursion X Y).
 (* endfrag *)
 
 (* begfrag:kknkg0c7 *)

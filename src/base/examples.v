@@ -223,9 +223,9 @@ Example _transport_inverse_equal_unit
 
 (* begfrag:qts05vtg *)
 Example _sigma_type_eta_conversion
-  : forall (X : Type) (F : X -> Type) (t : Sigma (x : X), F x),
+  : forall (X : Type) (F : X -> Type) (t : Sigma F),
       Equal t (sigma F (sigma1 t) (sigma2 t))
-  := fun (X : Type) (F : X -> Type) (t : Sigma (x : X), F x)
+  := fun (X : Type) (F : X -> Type) (t : Sigma F)
        => equal_unit t.
 (* endfrag *)
 
@@ -233,12 +233,12 @@ Example _sigma_type_eta_conversion
 Example _sigma_curry_uncurry
   : forall (X : Type)
            (F : X -> Type)
-           (G : (Sigma (x : X), F x) -> Type)
+           (G : Sigma F -> Type)
            (f : forall (x : X) (y : F x), G (sigma F x y)),
       Equal f (sigma_curry (sigma_uncurry f))
   := fun (X : Type)
          (F : X -> Type)
-         (G : (Sigma (x : X), F x) -> Type)
+         (G : Sigma F -> Type)
          (f : forall (x : X) (y : F x), G (sigma F x y))
        => equal_unit f.
 (* endfrag *)
@@ -247,13 +247,13 @@ Example _sigma_curry_uncurry
 Example _sigma_uncurry_curry
   : forall (X : Type)
            (F : X -> Type)
-           (G : (Sigma (x : X), F x) -> Type)
-           (g : forall (t : Sigma (x : X), F x), G t),
+           (G : Sigma F -> Type)
+           (g : forall (t : Sigma F), G t),
       Equal g (sigma_uncurry (sigma_curry g))
   := fun (X : Type)
          (F : X -> Type)
-         (G : (Sigma (x : X), F x) -> Type)
-         (g : forall (t : Sigma (x : X), F x), G t)
+         (G : Sigma F -> Type)
+         (g : forall (t : Sigma F), G t)
        => equal_unit g.
 (* endfrag *)
 

@@ -98,19 +98,13 @@ Arguments equal_induction {X} x F _ y p.
 (* ================================================================ *)
 
 (* begfrag:agn2f6jd *)
-Record _Sigma (X : Type) (F : X -> Type) : Type
+Record Sigma (X : Type) (F : X -> Type) : Type
   := sigma {sigma1 : X; sigma2 : F sigma1}.
 
-Arguments _Sigma {X} F.
+Arguments Sigma {X} F.
 Arguments sigma {X} F _ _.
 Arguments sigma1 {X F} _.
 Arguments sigma2 {X F} _.
-(* endfrag *)
-
-(* begfrag:497e8me5 *)
-Notation "'Sigma' x .. y , P"
-  := (_Sigma (fun x => .. (_Sigma (fun y => P)) ..))
-       (at level 200, x binder, y binder, right associativity).
 (* endfrag *)
 
 (* End of file *)

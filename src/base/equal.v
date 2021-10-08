@@ -2034,14 +2034,14 @@ Arguments equal_idempotent_trivial {X x p} _.
 
 (* begfrag:ge0788wo *)
 Definition IsEqualFrom : forall (X : Type), X -> Type
-  := fun (X : Type) (x : X) => Sigma (y : X), Equal x y.
+  := fun (X : Type) (x : X) => Sigma (fun (y : X) => Equal x y).
 
 Arguments IsEqualFrom {X} _.
 (* endfrag *)
 
 (* begfrag:2b1xb9ym *)
 Definition EqualFrom : Type -> Type
-  := fun (X : Type) => Sigma (x : X), IsEqualFrom x.
+  := fun (X : Type) => Sigma (fun (x : X) => IsEqualFrom x).
 (* endfrag *)
 
 (* begfrag:d2un85gz *)
@@ -2097,14 +2097,14 @@ Arguments equal_from_equal_unit {X} _.
 
 (* begfrag:kq088axt *)
 Definition IsEqualTo : forall (X : Type), X -> Type
-  := fun (X : Type) (y : X) => Sigma (x : X), Equal x y.
+  := fun (X : Type) (y : X) => Sigma (fun (x : X) => Equal x y).
 
 Arguments IsEqualTo {X} _.
 (* endfrag *)
 
 (* begfrag:m50mi51w *)
 Definition EqualTo : Type -> Type
-  := fun (X : Type) => Sigma (y : X), IsEqualTo y.
+  := fun (X : Type) => Sigma (fun (y : X) => IsEqualTo y).
 (* endfrag *)
 
 (* begfrag:puxybaiy *)
