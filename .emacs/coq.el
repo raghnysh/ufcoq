@@ -156,6 +156,7 @@ Modification of `tab-to-tab-stop'."
       t nil t)
 
 (when (boundp 'coq-mode-map)
+  (define-key coq-mode-map (kbd "C-c ?") #'helm-fragments:help)
   (define-key coq-mode-map (kbd "C-c f") #'helm-fragments:run))
 
 ;;; End of file

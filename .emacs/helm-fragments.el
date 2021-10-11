@@ -76,19 +76,21 @@
   (helm :sources '(helm-fragments:source)
         :buffer "*Helm fragments buffer (1)*"))
 
-(defun helm-fragments:run ()
-  "Insert selected fragment names in current buffer.
-Show more information about selected fragments in a Help buffer."
+(defun helm-fragments:help ()
+  "Show information about selected fragments in a Help buffer."
   (interactive)
-  (let* ((chosen (helm-fragments:choose))
-         (final (mapconcat #'car chosen "\n"))
-         (help
-          (mapconcat #'cadr
-                     chosen
-                     (concat "\n" helm-candidate-separator "\n"))))
-    (insert final)
+  (let ((chosen (helm-fragments:choose)))
     (with-output-to-temp-buffer "*Helm fragments buffer (2)*"
-      (princ help))))
+      (princ (mapconcat #'cadr
+                        chosen
+                        (concat "\n" helm-candidate-separator "\n"))))
+    chosen))
+
+(defun helm-fragments:run ()
+  "Show information about selected fragments in a Help buffer.
+Insert the names of those fragments in the current buffer."
+  (interactive)
+  (insert (mapconcat #'car (helm-fragments:help) "\n")))
 
 (provide 'helm-fragments)
 
