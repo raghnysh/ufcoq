@@ -68,6 +68,25 @@ Definition function_compose
 Arguments function_compose {X Y G} g f _.
 (* endfrag *)
 
+(* begfrag:klxssl28 *)
+Definition function_compose_relative
+  : forall (X : Type)
+           (F : X -> Type)
+           (G : forall (x : X), F x -> Type)
+           (g : forall (x : X) (y : F x), G x y)
+           (f : forall (x : X), F x),
+      forall (x : X), G x (f x)
+  := fun (X : Type)
+         (F : X -> Type)
+         (G : forall (x : X), F x -> Type)
+         (g : forall (x : X) (y : F x), G x y)
+         (f : forall (x : X), F x)
+         (x : X)
+       => g x (f x).
+
+Arguments function_compose_relative {X F G} g f _.
+(* endfrag *)
+
 (* begfrag:ct7rwcsm *)
 Definition function_unit : forall (X : Type), X -> X
   := fun (X : Type) (x : X) => x.
