@@ -437,7 +437,7 @@ Definition ident_right_remove
          in
            ident_induction q F base.
 
-Arguments ident_right_remove {X x y} p p' {z} {q q'} _ _.
+Arguments ident_right_remove {X x y} p p' {z q q'} _ _.
 (* endfrag *)
 
 (* ================================================================ *)
