@@ -2786,7 +2786,7 @@ Arguments ident_horizontal_right_unit {X x y p p'} u {z} q.
 (* endfrag *)
 
 (* begfrag:ylpcqk5j *)
-Definition ident_left_whisker_horizontal
+Definition ident_horizontal_whisker1
   : forall (X : Type)
            (a b : X)
            (p : Ident a b)
@@ -2833,62 +2833,12 @@ Definition ident_left_whisker_horizontal
          in
            ident_induction a F base.
 
-Arguments ident_left_whisker_horizontal
+Arguments ident_horizontal_whisker1
           {X a b} p {c q q'} v {d r r'} w.
 (* endfrag *)
 
-(* begfrag:r887jfhp *)
-Definition ident_right_whisker_horizontal
-  : forall (X : Type)
-           (a b : X)
-           (p p' : Ident a b)
-           (u : Ident p p')
-           (c : X)
-           (q : Ident b c)
-           (d : X)
-           (r r' : Ident c d)
-           (w : Ident r r'),
-      Ident (ident_compose
-               (ident_associative p q r)
-               (ident_compose_horizontal u (ident_left_whisker q w)))
-            (ident_compose
-               (ident_compose_horizontal (ident_right_whisker u q) w)
-               (ident_associative p' q r'))
-  := fun (X : Type) (a b : X) (p : Ident a b)
-       =>
-         let
-           F : forall (p' : Ident a b), Ident p p' -> Type
-             := fun (p' : Ident a b) (u : Ident p p')
-                  => forall (c : X)
-                            (q : Ident b c)
-                            (d : X)
-                            (r r' : Ident c d)
-                            (w : Ident r r'),
-                       Ident (ident_compose
-                                (ident_associative p q r)
-                                (ident_compose_horizontal
-                                   u (ident_left_whisker q w)))
-                             (ident_compose
-                                (ident_compose_horizontal
-                                   (ident_right_whisker u q) w)
-                                (ident_associative p' q r'))
-         in let
-           base : F p (ident_unit p)
-             := fun (c : X)
-                    (q : Ident b c)
-                    (d : X)
-                    (r r' : Ident c d)
-                    (w : Ident r r')
-                  => ident_left_whisker_multiplicative p q w
-         in
-           ident_induction p F base.
-
-Arguments ident_right_whisker_horizontal
-  {X a b p p'} u {c} q {d r r'} w.
-(* endfrag *)
-
 (* begfrag:wozp1da2 *)
-Definition ident_horizontal_left_whisker
+Definition ident_horizontal_whisker2
   : forall (X : Type)
            (a b : X)
            (p p' : Ident a b)
@@ -2933,12 +2883,12 @@ Definition ident_horizontal_left_whisker
          in
            ident_induction p F base.
 
-Arguments ident_horizontal_left_whisker
+Arguments ident_horizontal_whisker2
   {X a b p p'} u {c} q {d r r'} w.
 (* endfrag *)
 
 (* begfrag:vfzz2ypj *)
-Definition ident_horizontal_right_whisker
+Definition ident_horizontal_whisker3
   : forall (X : Type)
            (a b : X)
            (p p' : Ident a b)
@@ -2983,7 +2933,7 @@ Definition ident_horizontal_right_whisker
          in
            ident_induction p F base.
 
-Arguments ident_horizontal_right_whisker
+Arguments ident_horizontal_whisker3
   {X a b p p'} u {c} {q q'} v {d} r.
 (* endfrag *)
 
@@ -3034,7 +2984,7 @@ Definition ident_horizontal_associative
                   (d : X)
                   (r r' : Ident c d)
                   (w : Ident r r')
-                => ident_left_whisker_horizontal p v w
+                => ident_horizontal_whisker1 p v w
        in
          ident_induction p F base.
 

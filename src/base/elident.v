@@ -1048,7 +1048,7 @@ Arguments elident_horizontal_right_unit {X Y f f'} u {Z} g _.
 (* endfrag *)
 
 (* begfrag:8vatl8dn *)
-Example _elident_horizontal_left_whisker
+Example _elident_horizontal_whisker1
   : forall (A B : Type)
            (f : A -> B)
            (C : Type)
@@ -1071,8 +1071,36 @@ Example _elident_horizontal_left_whisker
             (elident_left_whisker f (elident_compose_horizontal v w)).
 (* endfrag *)
 
+(* begfrag:hsca04vt *)
+Definition elident_horizontal_whisker2
+  : forall (A B : Type)
+           (f f' : A -> B)
+           (u : ElIdent f f')
+           (C : Type)
+           (g : B -> C)
+           (D : Type)
+           (h h' : C -> D)
+           (w : ElIdent h h'),
+      ElIdent
+        (elident_compose_horizontal u (elident_left_whisker g w))
+        (elident_compose_horizontal (elident_right_whisker u g) w)
+  := fun (A B : Type)
+         (f f' : A -> B)
+         (u : ElIdent f f')
+         (C : Type)
+         (g : B -> C)
+         (D : Type)
+         (h h' : C -> D)
+         (w : ElIdent h h')
+         (x : A)
+       => ident_map (fun p => ident_compose p (w (g (f' x))))
+                    (ident_map_function_compose h g (u x)).
+
+Arguments elident_horizontal_whisker2 {A B f f'} u {C} g {D h h'} w _.
+(* endfrag *)
+
 (* begfrag:kba07aid *)
-Definition elident_horizontal_right_whisker
+Definition elident_horizontal_whisker3
   : forall (A B : Type)
            (f f' : A -> B)
            (u : ElIdent f f')
@@ -1113,8 +1141,7 @@ Definition elident_horizontal_right_whisker
          in
            ident_compose e1 (ident_inverse e2).
 
-Arguments elident_horizontal_right_whisker
-  {A B f f'} u {C g g'} v {D} h _.
+Arguments elident_horizontal_whisker3 {A B f f'} u {C g g'} v {D} h _.
 (* endfrag *)
 
 (* begfrag:28so8564 *)
