@@ -283,7 +283,7 @@ Definition elident_map_function_unit
            (F : X -> Type)
            (f f' : forall (x : X), F x)
            (u : ElIdent f f'),
-      ElIdent u (elident_map (fun x => @function_unit (F x)) u)
+      ElIdent u (elident_map (fun x => function_unit (F x)) u)
   := fun (X : Type)
          (F : X -> Type)
          (f f' : forall (x : X), F x)
@@ -324,8 +324,7 @@ Definition elident_map_constant_function
            (f f' : forall (x : X), F x)
            (u : ElIdent f f'),
       ElIdent (elident_unit k)
-              (elident_map
-                 (fun x => @constant_function (F x) (G x) (k x)) u)
+              (elident_map (fun x => constant_function (k x)) u)
   := fun (X : Type)
          (F G : X -> Type)
          (k : forall (x : X), G x)
@@ -624,7 +623,7 @@ Example _elident_left_whisker_left_unit
            (G : Y -> Type)
            (g g' : forall (y : Y), G y)
            (v : ElIdent g g'),
-      Ident v (elident_left_whisker (@function_unit Y) v)
+      Ident v (elident_left_whisker (function_unit Y) v)
   := fun (Y : Type)
          (G : Y -> Type)
          (g g' : forall (y : Y), G y)
@@ -733,7 +732,7 @@ Definition elident_right_whisker_right_unit
   : forall (X Y : Type)
            (f f' : X -> Y)
            (u : ElIdent f f'),
-      ElIdent u (elident_right_whisker u (@function_unit Y))
+      ElIdent u (elident_right_whisker u (function_unit Y))
   := fun (X Y : Type)
          (f f' : X -> Y)
          (u : ElIdent f f')
@@ -943,10 +942,10 @@ Arguments elident_compose_horizontals_elident
 (* begfrag:koiabxgc *)
 Definition elident_eckmann_hilton1
   : forall (X : Type)
-           (u v : ElIdent (@function_unit X) (@function_unit X)),
+           (u v : ElIdent (function_unit X) (function_unit X)),
       ElIdent (elident_compose u v) (elident_compose_horizontal u v)
   := fun (X : Type)
-         (u v : ElIdent (@function_unit X) (@function_unit X))
+         (u v : ElIdent (function_unit X) (function_unit X))
          (x : X)
        => ident_map (fun p => ident_compose p (v x))
                     (ident_map_function_unit (u x)).
@@ -957,10 +956,10 @@ Arguments elident_eckmann_hilton1 {X} u v _.
 (* begfrag:dn9a3hzp *)
 Definition elident_eckmann_hilton2
   : forall (X : Type)
-           (u v : ElIdent (@function_unit X) (@function_unit X)),
+           (u v : ElIdent (function_unit X) (function_unit X)),
       ElIdent (elident_compose u v) (elident_compose v u)
   := fun (X : Type)
-         (u v : ElIdent (@function_unit X) (@function_unit X))
+         (u v : ElIdent (function_unit X) (function_unit X))
        =>
          let
            e1 : ElIdent (elident_compose u v)

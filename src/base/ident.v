@@ -251,13 +251,13 @@ Arguments ident_map_ident {X Y} f {x y p q} _.
 (* begfrag:rsfbjxq8 *)
 Definition ident_map_function_unit
   : forall (X : Type) (x x' : X) (p : Ident x x'),
-      Ident p (ident_map (@function_unit X) p)
+      Ident p (ident_map (function_unit X) p)
   := fun (X : Type) (x : X)
        =>
          let
            F : forall (x' : X), Ident x x' -> Type
              := fun (x' : X) (p : Ident x x')
-                  => Ident p (ident_map (@function_unit X) p)
+                  => Ident p (ident_map (function_unit X) p)
          in let
            base : F x (ident_unit x) := ident_unit (ident_unit x)
          in
@@ -297,14 +297,14 @@ Arguments ident_map_function_compose {X Y Z} g f {x x'} p.
 (* begfrag:t9j8usog *)
 Definition ident_map_constant_function
   : forall (X Y : Type) (y : Y) (x x' : X) (p : Ident x x'),
-      Ident (ident_unit y) (ident_map (@constant_function X Y y) p)
+      Ident (ident_unit y) (ident_map (constant_function y) p)
   := fun (X Y : Type) (y : Y) (x : X)
        =>
          let
            F : forall (x' : X), Ident x x' -> Type
              := fun (x' : X) (p : Ident x x')
                   => Ident (ident_unit y)
-                           (ident_map (@constant_function X Y y) p)
+                           (ident_map (constant_function y) p)
          in let
            base : F x (ident_unit x) := ident_unit (ident_unit y)
          in
@@ -336,7 +336,7 @@ Definition ident_left_cancel
          in let
            base : F x (ident_unit x)
              := fun (z : X) (q q' : Ident x z)
-                  => @function_unit (Ident q q')
+                  => function_unit (Ident q q')
          in
            ident_induction x F base.
 
@@ -470,7 +470,7 @@ Definition ident_right_unit_unique
          in let
            base : F x (ident_unit x)
              := fun (q : Ident x x)
-                  => @function_unit (Ident (ident_unit x) q)
+                  => function_unit (Ident (ident_unit x) q)
          in
            ident_induction x F base.
 
@@ -520,7 +520,7 @@ Definition ident_right_inverse_unique
          in let
            base : F x (ident_unit x)
              := fun (q : Ident x x)
-                  => @function_unit (Ident q (ident_unit x))
+                  => function_unit (Ident q (ident_unit x))
          in
            ident_induction x F base.
 
@@ -658,7 +658,7 @@ Definition ident_move_prefix_right
          in let
            base : F x (ident_unit x)
              := fun (z : X) (q : Ident x z) (r : Ident x z)
-                  => @function_unit (Ident q r)
+                  => function_unit (Ident q r)
          in
            ident_induction x F base.
 
@@ -688,7 +688,7 @@ Definition ident_move_prefix_left
          in let
            base : F x (ident_unit x)
              := fun (z : X) (q : Ident x z) (r : Ident x z)
-                  => @function_unit (Ident r q)
+                  => function_unit (Ident r q)
          in
            ident_induction x F base.
 
@@ -2178,7 +2178,7 @@ Definition ident_left_whisker
          in let
            base : F x (ident_unit x)
              := fun (z : X) (q q' : Ident x z)
-                  => @function_unit (Ident q q')
+                  => function_unit (Ident q q')
          in
            ident_induction x F base.
 

@@ -46,7 +46,7 @@ Example _function_compose_associative
 (* begfrag:hso05la4 *)
 Example _function_compose_left_unit
   : forall (X Y : Type) (f : X -> Y),
-      Ident f (function_compose (@function_unit Y) f)
+      Ident f (function_compose (function_unit Y) f)
   := fun (X Y : Type) (f : X -> Y)
        => ident_unit f.
 (* endfrag *)
@@ -56,7 +56,7 @@ Example _function_compose_right_unit
   : forall (X : Type)
            (G : X -> Type)
            (g : forall (x : X), G x),
-      Ident g (function_compose  g (@function_unit X))
+      Ident g (function_compose  g (function_unit X))
   := fun (X : Type)
          (G : X -> Type)
          (g : forall (x : X), G x)
@@ -203,18 +203,18 @@ Example _ident_induction_ident_unit
 (* begfrag:obnor2k3 *)
 Example _transport_ident_unit
   : forall (X : Type) (F : X -> Type) (x y : X),
-      Ident (@function_unit (F x)) (transport F (ident_unit x))
+      Ident (function_unit (F x)) (transport F (ident_unit x))
   := fun (X : Type) (F : X -> Type) (x y : X)
-       => ident_unit (@function_unit (F x)).
+       => ident_unit (function_unit (F x)).
 (* endfrag *)
 
 (* begfrag:iqo3w2uh *)
 Example _transport_inverse_ident_unit
   : forall (X : Type) (F : X -> Type) (x y : X),
-      Ident (@function_unit (F x))
+      Ident (function_unit (F x))
             (transport_inverse F (ident_unit x))
   := fun (X : Type) (F : X -> Type) (x y : X)
-       => ident_unit (@function_unit (F x)).
+       => ident_unit (function_unit (F x)).
 (* endfrag *)
 
 (* ================================================================ *)
@@ -530,10 +530,10 @@ Example _ident_map_constant_function_ident_unit
 (* begfrag:o1fq5t5n *)
 Example _ident_left_cancel_ident_unit
   : forall (X : Type) (x y : X) (q q' : Ident x y),
-      Ident (@function_unit (Ident q q'))
+      Ident (function_unit (Ident q q'))
             (ident_left_cancel (ident_unit x) q q')
   := fun (X : Type) (x y : X) (q q' : Ident x y)
-       => ident_unit (@function_unit (Ident q q')).
+       => ident_unit (function_unit (Ident q q')).
 (* endfrag *)
 
 (* begfrag:benyiuaw *)
@@ -591,10 +591,10 @@ Example _ident_right_remove_ident_unit
 (* begfrag:4pwxwrcf *)
 Example _ident_right_unit_unique_ident_unit
   : forall (X : Type) (x : X) (q : Ident x x),
-      Ident (@function_unit (Ident (ident_unit x) q))
+      Ident (function_unit (Ident (ident_unit x) q))
             (ident_right_unit_unique q)
   := fun (X : Type) (x : X) (q : Ident x x)
-       => ident_unit (@function_unit (Ident (ident_unit x) q)).
+       => ident_unit (function_unit (Ident (ident_unit x) q)).
 (* endfrag *)
 
 (* begfrag:kr5zr15p *)
@@ -611,7 +611,7 @@ Example _ident_left_inverse_unique_ident_unit
 Example _ident_right_inverse_unique_ident_unit
   : forall (X : Type) (x : X),
       Ident (fun (q : Ident x x)
-               => @function_unit (Ident q (ident_unit x)))
+               => function_unit (Ident q (ident_unit x)))
             (ident_right_inverse_unique (ident_unit x))
   := fun (X : Type) (x : X)
        => ident_unit (ident_right_inverse_unique (ident_unit x)).
@@ -622,11 +622,10 @@ Example _ident_inverse_antimultiplicative_ident_unit
   : forall (X : Type) (x : X),
       Ident (fun (z : X) (q : Ident x z)
                => ident_right_unit (ident_inverse q))
-            (@ident_inverse_antimultiplicative
-               X x x (ident_unit x))
+            (@ident_inverse_antimultiplicative X x x (ident_unit x))
   := fun (X : Type) (x : X)
-       => ident_unit (@ident_inverse_antimultiplicative
-                       X x x (ident_unit x)).
+       => ident_unit
+            (@ident_inverse_antimultiplicative X x x (ident_unit x)).
 (* endfrag:kr60ne8y *)
 
 (* begfrag:kr60xeqv *)
@@ -650,28 +649,28 @@ Example _ident_put_inverse_ident_unit
 (* begfrag:a9yciaq6 *)
 Example _ident_move_prefix_right_ident_unit
   : forall (X : Type) (x z : X) (q r : Ident x z),
-      Ident (@function_unit (Ident q r))
+      Ident (function_unit (Ident q r))
             (ident_move_prefix_right (ident_unit x) q)
   := fun (X : Type) (x z : X) (q r : Ident x z)
-       => ident_unit (@function_unit (Ident q r)).
+       => ident_unit (function_unit (Ident q r)).
 (* endfrag *)
 
 (* begfrag:r8vhvl7l *)
 Example _ident_move_prefix_left_ident_unit
   : forall (X : Type) (x z : X) (q r : Ident x z),
-      Ident (@function_unit (Ident r q))
+      Ident (function_unit (Ident r q))
             (ident_move_prefix_left (ident_unit x) q)
   := fun (X : Type) (x z : X) (q r : Ident x z)
-       => ident_unit (@function_unit (Ident r q)).
+       => ident_unit (function_unit (Ident r q)).
 (* endfrag *)
 
 (* begfrag:sjeygzmw *)
 Example _ident_left_whisker_ident_unit
   : forall (X : Type) (x z : X) (q q' : Ident x z),
-      Ident (@function_unit (Ident q q'))
+      Ident (function_unit (Ident q q'))
             (ident_left_whisker (ident_unit x))
   := fun (X : Type) (x z : X) (q q' : Ident x z)
-       => ident_unit (@function_unit (Ident q q')).
+       => ident_unit (function_unit (Ident q q')).
 (* endfrag *)
 
 (* begfrag:2fxkvz8a *)

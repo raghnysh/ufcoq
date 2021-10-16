@@ -90,8 +90,6 @@ Arguments function_compose_relative {X F G} g f _.
 (* begfrag:ct7rwcsm *)
 Definition function_unit : forall (X : Type), X -> X
   := fun (X : Type) (x : X) => x.
-
-Arguments function_unit {X} _.
 (* endfrag *)
 
 (* begfrag:q4yy6ynm *)
@@ -133,13 +131,12 @@ Arguments functions_ident_values_ident {X F f g} _ x.
 (* begfrag:gcfsyi93 *)
 Definition false_recursion : forall (X : Type), False -> X
   := fun (X : Type)
-       => false_induction (@constant_function False Type X).
+       => false_induction (constant_function X).
 (* endfrag *)
 
 (* begfrag:kad6krsx *)
 Definition true_recursion : forall (X : Type), X -> True -> X
-  := fun (X : Type)
-       => true_induction (@constant_function True Type X).
+  := fun (X : Type) => true_induction (constant_function X).
 
 Arguments true_recursion {X} _ _.
 (* endfrag *)
@@ -155,7 +152,7 @@ Arguments to_true {X} _.
 Definition boolean_recursion
   : forall (X : Type), X -> X -> Boolean -> X
   := fun (X : Type)
-       => boolean_induction (@constant_function Boolean Type X).
+       => boolean_induction (constant_function X).
 
 Arguments boolean_recursion {X} _ _ _.
 (* endfrag *)
@@ -164,7 +161,7 @@ Arguments boolean_recursion {X} _ _ _.
 Definition natural_recursion
   : forall (X : Type), X -> (Natural -> X -> X) -> Natural -> X
   := fun (X : Type) =>
-      natural_induction (@constant_function Natural Type X).
+      natural_induction (constant_function X).
 
 Arguments natural_recursion {X} _ _ _.
 (* endfrag *)
@@ -173,7 +170,7 @@ Arguments natural_recursion {X} _ _ _.
 Definition natural_recursion_simple
   : forall (X : Type), X -> (X -> X) -> Natural -> X
   := fun (X : Type) (x : X) (f : X -> X)
-       => natural_recursion x (@constant_function Natural (X -> X) f).
+       => natural_recursion x (constant_function f).
 
 Arguments natural_recursion_simple {X} _ _ _.
 (* endfrag *)
@@ -307,7 +304,7 @@ Definition Product : Type -> Type -> Type
 (* begfrag:c97wzdtw *)
 Definition pair : forall (X Y : Type), X -> Y -> Product X Y
   := fun (X Y : Type) (x : X) (y : Y)
-       => sigma (@constant_function X Type Y) x y.
+       => sigma (constant_function Y) x y.
 
 Arguments pair {X Y} _ _.
 (* endfrag *)
