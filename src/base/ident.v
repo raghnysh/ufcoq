@@ -15,13 +15,15 @@ Require Import ufcoq.base.construct.
 
 (* begfrag:ybsrqsg4 *)
 Definition ident_compose
-  : forall (X : Type) (x y z : X), Ident x y -> Ident y z -> Ident x z
-  := fun (X : Type)
-         (x y z : X)
-       => let F : X -> Type := fun (a : X) => Ident a z
-          in transport_inverse F.
+  : forall (X : Type) (x y : X),
+      Ident x y -> forall (z : X), Ident y z -> Ident x z
+  := fun (X : Type) (x : X)
+       => ident_recursion x
+                          (fun (y : X) => forall (z : X),
+                                            Ident y z -> Ident x z)
+                          (fun (z : X) => function_unit (Ident x z)).
 
-Arguments ident_compose {X x y z} _ _.
+Arguments ident_compose {X x y} _ {z} _.
 (* endfrag *)
 
 (* begfrag:ky5unwbq *)
@@ -89,14 +91,9 @@ Arguments ident_associative {X w x} p {y} q {z} r.
 Definition ident_inverse
   : forall (X : Type) (x y : X), Ident x y -> Ident y x
   := fun (X : Type) (x : X)
-       =>
-         let
-           F : forall (y : X), Ident x y -> Type
-             := fun (y : X) => constant_function (Ident y x)
-         in let
-           base : F x (ident_unit x) := ident_unit x
-         in
-           ident_induction x F base.
+       => ident_recursion x
+                          (fun (y : X) => Ident y x)
+                          (ident_unit x).
 
 Arguments ident_inverse {X x y} _.
 (* endfrag *)
@@ -155,14 +152,9 @@ Definition ident_map
   : forall (X Y : Type) (f : X -> Y) (x x' : X),
       Ident x x' -> Ident (f x) (f x')
   := fun (X Y : Type) (f : X -> Y) (x : X)
-       =>
-         let
-           F : forall (x' : X), Ident x x' -> Type
-             := fun (x' : X) => constant_function (Ident (f x) (f x'))
-         in let
-           base : F x (ident_unit x) := ident_unit (f x)
-         in
-           ident_induction x F base.
+       => ident_recursion x
+                          (fun (x' : X) => Ident (f x) (f x'))
+                          (ident_unit (f x)).
 
 Arguments ident_map {X Y} f {x x'} _.
 (* endfrag *)
@@ -224,22 +216,63 @@ Definition ident_map_inverse
 Arguments ident_map_inverse {X Y} f {x x'} p.
 (* endfrag *)
 
+(* begfrag:oqkd01vv *)
+Definition ident_map_left_inverse
+  : forall (X Y : Type) (f : X -> Y) (x x' : X) (p : Ident x x'),
+      Ident (ident_unit (f x'))
+            (ident_compose (ident_map f (ident_inverse p))
+                           (ident_map f p))
+  := fun (X Y : Type) (f : X -> Y) (x : X)
+       =>
+         let
+           F : forall (x' : X), Ident x x' -> Type
+             := fun (x' : X) (p : Ident x x')
+                  => Ident (ident_unit (f x'))
+                           (ident_compose
+                              (ident_map f (ident_inverse p))
+                              (ident_map f p))
+         in let
+           base : F x (ident_unit x)
+             := ident_unit (ident_unit (f x))
+         in
+           ident_induction x F base.
+
+Arguments ident_map_left_inverse {X Y} f {x x'} p.
+(* endfrag *)
+
+(* begfrag:4slbpngd *)
+Definition ident_map_right_inverse
+  : forall (X Y : Type) (f : X -> Y) (x x' : X) (p : Ident x x'),
+      Ident (ident_unit (f x))
+            (ident_compose (ident_map f p)
+                           (ident_map f (ident_inverse p)))
+  := fun (X Y : Type) (f : X -> Y) (x : X)
+       =>
+         let
+           F : forall (x' : X), Ident x x' -> Type
+             := fun (x' : X) (p : Ident x x')
+                  => Ident (ident_unit (f x))
+                           (ident_compose
+                              (ident_map f p)
+                              (ident_map f (ident_inverse p)))
+         in let
+           base : F x (ident_unit x)
+             := ident_unit (ident_unit (f x))
+         in
+           ident_induction x F base.
+
+Arguments ident_map_right_inverse {X Y} f {x x'} p.
+(* endfrag *)
+
 (* begfrag:qs50e5ab *)
 Definition ident_map_ident
   : forall (X Y : Type) (f : X -> Y) (x y : X) (p q : Ident x y),
       Ident p q -> Ident (ident_map f p) (ident_map f q)
   := fun (X Y : Type) (f : X -> Y) (x y : X) (p : Ident x y)
-       =>
-         let
-           F : forall (q : Ident x y), Ident p q -> Type
-             := fun (q : Ident x y)
-                  => constant_function (Ident (ident_map f p)
-                                              (ident_map f q))
-         in let
-           base : F p (ident_unit p)
-             := ident_unit (ident_map f p)
-         in
-           ident_induction p F base.
+       => ident_recursion p
+                          (fun (q : Ident x y)
+                             => Ident (ident_map f p) (ident_map f q))
+                          (ident_unit (ident_map f p)).
 
 Arguments ident_map_ident {X Y} f {x y p q} _.
 (* endfrag *)
@@ -355,21 +388,14 @@ Definition ident_left_remove
   := fun (X : Type)
          (x y : X)
          (p : Ident x y)
-       =>
-         let
-           F : forall (p' : Ident x y), Ident p p' -> Type
-             := fun (p' : Ident x y)
-                  => constant_function
-                       (forall (z : X) (q q' : Ident y z),
-                          Ident (ident_compose p q)
-                                (ident_compose p' q')
-                            -> Ident q q')
-         in let
-           base : F p (ident_unit p)
-             := fun (z : X) (q q' : Ident y z)
-                  => ident_left_cancel p q q'
-         in
-           ident_induction p F base.
+       => ident_recursion p
+                          (fun (p' : Ident x y)
+                             => forall (z : X) (q q' : Ident y z),
+                                  Ident (ident_compose p q)
+                                        (ident_compose p' q')
+                                    -> Ident q q')
+                          (fun (z : X) (q q' : Ident y z)
+                             => ident_left_cancel p q q').
 
 Arguments ident_left_remove {X x y p p'} _ {z} q q' _.
 (* endfrag *)
@@ -423,19 +449,12 @@ Definition ident_right_remove
          (p p' : Ident x y)
          (z : X)
          (q : Ident y z)
-       =>
-         let
-           F : forall (q' : Ident y z), Ident q q' -> Type
-             := fun (q' : Ident y z)
-                  =>  constant_function
-                        (Ident (ident_compose p q)
-                               (ident_compose p' q')
-                           -> Ident p p')
-         in let
-           base : F q (ident_unit q)
-             := ident_right_cancel p p' q
-         in
-           ident_induction q F base.
+       => ident_recursion q
+                          (fun (q' : Ident y z)
+                             => Ident (ident_compose p q)
+                                      (ident_compose p' q')
+                                  -> Ident p p')
+                          (ident_right_cancel p p' q).
 
 Arguments ident_right_remove {X x y} p p' {z q q'} _ _.
 (* endfrag *)
@@ -591,17 +610,11 @@ Definition ident_put_inverse
   : forall (X : Type) (x y : X) (p q : Ident x y),
       Ident p q -> Ident (ident_inverse p) (ident_inverse q)
   := fun (X : Type) (x y : X) (p : Ident x y)
-     =>
-       let
-         F : forall (q : Ident x y), Ident p q -> Type
-           := fun (q : Ident x y)
-                => constant_function (Ident (ident_inverse p)
-                                            (ident_inverse q))
-       in let
-         base : F p (ident_unit p)
-           := ident_unit (ident_inverse p)
-       in
-         ident_induction p F base.
+     => ident_recursion p
+                        (fun (q : Ident x y)
+                           => Ident (ident_inverse p)
+                                    (ident_inverse q))
+                        (ident_unit (ident_inverse p)).
 
 Arguments ident_put_inverse {X x y p q} _.
 (* endfrag *)
@@ -2328,20 +2341,13 @@ Definition ident_right_whisker
         -> forall (z : X) (q : Ident y z),
              Ident (ident_compose p q) (ident_compose p' q)
   := fun (X : Type) (x y : X) (p : Ident x y)
-       =>
-         let
-           F : forall (p' : Ident x y), Ident p p' -> Type
-             := fun (p' : Ident x y)
-                  => constant_function
-                       (forall (z : X) (q : Ident y z),
-                          Ident (ident_compose p q)
-                                (ident_compose p' q))
-         in let
-           base : F p (ident_unit p)
-             := fun (z : X) (q : Ident y z)
-                  => ident_unit (ident_compose p q)
-         in
-           ident_induction p F base.
+       => ident_recursion p
+                          (fun (p' : Ident x y)
+                             => forall (z : X) (q : Ident y z),
+                                  Ident (ident_compose p q)
+                                        (ident_compose p' q))
+                          (fun (z : X) (q : Ident y z)
+                             => ident_unit (ident_compose p q)).
 
 Arguments ident_right_whisker {X x y p p'} _ {z} q.
 (* endfrag *)

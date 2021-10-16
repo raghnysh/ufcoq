@@ -189,44 +189,14 @@ Definition ident_end : forall (X : Type) (x y : X), Ident x y -> X
 Arguments ident_end {X x y} _.
 (* endfrag *)
 
-(* begfrag:szbmydj4 *)
-Definition transport
-  : forall (X : Type) (F : X -> Type) (x y : X),
-      Ident x y -> F x -> F y
-  := fun (X : Type)
-         (F : X -> Type)
-         (x : X)
-       =>
-         let
-           G : forall (a : X), Ident x a -> Type
-             := fun (a : X) => constant_function (F x -> F a)
-         in let
-           base : G x (ident_unit x)
-             := @function_unit (F x)
-         in
-           ident_induction x G base.
+(* begfrag:1wqfz6hs *)
+Definition ident_recursion
+  : forall (X : Type) (x : X) (F : X -> Type),
+      F x -> forall (y : X), Ident x y -> F y
+  := fun (X : Type) (x : X) (F : X -> Type)
+       => ident_induction x (fun (y : X) => constant_function (F y)).
 
-Arguments transport {X} F {x y} _ _.
-(* endfrag *)
-
-(* begfrag:xsfz3fch *)
-Definition transport_inverse
-  : forall (X : Type) (F : X -> Type) (x y : X),
-      Ident x y -> F y -> F x
-  := fun (X : Type)
-         (F : X -> Type)
-         (x : X)
-       =>
-         let
-           G : forall (a : X), Ident x a -> Type
-             := fun (a : X) => constant_function (F a -> F x)
-         in let
-           base : G x (ident_unit x)
-             := @function_unit (F x)
-         in
-           ident_induction x G base.
-
-Arguments transport_inverse {X} F {x y} _ _.
+Arguments ident_recursion {X} x F _ y _.
 (* endfrag *)
 
 (* begfrag:wlyu1bpv *)

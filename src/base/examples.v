@@ -8,6 +8,7 @@
 Require Import ufcoq.base.primitive.
 Require Import ufcoq.base.construct.
 Require Import ufcoq.base.ident.
+Require Import ufcoq.base.transport.
 (* endfrag *)
 
 (* ================================================================ *)

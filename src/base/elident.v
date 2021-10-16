@@ -253,6 +253,48 @@ Definition elident_map_inverse
 Arguments elident_map_inverse {X F G} g {f f'} u _.
 (* endfrag *)
 
+(* begfrag:ds0ru742 *)
+Definition elident_map_left_inverse
+  : forall (X : Type)
+           (F G : X -> Type)
+           (g : forall (x : X), F x -> G x)
+           (f f' : forall (x : X), F x)
+           (u : ElIdent f f'),
+      ElIdent (elident_unit (function_compose_relative g f'))
+              (elident_compose (elident_map g (elident_inverse u))
+                               (elident_map g u))
+  := fun (X : Type)
+         (F G : X -> Type)
+         (g : forall (x : X), F x -> G x)
+         (f f' : forall (x : X), F x)
+         (u : ElIdent f f')
+         (x : X)
+       => ident_map_left_inverse (g x) (u x).
+
+Arguments elident_map_left_inverse {X F G} g {f f'} u _.
+(* endfrag *)
+
+(* begfrag:zox7kj4e *)
+Definition elident_map_right_inverse
+  : forall (X : Type)
+           (F G : X -> Type)
+           (g : forall (x : X), F x -> G x)
+           (f f' : forall (x : X), F x)
+           (u : ElIdent f f'),
+      ElIdent (elident_unit (function_compose_relative g f))
+              (elident_compose (elident_map g u)
+                               (elident_map g (elident_inverse u)))
+  := fun (X : Type)
+         (F G : X -> Type)
+         (g : forall (x : X), F x -> G x)
+         (f f' : forall (x : X), F x)
+         (u : ElIdent f f')
+         (x : X)
+       => ident_map_right_inverse (g x) (u x).
+
+Arguments elident_map_right_inverse {X F G} g {f f'} u _.
+(* endfrag *)
+
 (* begfrag:agii1l4k *)
 Definition elident_map_elident
   : forall (X : Type)
@@ -1328,6 +1370,20 @@ Definition elident_middle4_interchange
 
 Arguments elident_middle4_interchange
   {A B f f'} u {f''} u' {C g g'} v {g''} v' _.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Element-wise identities from identities                      *)
+(* ================================================================ *)
+
+(* begfrag:ybi5etby *)
+Definition elident_of_ident
+  : forall (X : Type) (F : X -> Type) (f g : forall (x : X), F x),
+      Ident f g -> ElIdent f g
+  := fun (X : Type) (F : X -> Type) (f : forall (x : X), F x)
+       => ident_recursion f (ElIdent f) (elident_unit f).
+
+Arguments elident_of_ident {X F f g} _ _.
 (* endfrag *)
 
 (* End of file *)
