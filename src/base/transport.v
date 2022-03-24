@@ -321,4 +321,43 @@ Definition transport_boolean
             (ident_unit (fun (p : Ident no no) => transport F p)).
 (* endfrag *)
 
+(* ================================================================ *)
+(** ** Transport on the type of natural numbers (TODO)              *)
+(* ================================================================ *)
+
+(* begfrag:6t3ic6bd *)
+Definition natural_double_induction
+  : forall (F : Natural -> Natural -> Type),
+      F zero zero
+        -> (forall (n : Natural), F zero n -> F zero (successor n))
+          -> (forall (m : Natural),
+               (forall (n : Natural), F m n)
+                 -> F (successor m) zero)
+            -> (forall (m : Natural),
+                 (forall (n : Natural), F m n)
+                   -> forall (n : Natural),
+                        F (successor m) n
+                          -> F (successor m) (successor n))
+              -> forall (m n : Natural), F m n
+  := fun (F : Natural -> Natural -> Type)
+         (s : F zero zero)
+         (t : forall (n : Natural), F zero n -> F zero (successor n))
+         (u : forall (m : Natural),
+                (forall (n : Natural), F m n)
+                  -> F (successor m) zero)
+         (v : forall (m : Natural),
+                (forall (n : Natural), F m n)
+                  -> forall (n : Natural),
+                       F (successor m) n
+                         -> F (successor m) (successor n))
+       => natural_induction
+            (fun (m : Natural) => forall (n : Natural), F m n)
+            (natural_induction (fun (n : Natural) => F zero n) s t)
+            (fun (m : Natural) (w : forall (n : Natural), F m n)
+               => natural_induction
+                    (fun (n : Natural) => F (successor m) n)
+                    (u m w)
+                    (v m w)).
+(* endfrag *)
+
 (* End of file *)
