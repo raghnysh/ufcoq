@@ -891,6 +891,61 @@ Arguments elident_natural {X Y f g} u {x x'} p.
 (* endfrag *)
 
 (* ================================================================ *)
+(** ** Element-wise identities to unit functions                    *)
+(* ================================================================ *)
+
+(* begfrag:n82uc7fi *)
+Definition elident_natural_function_unit
+  : forall (X : Type)
+           (f : X -> X)
+           (u : ElIdent f (function_unit X))
+           (x x' : X)
+           (p : Ident x x'),
+      Ident (ident_compose (ident_map f p) (u x'))
+            (ident_compose (u x) p)
+  := fun (X : Type)
+         (f : X -> X)
+         (u : ElIdent f (function_unit X))
+         (x : X)
+       =>
+         let
+           G : forall (x' : X), Ident x x' -> Type
+             := fun (x' : X) (p : Ident x x')
+                  => Ident (ident_compose (ident_map f p) (u x'))
+                           (ident_compose (u x) p)
+         in let
+           base : G x (ident_unit x)
+             := ident_right_unit (u x)
+         in
+           ident_induction x G base.
+
+Arguments elident_natural_function_unit {X f} u {x x'} p.
+(* endfrag *)
+
+(* begfrag:f7ji65jy *)
+Definition elident_function_unit
+  : forall (X : Type)
+           (f : X -> X)
+           (u : ElIdent f (function_unit X))
+           (x : X),
+      Ident (ident_map f (u x))
+            (u (f x))
+  := fun (X : Type)
+         (f : X -> X)
+         (u : ElIdent f (function_unit X))
+         (x : X)
+       =>
+         let
+           r : Ident (ident_compose (ident_map f (u x)) (u x))
+                     (ident_compose (u (f x)) (u x))
+             := elident_natural_function_unit u (u x)
+         in
+           ident_right_cancel (ident_map f (u x)) (u (f x)) (u x) r.
+
+Arguments elident_function_unit {X f} u x.
+(* endfrag *)
+
+(* ================================================================ *)
 (** ** Horizontal composition of element-wise identities            *)
 (* ================================================================ *)
 
