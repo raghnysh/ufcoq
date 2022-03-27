@@ -1,4 +1,4 @@
-(* Equivalences  of types *)
+(* Equivalences of types *)
 
 (* ================================================================ *)
 (** ** Dependencies                                                 *)
