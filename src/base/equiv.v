@@ -284,16 +284,16 @@ Arguments quasi_inverse_ident_compose_left {X x y} p z.
 
 (* begfrag:rwy9kak1 *)
 Definition quasi_inverse_ident_compose_right
-  : forall (X : Type) (x y : X) (p : Ident x y) (w : X),
-      QuasiInverse (fun (n : Ident w x) => ident_compose n p)
-  := fun (X : Type) (x y : X) (p : Ident x y) (w : X)
+  : forall (X : Type) (x y : X) (p : Ident x y) (z : X),
+      QuasiInverse (fun (q : Ident z x) => ident_compose q p)
+  := fun (X : Type) (x y : X) (p : Ident x y) (z : X)
        => quasi_inverse
-            (fun (n : Ident w x) => ident_compose n p)
-            (fun (r : Ident w y) => ident_compose r (ident_inverse p))
-            (fun (n : Ident w x) => ident_expand8 n p)
-            (fun (r : Ident w y) => ident_expand6 r p).
+            (fun (q : Ident z x) => ident_compose q p)
+            (fun (r : Ident z y) => ident_compose r (ident_inverse p))
+            (fun (q : Ident z x) => ident_expand8 q p)
+            (fun (r : Ident z y) => ident_expand6 r p).
 
-Arguments quasi_inverse_ident_compose_right {X x y} p w.
+Arguments quasi_inverse_ident_compose_right {X x y} p z.
 (* endfrag *)
 
 (* begfrag:7mnhpoep *)
