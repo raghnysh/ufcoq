@@ -32,7 +32,7 @@ Definition left_inverse_function
   := fun (X Y : Type) (f : X -> Y) (u : LeftInverse f)
        => sigma1 u.
 
-Arguments left_inverse_function {X Y} f _ _.
+Arguments left_inverse_function {X Y f} _ _.
 (* endfrag *)
 
 (* begfrag:aw2c2xjb *)
@@ -41,11 +41,11 @@ Definition left_inverse_elident
            (f : X -> Y)
            (u : LeftInverse f),
       ElIdent (function_unit X)
-              (function_compose (left_inverse_function f u) f)
+              (function_compose (left_inverse_function u) f)
   := fun (X Y : Type) (f : X -> Y) (u : LeftInverse f)
        => sigma2 u.
 
-Arguments left_inverse_elident {X Y} f u _.
+Arguments left_inverse_elident {X Y f} u _.
 (* endfrag *)
 
 (* begfrag:bqnahtxh *)
@@ -80,7 +80,7 @@ Definition right_inverse_function
   := fun (X Y : Type) (f : X -> Y) (u : RightInverse f)
        => sigma1 u.
 
-Arguments right_inverse_function {X Y} f _ _.
+Arguments right_inverse_function {X Y f} _ _.
 (* endfrag *)
 
 (* begfrag:gvpbf13o *)
@@ -89,11 +89,11 @@ Definition right_inverse_elident
            (f : X -> Y)
            (u : RightInverse f),
       ElIdent (function_unit Y)
-              (function_compose f (right_inverse_function f u))
+              (function_compose f (right_inverse_function u))
   := fun (X Y : Type) (f : X -> Y) (u : RightInverse f)
        => sigma2 u.
 
-Arguments right_inverse_elident {X Y} f u _.
+Arguments right_inverse_elident {X Y f} u _.
 (* endfrag *)
 
 (* begfrag:neyszrm7 *)
@@ -121,34 +121,50 @@ Definition IsEquiv
 Arguments IsEquiv {X Y} _.
 (* endfrag *)
 
+(* begfrag:hmcvvfnq *)
+Definition is_equiv_left_inverse
+  : forall (X Y : Type) (f : X -> Y), IsEquiv f -> LeftInverse f
+  := fun (X Y : Type) (f : X -> Y) (u : IsEquiv f) => first u.
+
+Arguments is_equiv_left_inverse {X Y f} _.
+(* endfrag *)
+
 (* begfrag:e1c37gow *)
 Definition is_equiv_left_inverse_function
   : forall (X Y : Type) (f : X -> Y), IsEquiv f -> Y -> X
   := fun (X Y : Type) (f : X -> Y) (u : IsEquiv f)
-       => sigma1 (first u).
+       => left_inverse_function (is_equiv_left_inverse u).
 
-Arguments is_equiv_left_inverse_function {X Y} f _ _.
+Arguments is_equiv_left_inverse_function {X Y f} _ _.
 (* endfrag *)
 
 (* begfrag:7h247058 *)
 Definition is_equiv_left_inverse_elident
   : forall (X Y : Type) (f : X -> Y) (u : IsEquiv f),
       ElIdent (function_unit X)
-              (function_compose (is_equiv_left_inverse_function f u)
+              (function_compose (is_equiv_left_inverse_function u)
                                 f)
   := fun (X Y : Type) (f : X -> Y) (u : IsEquiv f)
-       => sigma2 (first u).
+       => left_inverse_elident (is_equiv_left_inverse u).
 
-Arguments is_equiv_left_inverse_elident {X Y} f u _.
+Arguments is_equiv_left_inverse_elident {X Y f} u _.
+(* endfrag *)
+
+(* begfrag:k54u46k1 *)
+Definition is_equiv_right_inverse
+  : forall (X Y : Type) (f : X -> Y), IsEquiv f -> RightInverse f
+  := fun (X Y : Type) (f : X -> Y) (u : IsEquiv f) => second u.
+
+Arguments is_equiv_right_inverse {X Y f} _.
 (* endfrag *)
 
 (* begfrag:j75fakvf *)
 Definition is_equiv_right_inverse_function
   : forall (X Y : Type) (f : X -> Y), IsEquiv f -> Y -> X
   := fun (X Y : Type) (f : X -> Y) (u : IsEquiv f)
-       => sigma1 (second u).
+       => right_inverse_function (is_equiv_right_inverse u).
 
-Arguments is_equiv_right_inverse_function {X Y} f _ _.
+Arguments is_equiv_right_inverse_function {X Y f} _ _.
 (* endfrag *)
 
 (* begfrag:tdn8izfx *)
@@ -156,11 +172,11 @@ Definition is_equiv_right_inverse_elident
   : forall (X Y : Type) (f : X -> Y) (u : IsEquiv f),
       ElIdent (function_unit Y)
               (function_compose f
-                                (is_equiv_right_inverse_function f u))
+                                (is_equiv_right_inverse_function u))
   := fun (X Y : Type) (f : X -> Y) (u : IsEquiv f)
-       => sigma2 (second u).
+       => right_inverse_elident (is_equiv_right_inverse u).
 
-Arguments is_equiv_right_inverse_elident {X Y} f u _.
+Arguments is_equiv_right_inverse_elident {X Y f} u _.
 (* endfrag *)
 
 (* begfrag:9g0ac2o4 *)
@@ -202,29 +218,29 @@ Definition quasi_inverse_function
   := fun (X Y : Type) (f : X -> Y) (u : QuasiInverse f)
        => sigma1 u.
 
-Arguments quasi_inverse_function {X Y} f _ _.
+Arguments quasi_inverse_function {X Y f} _ _.
 (* endfrag *)
 
 (* begfrag:1k3wd0ih *)
 Definition quasi_inverse_left_elident
   : forall (X Y : Type) (f : X -> Y) (u : QuasiInverse f),
       ElIdent (function_unit X)
-              (function_compose (quasi_inverse_function f u) f)
+              (function_compose (quasi_inverse_function u) f)
   := fun (X Y : Type) (f : X -> Y) (u : QuasiInverse f)
        => first (sigma2 u).
 
-Arguments quasi_inverse_left_elident {X Y} f u _.
+Arguments quasi_inverse_left_elident {X Y f} u _.
 (* endfrag *)
 
 (* begfrag:wpbwzm0y *)
 Definition quasi_inverse_right_elident
   : forall (X Y : Type) (f : X -> Y) (u : QuasiInverse f),
       ElIdent (function_unit Y)
-              (function_compose f (quasi_inverse_function f u))
+              (function_compose f (quasi_inverse_function u))
   := fun (X Y : Type) (f : X -> Y) (u : QuasiInverse f)
        => second (sigma2 u).
 
-Arguments quasi_inverse_right_elident {X Y} f u _.
+Arguments quasi_inverse_right_elident {X Y f} u _.
 (* endfrag *)
 
 (* begfrag:2zk5jtcb *)
@@ -321,13 +337,13 @@ Definition is_equiv_of_quasi_inverse
        =>
          let
            g : Y -> X
-             := quasi_inverse_function f u
+             := quasi_inverse_function u
          in
            is_equiv f
                     g
                     g
-                    (quasi_inverse_left_elident f u)
-                    (quasi_inverse_right_elident f u).
+                    (quasi_inverse_left_elident u)
+                    (quasi_inverse_right_elident u).
 
 Arguments is_equiv_of_quasi_inverse {X Y} f _.
 (* endfrag *)
@@ -339,16 +355,16 @@ Definition quasi_inverse_of_is_equiv
        =>
          let
            g : Y -> X
-             := is_equiv_left_inverse_function f u
+             := is_equiv_left_inverse_function u
          in let
            l : ElIdent (function_unit X) (function_compose g f)
-             := is_equiv_left_inverse_elident f u
+             := is_equiv_left_inverse_elident u
          in let
            h : Y -> X
-             := is_equiv_right_inverse_function f u
+             := is_equiv_right_inverse_function u
          in let
            r : ElIdent (function_unit Y) (function_compose f h)
-             := is_equiv_right_inverse_elident f u
+             := is_equiv_right_inverse_elident u
          in let
            a : ElIdent h (function_compose (function_compose g f) h)
              := elident_left_whisker h l
@@ -367,7 +383,8 @@ Definition quasi_inverse_of_is_equiv
          in
            quasi_inverse f g l e.
 
-Arguments quasi_inverse_of_is_equiv {X Y} f _.
+Arguments quasi_inverse_of_is_equiv {X Y f} _.
+(* endfrag *)
 (* endfrag *)
 
 (* End of file *)
