@@ -109,6 +109,232 @@ Arguments right_inverse {X Y} f g _.
 (* endfrag *)
 
 (* ================================================================ *)
+(** ** Examples of left inverses and right inverses                 *)
+(* ================================================================ *)
+
+(* begfrag:pjpefw13 *)
+Definition left_inverse_function_unit
+  : forall (X : Type), LeftInverse (function_unit X)
+  := fun (X : Type)
+     =>
+       let
+         f : X -> X
+           := function_unit X
+       in
+         left_inverse f f (elident_unit f).
+(* endfrag *)
+
+(* begfrag:nwz6tn8f *)
+Definition right_inverse_function_unit
+  : forall (X : Type), RightInverse (function_unit X)
+  := fun (X : Type)
+     =>
+       let
+         f : X -> X
+           := function_unit X
+       in
+         right_inverse f f (elident_unit f).
+(* endfrag *)
+
+(* begfrag:ndp3m9eg *)
+Definition left_inverse_of_right_inverse
+  : forall (X Y : Type) (f : X -> Y) (u : RightInverse f),
+      LeftInverse (right_inverse_function u)
+  := fun (X Y : Type) (f : X -> Y) (u : RightInverse f)
+       =>
+         let g : Y -> X
+               := right_inverse_function u
+         in
+           left_inverse g f (right_inverse_elident u).
+
+Arguments left_inverse_of_right_inverse {X Y f} u.
+(* endfrag *)
+
+(* begfrag:6zdulbzx *)
+Definition right_inverse_of_left_inverse
+  : forall (X Y : Type) (f : X -> Y) (u : LeftInverse f),
+      RightInverse (left_inverse_function u)
+  := fun (X Y : Type) (f : X -> Y) (u : LeftInverse f)
+       =>
+         let g : Y -> X
+               := left_inverse_function u
+         in
+           right_inverse g f (left_inverse_elident u).
+
+Arguments right_inverse_of_left_inverse {X Y f} u.
+(* endfrag *)
+
+(* begfrag:nd5whc36 *)
+Definition left_inverse_compose
+  : forall (X Y : Type) (f : X -> Y),
+      LeftInverse f
+        -> forall (Z : Type) (g : Y -> Z),
+             LeftInverse g -> LeftInverse (function_compose g f)
+  := fun (X Y : Type)
+         (f : X -> Y)
+         (u : LeftInverse f)
+         (Z : Type)
+         (g : Y -> Z)
+         (v : LeftInverse g)
+       =>
+         let
+           h : X -> Z
+             := function_compose g f
+         in let
+           f' : Y -> X
+              := left_inverse_function u
+         in let
+           a : ElIdent (function_unit X) (function_compose f' f)
+             := left_inverse_elident u
+         in let
+           g' : Z -> Y
+              := left_inverse_function v
+         in let
+           b : ElIdent (function_unit Y) (function_compose g' g)
+             := left_inverse_elident v
+         in let
+           h' : Z -> X
+              := function_compose f' g'
+         in let
+           c : ElIdent f' (function_compose h' g)
+             := elident_right_whisker b f'
+         in let
+           d : ElIdent (function_compose f' f) (function_compose h' h)
+             := elident_left_whisker f c
+         in let
+           e : ElIdent (function_unit X) (function_compose h' h)
+             := elident_compose a d
+         in
+           left_inverse h h' e.
+
+Arguments left_inverse_compose {X Y f} _ {Z g} _.
+(* endfrag *)
+
+(* begfrag:fkqj3pan *)
+Definition right_inverse_compose
+  : forall (X Y : Type) (f : X -> Y),
+      RightInverse f
+        -> forall (Z : Type) (g : Y -> Z),
+             RightInverse g -> RightInverse (function_compose g f)
+  := fun (X Y : Type)
+         (f : X -> Y)
+         (u : RightInverse f)
+         (Z : Type)
+         (g : Y -> Z)
+         (v : RightInverse g)
+       =>
+         let
+           h : X -> Z
+             := function_compose g f
+         in let
+           f' : Y -> X
+              := right_inverse_function u
+         in let
+           a : ElIdent (function_unit Y) (function_compose f f')
+             := right_inverse_elident u
+         in let
+           g' : Z -> Y
+              := right_inverse_function v
+         in let
+           b : ElIdent (function_unit Z) (function_compose g g')
+             := right_inverse_elident v
+         in let
+           h' : Z -> X
+              := function_compose f' g'
+         in let
+           c : ElIdent g' (function_compose f h')
+             := elident_left_whisker g' a
+         in let
+           d : ElIdent (function_compose g g') (function_compose h h')
+             := elident_right_whisker c g
+         in let
+           e : ElIdent (function_unit Z) (function_compose h h')
+             := elident_compose b d
+         in
+           right_inverse h h' e.
+
+Arguments right_inverse_compose {X Y f} _ {Z g} _.
+(* endfrag *)
+
+(* begfrag:qldl59yt *)
+Definition left_inverse_ident_compose_left
+  : forall (X : Type) (x y : X) (p : Ident x y) (z : X),
+      LeftInverse (fun (q : Ident y z) => ident_compose p q)
+  := fun (X : Type) (x y : X) (p : Ident x y) (z : X)
+       => left_inverse
+            (fun (q : Ident y z) => ident_compose p q)
+            (fun (r : Ident x z) => ident_compose (ident_inverse p) r)
+            (fun (q : Ident y z) => ident_expand2 p q).
+
+Arguments left_inverse_ident_compose_left {X x y} p z.
+(* endfrag *)
+
+(* begfrag:lx9jzjyu *)
+Definition right_inverse_ident_compose_left
+  : forall (X : Type) (x y : X) (p : Ident x y) (z : X),
+      RightInverse (fun (q : Ident y z) => ident_compose p q)
+  := fun (X : Type) (x y : X) (p : Ident x y) (z : X)
+       => right_inverse
+            (fun (q : Ident y z) => ident_compose p q)
+            (fun (r : Ident x z) => ident_compose (ident_inverse p) r)
+            (fun (r : Ident x z) => ident_expand4 p r).
+
+Arguments right_inverse_ident_compose_left {X x y} p z.
+(* endfrag *)
+
+(* begfrag:txr5h67s *)
+Definition left_inverse_ident_compose_right
+  : forall (X : Type) (x y : X) (p : Ident x y) (z : X),
+      LeftInverse (fun (q : Ident z x) => ident_compose q p)
+  := fun (X : Type) (x y : X) (p : Ident x y) (z : X)
+       => left_inverse
+            (fun (q : Ident z x) => ident_compose q p)
+            (fun (r : Ident z y) => ident_compose r (ident_inverse p))
+            (fun (q : Ident z x) => ident_expand8 q p).
+
+Arguments left_inverse_ident_compose_right {X x y} p z.
+(* endfrag *)
+
+(* begfrag:ro5ny9ms *)
+Definition right_inverse_ident_compose_right
+  : forall (X : Type) (x y : X) (p : Ident x y) (z : X),
+      RightInverse (fun (q : Ident z x) => ident_compose q p)
+  := fun (X : Type) (x y : X) (p : Ident x y) (z : X)
+       => right_inverse
+            (fun (q : Ident z x) => ident_compose q p)
+            (fun (r : Ident z y) => ident_compose r (ident_inverse p))
+            (fun (r : Ident z y) => ident_expand6 r p).
+
+Arguments right_inverse_ident_compose_right {X x y} p z.
+(* endfrag *)
+
+(* begfrag:3kthivt0 *)
+Definition left_inverse_transport
+  : forall (X : Type) (F : X -> Type) (x y : X) (p : Ident x y),
+      LeftInverse (transport F p)
+  := fun (X : Type) (F : X -> Type) (x y : X) (p : Ident x y)
+       => left_inverse
+            (transport F p)
+            (transport_inverse F p)
+            (elident_of_ident (transport_left_inverse F p)).
+
+Arguments left_inverse_transport {X} F {x y} p.
+(* endfrag *)
+
+(* begfrag:7qvd2qwt *)
+Definition right_inverse_transport
+  : forall (X : Type) (F : X -> Type) (x y : X) (p : Ident x y),
+      RightInverse (transport F p)
+  := fun (X : Type) (F : X -> Type) (x y : X) (p : Ident x y)
+       => right_inverse
+            (transport F p)
+            (transport_inverse F p)
+            (elident_of_ident (transport_right_inverse F p)).
+
+Arguments right_inverse_transport {X} F {x y} p.
+(* endfrag *)
+
+(* ================================================================ *)
 (** ** The type of witnesses to a function being an equivalence     *)
 (* ================================================================ *)
 
@@ -193,6 +419,19 @@ Definition is_equiv
        => pair (left_inverse f g u) (right_inverse f h v).
 
 Arguments is_equiv {X Y} f g h _ _.
+(* endfrag *)
+
+(* begfrag:dff1cgc2 *)
+Definition is_equiv_of_inverses
+  : forall (X Y : Type) (f : X -> Y),
+      LeftInverse f -> RightInverse f -> IsEquiv f
+  := fun (X Y : Type)
+         (f : X -> Y)
+         (u : LeftInverse f)
+         (v : RightInverse f)
+       => pair u v.
+
+Arguments is_equiv_of_inverses {X Y f} _ _.
 (* endfrag *)
 
 (* ================================================================ *)
@@ -284,6 +523,56 @@ Definition quasi_inverse_function_unit
            quasi_inverse f f u u.
 (* endfrag *)
 
+(* begfrag:b3mvez2d *)
+Definition quasi_inverse_inverse
+  : forall (X Y : Type) (f : X -> Y) (u : QuasiInverse f),
+      QuasiInverse (quasi_inverse_function u)
+  := fun (X Y : Type) (f : X -> Y) (u : QuasiInverse f)
+       => quasi_inverse
+            (quasi_inverse_function u)
+            f
+            (quasi_inverse_right_elident u)
+            (quasi_inverse_left_elident u).
+
+Arguments quasi_inverse_inverse {X Y f} u.
+(* endfrag *)
+
+(* begfrag:ixbeovwn *)
+Definition quasi_inverse_compose
+  : forall (X Y : Type) (f : X -> Y),
+      QuasiInverse f
+        -> forall (Z : Type) (g : Y -> Z),
+             QuasiInverse g -> QuasiInverse (function_compose g f)
+  := fun (X Y : Type)
+         (f : X -> Y)
+         (u : QuasiInverse f)
+         (Z : Type)
+         (g : Y -> Z)
+         (v : QuasiInverse g)
+       => quasi_inverse
+            (function_compose g f)
+            (function_compose (quasi_inverse_function u)
+                              (quasi_inverse_function v))
+            (left_inverse_elident
+               (left_inverse_compose
+                  (left_inverse f
+                                (quasi_inverse_function u)
+                                (quasi_inverse_left_elident u))
+                  (left_inverse g
+                                (quasi_inverse_function v)
+                                (quasi_inverse_left_elident v))))
+            (right_inverse_elident
+               (right_inverse_compose
+                  (right_inverse f
+                                 (quasi_inverse_function u)
+                                 (quasi_inverse_right_elident u))
+                  (right_inverse g
+                                 (quasi_inverse_function v)
+                                 (quasi_inverse_right_elident v)))).
+
+Arguments quasi_inverse_compose {X Y f} _ {Z g} _.
+(* endfrag *)
+
 (* begfrag:eiulalwg *)
 Definition quasi_inverse_ident_compose_left
   : forall (X : Type) (x y : X) (p : Ident x y) (z : X),
@@ -345,7 +634,7 @@ Definition is_equiv_of_quasi_inverse
                     (quasi_inverse_left_elident u)
                     (quasi_inverse_right_elident u).
 
-Arguments is_equiv_of_quasi_inverse {X Y} f _.
+Arguments is_equiv_of_quasi_inverse {X Y f} _.
 (* endfrag *)
 
 (* begfrag:cyx98538 *)
@@ -472,6 +761,96 @@ Definition equiv_right_inverse_elident
        => is_equiv_right_inverse_elident (equiv_is_equiv u).
 
 Arguments equiv_right_inverse_elident {X Y} u _.
+(* endfrag *)
+
+(* begfrag:bjkxqpwy *)
+Definition equiv
+  : forall (X Y : Type) (f : X -> Y) (g h : Y -> X),
+      ElIdent (function_unit X) (function_compose g f)
+        -> ElIdent (function_unit Y) (function_compose f h)
+          -> Equiv X Y
+  := fun (X Y : Type)
+         (f : X -> Y)
+         (g h : Y -> X)
+         (u : ElIdent (function_unit X) (function_compose g f))
+         (v : ElIdent (function_unit Y) (function_compose f h))
+       => sigma (fun (t : X -> Y) => IsEquiv t)
+                f
+                (is_equiv f g h u v).
+
+Arguments equiv {X Y} f g h _ _.
+(* endfrag *)
+
+(* begfrag:htfnzop9 *)
+Definition equiv_of_inverses
+  : forall (X Y : Type) (f : X -> Y),
+      LeftInverse f -> RightInverse f -> Equiv X Y
+  := fun (X Y : Type)
+         (f : X -> Y)
+         (u : LeftInverse f)
+         (v : RightInverse f)
+       => sigma (fun (t : X -> Y) => IsEquiv t)
+                f
+                (is_equiv_of_inverses u v).
+
+Arguments equiv_of_inverses {X Y f} _ _.
+(* endfrag *)
+
+(* begfrag:88kq32yf *)
+Definition equiv_of_quasi_inverse
+  : forall (X Y : Type) (f : X -> Y), QuasiInverse f -> Equiv X Y
+  := fun (X Y : Type) (f : X -> Y) (u : QuasiInverse f)
+       => sigma (fun (t : X -> Y) => IsEquiv t)
+                f
+                (is_equiv_of_quasi_inverse u).
+
+Arguments equiv_of_quasi_inverse {X Y f} _.
+(* endfrag *)
+
+(* begfrag:asxnqzuj *)
+Definition quasi_inverse_of_equiv
+  : forall (X Y : Type) (u : Equiv X Y),
+      QuasiInverse (equiv_function u)
+  := fun (X Y : Type) (u : Equiv X Y)
+       => quasi_inverse_of_is_equiv (equiv_is_equiv u).
+
+Arguments quasi_inverse_of_equiv {X Y} u.
+(* endfrag *)
+
+(* ================================================================ *)
+(** ** Examples of equivalences                                     *)
+(* ================================================================ *)
+
+(* begfrag:olb15ber *)
+Definition equiv_unit
+  : forall (X : Type), Equiv X X
+  := fun (X : Type)
+       => equiv_of_quasi_inverse (quasi_inverse_function_unit X).
+(* endfrag *)
+
+(* begfrag:7pfy18vs *)
+Definition equiv_inverse
+  : forall (X Y : Type), Equiv X Y -> Equiv Y X
+  := fun (X Y : Type) (u : Equiv X Y)
+       => equiv_of_quasi_inverse
+            (quasi_inverse_inverse (quasi_inverse_of_equiv u)).
+
+Arguments equiv_inverse {X Y} _.
+(* endfrag *)
+
+(* begfrag:qjdzuyzi *)
+Definition equiv_compose
+  : forall (X Y : Type),
+      Equiv X Y -> forall (Z : Type), Equiv Y Z -> Equiv X Z
+  := fun (X Y : Type)
+         (u : Equiv X Y)
+         (Z : Type)
+         (v : Equiv Y Z)
+       => equiv_of_quasi_inverse
+            (quasi_inverse_compose (quasi_inverse_of_equiv u)
+                                   (quasi_inverse_of_equiv v)).
+
+Arguments equiv_compose {X Y} _ {Z} _.
 (* endfrag *)
 
 (* End of file *)
