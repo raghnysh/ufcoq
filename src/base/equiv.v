@@ -385,6 +385,93 @@ Definition quasi_inverse_of_is_equiv
 
 Arguments quasi_inverse_of_is_equiv {X Y f} _.
 (* endfrag *)
+
+(* ================================================================ *)
+(** ** The type of equivalences between two types                   *)
+(* ================================================================ *)
+
+(* begfrag:z6fd4ma8 *)
+Definition Equiv
+  : Type -> Type -> Type
+  := fun (X Y : Type) => Sigma (fun (f : X -> Y) => IsEquiv f).
+(* endfrag *)
+
+(* begfrag:qdried27 *)
+Definition equiv_function
+  : forall (X Y : Type), Equiv X Y -> X -> Y
+  := fun (X Y : Type) (u : Equiv X Y) => sigma1 u.
+
+Arguments equiv_function {X Y} _ _.
+(* endfrag *)
+
+(* begfrag:7k8df3oh *)
+Definition equiv_is_equiv
+  : forall (X Y : Type) (u : Equiv X Y), IsEquiv (equiv_function u)
+  := fun (X Y : Type) (u : Equiv X Y) => sigma2 u.
+
+Arguments equiv_is_equiv {X Y} u.
+(* endfrag *)
+
+(* begfrag:4elp9dy0 *)
+Definition equiv_left_inverse
+  : forall (X Y : Type) (u : Equiv X Y),
+      LeftInverse (equiv_function u)
+  := fun (X Y : Type) (u : Equiv X Y)
+       => is_equiv_left_inverse (equiv_is_equiv u).
+
+Arguments equiv_left_inverse {X Y} u.
+(* endfrag *)
+
+(* begfrag:ml3235nq *)
+Definition equiv_left_inverse_function
+  : forall (X Y : Type), Equiv X Y -> Y -> X
+  := fun (X Y : Type) (u : Equiv X Y)
+       => is_equiv_left_inverse_function (equiv_is_equiv u).
+
+Arguments equiv_left_inverse_function {X Y} _ _.
+(* endfrag *)
+
+(* begfrag:93q3g6vq *)
+Definition equiv_left_inverse_elident
+  : forall (X Y : Type) (u : Equiv X Y),
+      ElIdent (function_unit X)
+              (function_compose (equiv_left_inverse_function u)
+                                (equiv_function u))
+  := fun (X Y : Type) (u : Equiv X Y)
+       => is_equiv_left_inverse_elident (equiv_is_equiv u).
+
+Arguments equiv_left_inverse_elident {X Y} u _.
+(* endfrag *)
+
+(* begfrag:24vq6b3w *)
+Definition equiv_right_inverse
+  : forall (X Y : Type) (u : Equiv X Y),
+      RightInverse (equiv_function u)
+  := fun (X Y : Type) (u : Equiv X Y)
+       => is_equiv_right_inverse (equiv_is_equiv u).
+
+Arguments equiv_right_inverse {X Y} u.
+(* endfrag *)
+
+(* begfrag:6djli00b *)
+Definition equiv_right_inverse_function
+  : forall (X Y : Type), Equiv X Y -> Y -> X
+  := fun (X Y : Type) (u : Equiv X Y)
+       => is_equiv_right_inverse_function (equiv_is_equiv u).
+
+Arguments equiv_right_inverse_function {X Y} _ _.
+(* endfrag *)
+
+(* begfrag:3tu8y9iy *)
+Definition equiv_right_inverse_elident
+  : forall (X Y : Type) (u : Equiv X Y),
+      ElIdent (function_unit Y)
+              (function_compose (equiv_function u)
+                                (equiv_right_inverse_function u))
+  := fun (X Y : Type) (u : Equiv X Y)
+       => is_equiv_right_inverse_elident (equiv_is_equiv u).
+
+Arguments equiv_right_inverse_elident {X Y} u _.
 (* endfrag *)
 
 (* End of file *)
