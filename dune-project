@@ -37,7 +37,7 @@
 (name ufcoq)
 
 ;; The list of names of the authors of the project.
-(authors "N. Raghavendra")
+(authors "Raghavendra Nyshadham")
 
 ;; The public location of the project.
 (source (github nyraghu/ufcoq))
