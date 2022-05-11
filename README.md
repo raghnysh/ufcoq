@@ -29,7 +29,7 @@ shell extension.  Install them using the instructions on their project
 sites.  Then do
 
 ``` shell
-git clone https://github.com/nyraghu/ufcoq
+git clone https://github.com/raghnysh/ufcoq
 cd ufcoq
 direnv allow
 ```

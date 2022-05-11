@@ -40,7 +40,7 @@
 (authors "Raghavendra Nyshadham")
 
 ;; The public location of the project.
-(source (github nyraghu/ufcoq))
+(source (github raghnysh/ufcoq))
 
 ;; The license of the project as an identifier from the SPDX License
 ;; List.
