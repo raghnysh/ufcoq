@@ -853,4 +853,36 @@ Definition equiv_compose
 Arguments equiv_compose {X Y} _ {Z} _.
 (* endfrag *)
 
+(* begfrag:3ig4z5qz *)
+Definition equiv_ident_compose_left
+  : forall (X : Type) (x y : X),
+      Ident x y -> forall (z : X), Equiv (Ident y z) (Ident x z)
+  := fun (X : Type) (x y : X) (p : Ident x y) (z : X)
+       => equiv_of_quasi_inverse
+            (quasi_inverse_ident_compose_left p z).
+
+Arguments equiv_ident_compose_left {X x y} _ z.
+(* endfrag *)
+
+(* begfrag:1bpsrz48 *)
+Definition equiv_ident_compose_right
+  : forall (X : Type) (x y : X),
+      Ident x y -> forall (z : X), Equiv (Ident z x) (Ident z y)
+  := fun (X : Type) (x y : X) (p : Ident x y) (z : X)
+       => equiv_of_quasi_inverse
+            (quasi_inverse_ident_compose_right p z).
+
+Arguments equiv_ident_compose_right {X x y} _ z.
+(* endfrag *)
+
+(* begfrag:o606g112 *)
+Definition equiv_transport
+  : forall (X : Type) (F : X -> Type) (x y : X),
+      Ident x y -> Equiv (F x) (F y)
+  := fun (X : Type) (F : X -> Type) (x y : X) (p : Ident x y)
+       => equiv_of_quasi_inverse (quasi_inverse_transport F p).
+
+Arguments equiv_transport {X} F {x y} _.
+(* endfrag *)
+
 (* End of file *)
