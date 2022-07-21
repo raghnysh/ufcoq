@@ -124,6 +124,15 @@ Definition functions_ident_values_ident
 Arguments functions_ident_values_ident {X F f g} _ x.
 (* endfrag *)
 
+(* begfrag:q0vlofj3 *)
+Definition function_swap
+  : forall (X Y Z : Type), (X -> Y -> Z) -> Y -> X -> Z
+  := fun (X Y Z : Type) (f : X -> Y -> Z) (y : Y) (x : X)
+       => f x y.
+
+Arguments function_swap {X Y Z} _ _ _.
+(* endfrag *)
+
 (* ================================================================ *)
 (** ** Some basic notions about the primitive types                 *)
 (* ================================================================ *)

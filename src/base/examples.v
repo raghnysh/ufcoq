@@ -64,6 +64,14 @@ Example _function_compose_right_unit
        => ident_unit g.
 (* endfrag *)
 
+(* begfrag:tsmrqvn0 *)
+Example _function_swap_square
+  : forall (X Y Z : Type) (f : X -> Y -> Z),
+      Ident f (function_swap (function_swap f))
+  := fun (X Y Z : Type) (f : X -> Y -> Z)
+       => ident_unit f.
+(* endfrag *)
+
 (* ================================================================ *)
 (** ** The true type                                                *)
 (* ================================================================ *)
