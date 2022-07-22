@@ -143,6 +143,14 @@ Definition false_recursion : forall (X : Type), False -> X
        => false_induction (constant_function X).
 (* endfrag *)
 
+(* begfrag:e4llc30a *)
+Definition false_double_induction
+  : forall (F : False -> False -> Type) (x y : False), F x y
+  := fun (F : False -> False -> Type)
+       => false_induction
+            (fun (x : False) => forall (y : False), F x y).
+(* endfrag *)
+
 (* begfrag:kad6krsx *)
 Definition true_recursion : forall (X : Type), X -> True -> X
   := fun (X : Type) => true_induction (constant_function X).
@@ -157,6 +165,16 @@ Definition to_true : forall (X : Type), X -> True
 Arguments to_true {X} _.
 (* endfrag *)
 
+(* begfrag:won8oy5d *)
+Definition true_double_induction
+  : forall (F : True -> True -> Type),
+      F only only -> forall (x y : True), F x y
+  := fun (F : True -> True -> Type) (u : F only only)
+       => true_induction (fun (x : True) => forall (y : True), F x y)
+                         (true_induction (fun (y : True) => F only y)
+                                         u).
+(* endfrag *)
+
 (* begfrag:tav7tpv0 *)
 Definition boolean_recursion
   : forall (X : Type), X -> X -> Boolean -> X
@@ -164,6 +182,19 @@ Definition boolean_recursion
        => boolean_induction (constant_function X).
 
 Arguments boolean_recursion {X} _ _ _.
+(* endfrag *)
+
+(* begfrag:96eavgp6 *)
+Definition boolean_double_induction
+  : forall (F : Boolean -> Boolean -> Type),
+      F yes yes -> F yes no -> F no yes -> F no no
+        -> forall (x y : Boolean), F x y
+  := fun (F : Boolean -> Boolean -> Type)
+         (s : F yes yes) (t : F yes no) (u : F no yes) (v : F no no)
+       => boolean_induction
+            (fun (x : Boolean) => forall (y : Boolean), F x y)
+            (boolean_induction (fun (y : Boolean) => F yes y) s t)
+            (boolean_induction (fun (y : Boolean) => F no y) u v).
 (* endfrag *)
 
 (* begfrag:8m7c7dml *)
@@ -182,6 +213,27 @@ Definition natural_recursion_simple
        => natural_recursion x (constant_function f).
 
 Arguments natural_recursion_simple {X} _ _ _.
+(* endfrag *)
+
+(* begfrag:6t3ic6bd *)
+Definition natural_double_induction
+  : forall (F : Natural -> Natural -> Type),
+      F zero zero
+        -> (forall (n : Natural), F zero n -> F zero (successor n))
+            -> (forall (m : Natural),
+                 (forall (n : Natural), F m n)
+                   -> forall (n : Natural), F (successor m) n)
+              -> forall (m n : Natural), F m n
+  := fun (F : Natural -> Natural -> Type)
+         (s : F zero zero)
+         (t : forall (n : Natural), F zero n -> F zero (successor n))
+         (u : forall (m : Natural),
+                (forall (n : Natural), F m n)
+                  -> forall (n : Natural), F (successor m) n)
+       => natural_induction
+            (fun (m : Natural) => forall (n : Natural), F m n)
+            (natural_induction (fun (n : Natural) => F zero n) s t)
+            u.
 (* endfrag *)
 
 (* begfrag:i6mo1uvy *)
